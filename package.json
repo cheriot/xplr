@@ -1,0 +1,27 @@
+{
+  "name": "xplr",
+  "version": "0.0.1",
+  "description": "Inspiring travel destinations and the logistics.",
+  "repository": "",
+  "main": "server.js",
+  "dependencies": {
+    "alt": "*",
+    "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "path": "^0.12.7",
+    "react": "*"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-typecheck": "^1.2.0",
+    "react-tools": "*",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.11.0"
+  },
+  "scripts": {
+    "start": "NODE_PATH=\"./app\" node ./server",
+    "build": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config webpack.client.js"
+  },
+  "author": "Chris Heriot"
+}

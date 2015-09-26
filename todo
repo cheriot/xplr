@@ -1,12 +1,31 @@
-Intended stack:
+Steps
+* get es2015 working with node
+* server generated rss feeds (static data)
+* client modifiable (not persisted)
+* persistence
+* fetch feeds, store feed entries
+* feed entries page
+* label feed entries with city, district, country, lat, lon
+* tag feed entries
+* place autocomplete
+* display feed entries for selected place
 
+Questions
+* Are these articles helpful?
+
+As needed
+* hot loading
+* do i need elastic for any of this?
+
+Intended stack:
 reactjs
 react-router
 alt
 something for stores?
 something for data access?
-
 express
 node
 postgres
 elastic
+
+sartun:satan2014

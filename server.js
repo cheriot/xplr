@@ -1,13 +1,15 @@
 require("babel/register")({
+  stage: 0,
   plugins: ["typecheck"]
 });
 
-var express = require('express'),
-    path = require('path'),
-    app = express(),
-    port = 4444,
-    React = require('react/addons'),
-    ComponentRoot = React.createFactory(require('./app/components/root'));
+import express from 'express';
+import path from 'path';
+import React from 'react/addons';
+
+var ComponentRoot = React.createFactory(require('./app/components/root'));
+var app = express(),
+    port = 4444;
 
 // Define isomorphic constants.
 global.__CLIENT__ = false;

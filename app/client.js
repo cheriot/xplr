@@ -1,6 +1,6 @@
 // Connect this file to browserfy
-var React = require('react/addons');
-var ComponentRoot = require('./components/root');
+import React from 'react/addons';
+import ComponentRoot from './components/root';
 
 var mountNode = document.getElementById("react-main-mount");
 

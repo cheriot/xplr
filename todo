@@ -16,6 +16,7 @@ Questions
 As needed
 * hot loading
 * do i need elastic for any of this?
+* consolidate configuration with https://github.com/indexzero/nconf
 
 Intended stack:
 reactjs

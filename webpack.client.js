@@ -3,7 +3,6 @@ import path from "path";
 
 module.exports = {
 	target:  "web",
-	cache:   false, // TODO: Try removing
 	context: __dirname,
 	devtool: false,
 	entry:   ["./app/client"],

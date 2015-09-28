@@ -1,7 +1,6 @@
 Steps
-* get es2015 working with node
+* add feed to client side mock data
 * server generated rss feeds (static data)
-* client modifiable (not persisted)
 * persistence
 * fetch feeds, store feed entries
 * feed entries page
@@ -11,10 +10,9 @@ Steps
 * display feed entries for selected place
 
 Questions
-* Are these articles helpful?
+* Are these travel articles actually helpful?
 
 As needed
-* hot loading
 * do i need elastic for any of this?
 * consolidate configuration with https://github.com/indexzero/nconf
 
@@ -22,11 +20,9 @@ Intended stack:
 reactjs
 react-router
 alt
-something for stores?
-something for data access?
+something for remote access?
 express
+something for data modeling?
 node
 postgres
 elastic
-
-sartun:satan2014

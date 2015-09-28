@@ -2,8 +2,8 @@ import React from 'react/addons';
 import FeedInput from './feed_input';
 import FeedList from './feed_list';
 
-var Root = React.createClass({
-  render: function() {
+class Root extends React.Component {
+  render() {
     return (
       <div>
         Hello, World.
@@ -12,6 +12,6 @@ var Root = React.createClass({
       </div>
     );
   }
-});
+}
 
 module.exports = Root;

@@ -1,16 +1,29 @@
 import React from 'react/addons';
 
-var FeedInput = React.createClass({
-    handleChange: function() {
+class FeedInput extends React.Component {
+    handleChange() {
       console.log('feed input changed');
-    },
-    render: function() {
+    }
+
+    handleSubmit(event) {
+      console.log('feed submitted')
+      event.preventDefault();
+    }
+
+    render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <input
                     type="text"
-                    placeholder="Search..."
-                    value={this.props.filterText}
+                    placeholder="Name..."
+                    value={this.props.feedName}
+                    ref="filterTextInput"
+                    onChange={this.handleChange}
+                />
+                <input
+                    type="text"
+                    placeholder="URI..."
+                    value={this.props.feedUri}
                     ref="filterTextInput"
                     onChange={this.handleChange}
                 />
@@ -21,6 +34,6 @@ var FeedInput = React.createClass({
             </form>
         );
     }
-});
+}
 
 module.exports = FeedInput

@@ -1,4 +1,3 @@
-// Connect this file to browserfy
 import React from 'react/addons';
 import Root from './components/root';
 

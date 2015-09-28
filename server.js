@@ -25,11 +25,10 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
   // React.renderToString takes your component
   // and generates the markup
-  console.log(ComponentRoot({}));
-  var reactHtml = React.renderToString(ComponentRoot({}));
-  // Output html rendered by react
-  console.log(reactHtml);
-  res.render('index.ejs', {reactOutput: reactHtml});
+  var reactHtml = React.renderToString(ComponentRoot({})),
+      clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
+      clientSrc = `${clientSrcDomain}/client/bundle.js`
+  res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
 });
 
 //Route not found -- Set 404

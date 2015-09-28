@@ -1,5 +1,5 @@
-import webpack from "webpack";
-import path from "path";
+var webpack = require('webpack'),
+    path = require('path');
 
 module.exports = {
 	target:  "web",
@@ -21,7 +21,11 @@ module.exports = {
 	module:  {
 		loaders: [
 			{include: /\.json$/, loaders: ["json-loader"]},
-			{include: /\.js$/, loaders: ["babel-loader?stage=0&optional=runtime&plugins=typecheck"], exclude: /node_modules/}
+			{
+        include: /\.js$/,
+        exclude: /node_modules/,
+        loaders: ["babel-loader?stage=0&optional=runtime&plugins=typecheck"]
+      }
 		]
 	},
 	resolve: {

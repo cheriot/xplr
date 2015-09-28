@@ -14,6 +14,10 @@ var FeedInput = React.createClass({
                     ref="filterTextInput"
                     onChange={this.handleChange}
                 />
+                <input
+                    type="submit"
+                    value="Add Feed"
+                />
             </form>
         );
     }

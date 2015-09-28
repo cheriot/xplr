@@ -5,7 +5,7 @@ module.exports = {
 	target:  "web",
 	context: __dirname,
 	devtool: false,
-	entry:   ["./app/client"],
+	entry:   ["./app/initClient"],
 	output:  {
 		path:          path.join(__dirname, "public/client"),
 		filename:      "bundle.js",

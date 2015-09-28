@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import React from 'react/addons';
 
-var ComponentRoot = React.createFactory(require('./components/root'));
+var Root = React.createFactory(require('./components/root'));
 var app = express(),
     port = 4444;
 
@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){
   // React.renderToString takes your component
   // and generates the markup
-  var reactHtml = React.renderToString(ComponentRoot({})),
+  var reactHtml = React.renderToString(Root({})),
       clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
       clientSrc = `${clientSrcDomain}/client/bundle.js`
   res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});

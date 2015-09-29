@@ -1,34 +1,18 @@
 import React from 'react/addons';
-import FeedStore from '../stores/feed_store';
-import FeedActions from '../actions/feed_actions';
 
 class FeedList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = FeedStore.getState();
-  }
-
-  componentDidMount() {
-    FeedStore.listen(this.onChange.bind(this))
-    FeedActions.fetchFeeds();
-  }
-
-  componentWillUnmount() {
-    FeedStore.unlisten(this.onChange(this))
-  }
-
-  onChange(state) {
-    this.state = state;
   }
 
   render() {
-    if (this.state.errorMessage) {
+    if (this.props.errorMessage) {
       return (
         <div>Something is wrong</div>
       );
     }
 
-    if (!this.state.feeds.length) {
+    if (!this.props.feeds.length) {
       return (
         <div>
           <img src="/ajax-loader.gif" />
@@ -38,7 +22,7 @@ class FeedList extends React.Component {
 
     return (
       <ul>
-        {this.state.feeds.map((feed) => {
+        {this.props.feeds.map((feed) => {
           return (
             <li>{feed.name}</li>
           );

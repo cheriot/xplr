@@ -13,6 +13,10 @@ class FeedStore {
     });
   }
 
+  static newFeed() {
+    return {name: '', uri: ''};
+  }
+
   handleUpdateFeeds(feeds) {
     this.feeds = feeds;
     this.errorMessage = null;

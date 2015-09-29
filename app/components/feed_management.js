@@ -8,6 +8,10 @@ class FeedManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = FeedStore.getState();
+    this.state.newFeed = FeedStore.newFeed();
+
+    this.handleChangeFeed = this.handleChangeFeed.bind(this);
+    this.handleCreateFeed = this.handleCreateFeed.bind(this);
   }
 
   componentDidMount() {
@@ -23,11 +27,21 @@ class FeedManagement extends React.Component {
     this.setState(state);
   }
 
+  handleCreateFeed(newFeed) {
+    console.log('createFeed', newFeed);
+  }
+
+  handleChangeFeed(name, uri) {
+    this.setState({newFeed: {name: name, uri: uri}});
+  }
+
   render() {
     return (
       <div>
         <FeedInput
-          feed={this.state.newFeed} />
+          newFeed={this.state.newFeed}
+          onChange={this.handleChangeFeed}
+          onSubmit={this.handleCreateFeed} />
         <FeedList
           feeds={this.state.feeds}
           errorMessage={this.state.errorMessage} />

@@ -10,7 +10,8 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "path": "^0.12.7",
-    "react": "*"
+    "react": "*",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -31,10 +32,10 @@
     "start": "NODE_PATH=\"./app\" node ./server",
     "build-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client.js",
     "hot-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client-hot.js && ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 5555 --content-base public --config webpack.client-hot.js",
-    "hot": "REACT_HOT='hot' ./node_modules/concurrently/src/main.js --kill-others \"npm run hot-client\" \"npm run watch-server\"",
+    "hot": "REACT_HOT='hot' ./node_modules/concurrently/src/main.js \"npm run hot-client\" \"npm run watch-server\"",
     "watch-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client.js --watch",
     "watch-server": "NODE_PATH=\"./app\" node_modules/forever/bin/forever --watch --watchDirectory ./app ./server.js",
-    "watch": "./node_modules/concurrently/src/main.js --kill-others \"npm run watch-client\" \"npm watch-server\""
+    "watch": "./node_modules/concurrently/src/main.js \"npm run watch-client\" \"npm watch-server\""
   },
   "author": "Chris Heriot"
 }

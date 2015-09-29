@@ -6,6 +6,16 @@ class FeedActions {
     this.dispatch(feeds);
   }
 
+  createFeed(newFeed) {
+    FeedSource.create(newFeed)
+      .then((feed) => {
+        this.actions.fetchFeeds();
+      })
+      .catch((errorMessage) => {
+        this.actions.createFailed(errorMessage);
+      });
+  }
+
   fetchFeeds() {
     // we dispatch an event here so we can have "loading" state.
     this.dispatch();

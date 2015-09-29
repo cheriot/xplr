@@ -3,7 +3,6 @@ import React from 'react/addons';
 class FeedInput extends React.Component {
 
   constructor(props) {
-    console.log('FeedInput props', props);
     super(props);
 
     this.handleChange = this.handleChange.bind(this);
@@ -16,10 +15,6 @@ class FeedInput extends React.Component {
   }
 
   handleChange() {
-    console.log(
-      'change name',
-      this.refs.feedNameInput.getDOMNode().value
-    );
     this.props.onChange(
       this.refs.feedNameInput.getDOMNode().value,
       this.refs.feedUriInput.getDOMNode().value

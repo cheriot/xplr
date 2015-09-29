@@ -3,18 +3,27 @@ var mockData = [
   {name: "Bar", uri: "bar.com/rss"}
 ];
 
-var FeedSource = {
-  fetch: function () {
+class FeedSource {
+  fetch() {
     // returning a Promise because that is what fetch does.
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       // simulate an asynchronous action where data is fetched on
       // a remote server somewhere.
-      setTimeout(function () {
+      setTimeout( () => {
         // resolve with some mock data
         resolve(mockData);
       }, 250);
     });
   }
+
+  create(newFeed) {
+    mockData.push(newFeed);
+    return new Promise((resolve, reject) => {
+      setTimeout( () => {
+        resolve(JSON.parse(JSON.stringify(newFeed)));
+      }, 250);
+    });
+  }
 };
 
-module.exports = FeedSource
+module.exports = new FeedSource();

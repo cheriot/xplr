@@ -28,7 +28,7 @@ class FeedManagement extends React.Component {
   }
 
   handleCreateFeed(newFeed) {
-    console.log('createFeed', newFeed);
+    FeedActions.createFeed(newFeed);
   }
 
   handleChangeFeed(name, uri) {

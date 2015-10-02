@@ -7,10 +7,13 @@
   "main": "server.js",
   "dependencies": {
     "alt": "*",
+    "body-parser": "^1.14.1",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "path": "^0.12.7",
     "react": "*",
+    "superagent": "^1.4.0",
+    "superagent-promise": "^1.0.3",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

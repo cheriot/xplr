@@ -27,20 +27,19 @@ app.get('/', function(req, res) {
   res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
 });
 
-// Feeds mocks
-var mockData = [
-  {name: "Foo", uri: "foo.com/rss"},
-  {name: "Bar", uri: "bar.com/rss"}
-];
-
+import Feed from '../server/models/feed';
 app.get('/feeds', function(req, res) {
-  res.json(mockData);
+  var all = Feed.fetchAll().then((feedCollection) => {
+    res.json(feedCollection.models);
+  });
 });
 
 app.post('/feeds/create', (req, res) => {
   var newFeed = req.body.feed;
-  mockData.push(newFeed);
-  res.json(newFeed);
+  Feed.forge(newFeed).save().then((feed) => {
+    res.json(feed);
+  });
+
 });
 
 //Route not found -- Set 404

@@ -8,10 +8,14 @@
   "dependencies": {
     "alt": "*",
     "body-parser": "^1.14.1",
+    "bookshelf": "^0.8.2",
+    "checkit": "^0.5.1",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
+    "knex": "^0.8.6",
     "path": "^0.12.7",
     "react": "*",
+    "sqlite3": "^3.1.0",
     "superagent": "^1.4.0",
     "superagent-promise": "^1.0.3",
     "underscore": "^1.8.3"
@@ -37,8 +41,9 @@
     "hot-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client-hot.js && ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 5555 --content-base public --config webpack.client-hot.js",
     "hot": "REACT_HOT='hot' ./node_modules/concurrently/src/main.js \"npm run hot-client\" \"npm run watch-server\"",
     "watch-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client.js --watch",
-    "watch-server": "NODE_PATH=\"./app\" node_modules/forever/bin/forever --watch --watchDirectory ./app ./server.js",
-    "watch": "./node_modules/concurrently/src/main.js \"npm run watch-client\" \"npm watch-server\""
+    "watch-server": "NODE_PATH=\"./app\" node_modules/forever/bin/forever --watch --watchDirectory ./ ./server.js",
+    "watch": "./node_modules/concurrently/src/main.js \"npm run watch-client\" \"npm watch-server\"",
+    "knex": "./node_modules/knex/src/bin/cli.js"
   },
   "author": "Chris Heriot"
 }

@@ -2,3 +2,4 @@
 /js/bundle.min.js
 /node_modules
 public/client
+db/*.sqlite3

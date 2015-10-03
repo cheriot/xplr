@@ -24,7 +24,7 @@ class FeedList extends React.Component {
       <ul>
         {this.props.feeds.map((feed) => {
           return (
-            <li>{feed.name}</li>
+            <li key={feed.id}>{feed.name}</li>
           );
         })}
       </ul>

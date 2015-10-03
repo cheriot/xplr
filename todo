@@ -1,9 +1,6 @@
 Steps
-* add feed to client side mock data
-* server generated rss feeds (static data)
-* persistence
-* fetch feeds, store feed entries
-* feed entries page
+* feed entries page with client side routing
+* routes work on server, too
 * label feed entries with city, district, country, lat, lon
 * tag feed entries
 * place autocomplete

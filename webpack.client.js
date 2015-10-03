@@ -5,7 +5,7 @@ module.exports = {
 	target:  "web",
 	context: __dirname,
 	devtool: false,
-	entry:   ["./react/initClient"],
+	entry:   ["./client/init"],
 	output:  {
 		path:          path.join(__dirname, "public/client"),
 		filename:      "bundle.js",
@@ -20,8 +20,8 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-			{include: /\.json$/, loaders: ["json-loader"]},
-			{
+    {include: /\.json$/, loaders: ["json-loader"]},
+      {
         include: /\.js$/,
         exclude: /node_modules/,
         loaders: ["babel-loader?stage=0&optional=runtime&plugins=typecheck"]
@@ -30,7 +30,7 @@ module.exports = {
 	},
 	resolve: {
 		modulesDirectories: [
-			"app",
+			"react",
 			"node_modules",
 			"web_modules"
 		],

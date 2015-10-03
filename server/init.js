@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import React from 'react/addons';
 
-var Root = React.createFactory(require('./components/root'));
+var Root = React.createFactory(require('../react/components/root'));
 var app = express(),
     port = 4444;
 

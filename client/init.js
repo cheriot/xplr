@@ -1,5 +1,5 @@
 import React from 'react/addons';
-import Root from './components/root';
+import Root from '../react/components/root';
 
 var mountNode = document.getElementById("react-main-mount");
 

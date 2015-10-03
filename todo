@@ -1,6 +1,7 @@
 Steps
 * feed entries page with client side routing
 * routes work on server, too
+* server rendering populates data
 * label feed entries with city, district, country, lat, lon
 * tag feed entries
 * place autocomplete

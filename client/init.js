@@ -1,6 +1,9 @@
 import React from 'react/addons';
-import Root from '../react/components/root';
+import Router from 'react-router';
+import routes from '../react/routes';
 
 var mountNode = document.getElementById("react-main-mount");
 
-React.render(<Root />, mountNode);
+Router.run(routes, Router.HistoryLocation, (Handler, state) => {
+  React.render(<Handler/>, mountNode);
+});

@@ -1,9 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import path from 'path';
 import React from 'react/addons';
+import Router from 'react-router';
+import routes from '../react/routes';
 
-var Root = React.createFactory(require('../react/components/root'));
+
 var app = express(),
     port = 4444;
 
@@ -19,12 +20,15 @@ app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-  // React.renderToString takes your component
-  // and generates the markup
-  var reactHtml = React.renderToString(Root({})),
-      clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
-      clientSrc = `${clientSrcDomain}/client/bundle.js`
-  res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
+  Router.run(routes, req.url, function(Handler, state) {
+    var routeFactory = React.createFactory(Handler)({...state});
+    // React.renderToString takes your component
+    // and generates the markup
+    var reactHtml = React.renderToString(routeFactory),
+        clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
+        clientSrc = `${clientSrcDomain}/client/bundle.js`;
+    res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
+  });
 });
 
 import Feed from '../server/models/feed';

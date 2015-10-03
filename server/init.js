@@ -19,18 +19,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
-  Router.run(routes, req.url, function(Handler, state) {
-    var routeFactory = React.createFactory(Handler)({...state});
-    // React.renderToString takes your component
-    // and generates the markup
-    var reactHtml = React.renderToString(routeFactory),
-        clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
-        clientSrc = `${clientSrcDomain}/client/bundle.js`;
-    res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
-  });
-});
-
 import Feed from '../server/models/feed';
 app.get('/feeds', function(req, res) {
   var all = Feed.fetchAll().then((feedCollection) => {
@@ -46,12 +34,24 @@ app.post('/feeds/create', (req, res) => {
 
 });
 
-//Route not found -- Set 404
 app.get('*', function(req, res) {
-  res.json({
-    "route": "Sorry this page does not exist!"
+  // Data api will always be application/json
+  if(req.headers["content-type"] === "application/json") {
+    res.json({
+      "route": "Sorry this page does not exist!"
+    });
+  }
+
+  // Anything that the data API doesn't handle is either a react-router url or a 404,
+  // which react-router will handle.
+  Router.run(routes, req.url, function(Handler, state) {
+    var reactHtml = React.renderToString(<Handler {...state} />),
+        clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
+        clientSrc = `${clientSrcDomain}/client/bundle.js`;
+    res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
   });
 });
+
 
 app.listen(port);
 console.log('Server is Up and Running at Port : ' + port);

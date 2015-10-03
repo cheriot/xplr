@@ -1,12 +1,12 @@
 import React from 'react/addons';
-import FeedManagement from './feed_management';
+import Router from 'react-router';
 
 class Root extends React.Component {
   render() {
     return (
       <div>
         Hello, World.
-        <FeedManagement />
+        <Router.RouteHandler/>
       </div>
     );
   }

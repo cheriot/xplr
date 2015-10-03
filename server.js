@@ -9,4 +9,4 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 
 // Actually start the server.
-require('./app/initServer');
+require('./react/initServer');

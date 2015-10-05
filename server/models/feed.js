@@ -11,7 +11,6 @@ module.exports = bookshelf.Model.extend({
 
   validateSave: function() {
     return new Checkit({
-      name: 'required',
       uri: 'required'
     }).run(this.attributes);
   }

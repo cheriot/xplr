@@ -16,7 +16,6 @@ class FeedInput extends React.Component {
 
   handleChange() {
     this.props.onChange(
-      this.refs.feedNameInput.getDOMNode().value,
       this.refs.feedUriInput.getDOMNode().value
     )
   }
@@ -24,13 +23,6 @@ class FeedInput extends React.Component {
   render() {
       return (
           <form onSubmit={this.handleSubmit}>
-              <input
-                  type="text"
-                  placeholder="Name..."
-                  value={this.props.newFeed.name}
-                  ref="feedNameInput"
-                  onChange={this.handleChange}
-              />
               <input
                   type="text"
                   placeholder="URI..."

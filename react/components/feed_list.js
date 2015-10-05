@@ -26,7 +26,7 @@ class FeedList extends React.Component {
         {this.props.feeds.map((feed) => {
           return (
             <li key={feed.id}>
-              {feed.name}
+              {feed.uri}
               &nbsp;
               <Link to={`/management/feeds/${feed.id}`}>edit</Link>
             </li>

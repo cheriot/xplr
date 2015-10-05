@@ -26,7 +26,7 @@ class FeedManagementEditor extends React.Component {
     if(this.state.currentFeed) {
       var feedMarkup = (
         <div>
-          <h1>Edit {this.state.currentFeed.name}</h1>
+          <h1>Edit {this.state.currentFeed.title}</h1>
           <p>
             {this.state.currentFeed.uri}
           </p>

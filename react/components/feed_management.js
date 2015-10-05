@@ -36,8 +36,8 @@ class FeedManagement extends React.Component {
     FeedActions.createFeed(newFeed);
   }
 
-  handleChangeFeed(name, uri) {
-    this.setState({newFeed: {name: name, uri: uri}});
+  handleChangeFeed(uri) {
+    this.setState({newFeed: {uri: uri}});
   }
 
   render() {

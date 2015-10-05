@@ -13,7 +13,7 @@ class FeedList extends React.Component {
       );
     }
 
-    if (!this.props.feeds.length) {
+    if (this.props.isLoading) {
       return (
         <div>
           <img src="/ajax-loader.gif" />

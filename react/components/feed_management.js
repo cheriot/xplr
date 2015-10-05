@@ -49,6 +49,7 @@ class FeedManagement extends React.Component {
           onSubmit={this.handleCreateFeed} />
         <FeedList
           feeds={this.state.feeds}
+          isLoading={this.state.isLoading}
           errorMessage={this.state.errorMessage} />
       </div>
     );

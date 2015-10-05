@@ -21,8 +21,8 @@ class FeedActions {
   }
 
   fetchFeeds() {
-    // we dispatch an event here so we can have "loading" state.
-    this.dispatch();
+    this.dispatch(); // trigger loading state
+
     FeedSource.fetch()
       .then((feeds) => {
         // we can access other actions within our action through `this.actions`
@@ -34,6 +34,8 @@ class FeedActions {
   }
 
   fetchFeedById(id) {
+    this.dispatch(); // trigger loading state
+
     FeedSource.fetchById(id)
       .then((feed) => {
         this.actions.currentFeed(feed);

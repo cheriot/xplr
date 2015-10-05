@@ -8,6 +8,9 @@ class FeedManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = FeedStore.getState();
+    // Should FeedStore keep this as state? What's the lifecycle
+    // of an Alt Store?
+    // 'init' or 'bootstrap' handler?
     this.state.newFeed = FeedStore.newFeed();
 
     this.handleChangeFeed = this.handleChangeFeed.bind(this);

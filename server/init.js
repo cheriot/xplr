@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
+//
+// Data API
+//
 import Feed from '../server/models/feed';
 app.get('/feeds', function(req, res) {
   var all = Feed.fetchAll().then((feedCollection) => {
@@ -34,7 +37,19 @@ app.post('/feeds/create', (req, res) => {
 
 });
 
-app.get('*', function(req, res) {
+app.get('/feeds/:id', (req, res) => {
+  var id = req.params.id
+  Feed.forge({id: id})
+    .fetch()
+    .then( (feed) => {
+      res.json(feed);
+    });
+});
+
+//
+// Web Pages
+//
+function reactRouteAndRender(req, res) {
   // Data api will always be application/json
   if(req.headers["content-type"] === "application/json") {
     res.json({
@@ -50,6 +65,11 @@ app.get('*', function(req, res) {
         clientSrc = `${clientSrcDomain}/client/bundle.js`;
     res.render('index.ejs', {reactHtml: reactHtml, clientSrc: clientSrc});
   });
+}
+
+app.get('*', function(req, res) {
+  // 404s and react pages we don't prefetch data for.
+  reactRouteAndRender(req, res);
 });
 
 

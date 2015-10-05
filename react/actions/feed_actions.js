@@ -6,6 +6,10 @@ class FeedActions {
     this.dispatch(feeds);
   }
 
+  currentFeed(feed) {
+    this.dispatch(feed);
+  }
+
   createFeed(newFeed) {
     FeedSource.create(newFeed)
       .then((feed) => {
@@ -25,6 +29,17 @@ class FeedActions {
         this.actions.updateFeeds(feeds);
       })
       .catch((errorMessage) => {
+        this.actions.feedsFailed(errorMessage);
+      });
+  }
+
+  fetchFeedById(id) {
+    FeedSource.fetchById(id)
+      .then((feed) => {
+        this.actions.currentFeed(feed);
+      })
+      .catch((errorMessage) => {
+        // reuse the error handling for list and entity requests
         this.actions.feedsFailed(errorMessage);
       });
   }

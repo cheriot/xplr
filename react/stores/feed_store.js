@@ -4,9 +4,11 @@ import FeedActions from '../actions/feed_actions';
 class FeedStore {
   constructor() {
     this.feeds = [];
+    this.currentFeed = null;
     this.errorMessage = null;
 
     this.bindListeners({
+      handleUpdateCurrentFeed: FeedActions.CURRENT_FEED,
       handleUpdateFeeds: FeedActions.UPDATE_FEEDS,
       handleFetchFeeds: FeedActions.FETCH_FEEDS,
       handleFeedsFailed: FeedActions.FEEDS_FAILED
@@ -15,6 +17,10 @@ class FeedStore {
 
   static newFeed() {
     return {name: '', uri: ''};
+  }
+
+  handleUpdateCurrentFeed(feed) {
+    this.currentFeed = feed;
   }
 
   handleUpdateFeeds(feeds) {

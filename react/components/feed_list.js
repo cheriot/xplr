@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import { Link } from 'react-router';
 
 class FeedList extends React.Component {
   constructor(props) {
@@ -24,7 +25,11 @@ class FeedList extends React.Component {
       <ul>
         {this.props.feeds.map((feed) => {
           return (
-            <li key={feed.id}>{feed.name}</li>
+            <li key={feed.id}>
+              {feed.name}
+              &nbsp;
+              <Link to={`/management/feeds/${feed.id}`}>edit</Link>
+            </li>
           );
         })}
       </ul>

@@ -6,7 +6,7 @@
   "repository": "",
   "main": "server.js",
   "dependencies": {
-    "alt": "*",
+    "alt": "^0.17.4",
     "body-parser": "^1.14.1",
     "bookshelf": "^0.8.2",
     "checkit": "^0.5.1",
@@ -14,7 +14,7 @@
     "express": "^4.13.3",
     "knex": "^0.8.6",
     "path": "^0.12.7",
-    "react": "*",
+    "react": "^0.13.3",
     "react-router": "^0.13.3",
     "sqlite3": "^3.1.0",
     "superagent": "^1.4.0",

@@ -15,15 +15,17 @@ class FeedManagement extends React.Component {
 
     this.handleChangeFeed = this.handleChangeFeed.bind(this);
     this.handleCreateFeed = this.handleCreateFeed.bind(this);
+
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    FeedStore.listen(this.onChange.bind(this))
+    FeedStore.listen(this.onChange)
     FeedActions.fetchFeeds();
   }
 
   componentWillUnmount() {
-    FeedStore.unlisten(this.onChange(this))
+    FeedStore.unlisten(this.onChange)
   }
 
   onChange(state) {

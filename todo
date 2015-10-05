@@ -1,4 +1,5 @@
 Steps
+* background processing of feeds to import posts
 * server rendering populates data
 * label feed entries with city, district, country, lat, lon
 * tag feed entries
@@ -11,16 +12,6 @@ Questions
 As needed
 * do i need elastic for any of this?
 * consolidate configuration with https://github.com/indexzero/nconf
-
-Intended stack:
-reactjs
-react-router
-alt
-something for remote access?
-express
-something for data modeling?
-node
-postgres
-elastic
+* logging
 
 favicon is in 32b82e from http://www.favicon.cc/

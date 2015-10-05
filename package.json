@@ -42,7 +42,7 @@
     "hot-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client-hot.js && ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 5555 --content-base public --config webpack.client-hot.js",
     "hot": "REACT_HOT='hot' ./node_modules/concurrently/src/main.js \"npm run hot-client\" \"npm run watch-server\"",
     "watch-client": "node ./node_modules/webpack/bin/webpack.js --verbose --colors --display-error-details --config ./webpack.client.js --watch",
-    "watch-server": "node_modules/forever/bin/forever --watch --watchDirectory ./ ./server.js",
+    "watch-server": "node_modules/forever/bin/forever --watch --watchDirectory ./ --watchIgnore ./react ./server.js",
     "watch": "./node_modules/concurrently/src/main.js \"npm run watch-client\" \"npm watch-server\"",
     "knex": "./node_modules/knex/src/bin/cli.js"
   },

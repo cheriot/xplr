@@ -1,5 +1,4 @@
 Steps
-* background processing of feeds to import posts
 * server rendering populates data
 * label feed entries with city, district, country, lat, lon
 * tag feed entries

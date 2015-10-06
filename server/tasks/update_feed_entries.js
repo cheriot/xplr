@@ -1,22 +1,23 @@
 import Feed from '../models/feed';
+import FeedEntry from '../models/feed_entry';
 import FeedReader from '../models/feed_reader';
-
-let exitAfterPromise
 
 Feed.query('orderBy', 'name')
   .fetchAll()
   .then((collection) => {
     const feedPromises = collection.models.map((feed) => {
-      console.log(`read entries from ${feed.get('title')} at ${feed.get('uri')}`);
+      console.log(`Starting to update feed ${feed.get('title')} at ${feed.get('uri')}`);
 
       return new FeedReader(feed.get('uri')).fetch()
         .then((reader) => {
-          console.log(`updating ${reader.meta.title}`);
-          reader.posts.forEach((post) => {
-            console.log(`post: ${post.title} ${post.link}`);
-          });
-          console.log(`done with ${feed.get('uri')}`);
-        })
+          feed.updateOrInitializeFromRemote(reader.meta);
+          return Promise.all([reader, feed.save()]);
+        }).then(([reader, feed]) => {
+          const importPost = (post) => {
+            return FeedEntry.findOrCreateFromRemote(feed, post);
+          };
+          return Promise.all(reader.posts.map(importPost));
+        });
     });
     return Promise.all(feedPromises);
   })

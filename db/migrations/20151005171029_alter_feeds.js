@@ -5,9 +5,11 @@ exports.up = function(knex, Promise) {
     table.dropColumn('name');
     table.string('title');
     table.string('subtitle');
-    table.string('source_id');
+    table.string('site_uri');
+    table.string('author');
     table.timestamp('source_updated_at');
-  });
+    table.timestamp('source_published_at');
+ });
 };
 
 exports.down = function(knex, Promise) {

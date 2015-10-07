@@ -11,8 +11,15 @@ class FeedResource {
   }
 
   static get(req, res) {
-    var id = req.params.id;
-    return Feed.forge({id: id}).fetch();
+    return this.forgeById(req).fetch();
+  }
+
+  static destroy(req, res) {
+    return this.forgeById(req).destroy();
+  }
+
+  static forgeById(req) {
+    return Feed.forge({id: req.params.id});
   }
 }
 

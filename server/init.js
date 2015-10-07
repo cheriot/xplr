@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Show Express.js where to find index.ejs
+// Tell Express.js how to render index.ejs
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
 
@@ -43,6 +43,13 @@ app.get('/feeds/:id', (req, res) => {
   FeedResource.get(req, res)
     .then( (feed) => {
       res.json(feed);
+    });
+});
+
+app.delete('/feeds/:id', (req, res) => {
+  FeedResource.destroy(req, res)
+    .then((feed) => {
+      res.json({'deleted': true});
     });
 });
 
@@ -76,15 +83,8 @@ app.get('/management', function(req, res) {
 });
 
 function reactRouteAndRender(req, res) {
-  // Data api will always be application/json
-  if(req.headers["content-type"] === "application/json") {
-    res.json({
-      "route": "There has been an error routing your request."
-    });
-  }
-
   // Anything that the data API doesn't handle is either a react-router url or a 404,
-  // which react-router will handle.
+  // which react-router will handle (just not yet..).
   Router.run(routes, req.url, function(Handler, state) {
     // Connect data to alt's stores.
     alt.bootstrap(JSON.stringify(res.locals.data || {}));

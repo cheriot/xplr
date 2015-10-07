@@ -1,19 +1,33 @@
 import agent from '../agent';
 
 class FeedSource {
+  constructor() {
+    this.returnBody = this.returnBody.bind(this);
+  }
+
   fetch() {
     return agent.get('/feeds')
-      .then( (response) => response.body );
+      .then(this.returnBody);
   }
 
   create(newFeed) {
     return agent.post('/feeds/create', {feed: newFeed})
-      .then( (response) => response.body );
+      .then(this.returnBody);
+  }
+
+  destroy(id) {
+    console.log('FeedSOurce destroy', id);
+    return agent.del(`/feeds/${id}`)
+      .then(this.returnBody);
   }
 
   fetchById(id) {
     return agent.get(`/feeds/${id}`)
-      .then ( (response) => response.body );
+      .then(this.returnBody);
+  }
+
+  returnBody(response) {
+    return response.body;
   }
 };
 

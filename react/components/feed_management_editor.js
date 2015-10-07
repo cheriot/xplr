@@ -1,25 +1,35 @@
 import React from 'react/addons';
 import FeedStore from '../stores/feed_store';
 import FeedActions from '../actions/feed_actions';
+import reactMixin from 'react-mixin';
+import { Navigation } from 'react-router';
 
+@reactMixin.decorate(Navigation)
 class FeedManagementEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = FeedStore.getState();
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    FeedStore.listen(this.onChange);
+    FeedStore.listen(this.handleChange);
     FeedActions.fetchFeedById(this.props.params.id);
   }
 
   componentWillUnmount() {
-    FeedStore.unlisten(this.onChange);
+    FeedStore.unlisten(this.handleChange);
   }
 
-  onChange(state) {
+  handleChange(state) {
     this.setState(state);
+  }
+
+  handleDelete(event) {
+    event.preventDefault();
+    FeedActions.destroyFeed(this.state.currentFeed)
+      .then(() => { this.transitionTo('/management') });
   }
 
   render() {
@@ -29,6 +39,11 @@ class FeedManagementEditor extends React.Component {
           <h1>Edit {this.state.currentFeed.title}</h1>
           <p>
             {this.state.currentFeed.uri}
+          </p>
+          <p>
+            <form onSubmit={this.handleDelete}>
+              <button type='submit'>delete</button>
+            </form>
           </p>
         </div>
       );

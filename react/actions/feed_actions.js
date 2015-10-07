@@ -11,19 +11,30 @@ class FeedActions {
   }
 
   createFeed(newFeed) {
-    FeedSource.create(newFeed)
+    return FeedSource.create(newFeed)
       .then((feed) => {
         this.actions.fetchFeeds();
       })
       .catch((errorMessage) => {
-        this.actions.createFailed(errorMessage);
+        this.actions.feedsFailed(errorMessage);
+      });
+  }
+
+  destroyFeed(feed) {
+    console.log('destroyFeed', feed);
+    return FeedSource.destroy(feed.id)
+      .then(() => {
+        this.actions.currentFeed(null);
+      })
+      .catch((errorMessage) => {
+        this.actions.feedsFailed(errorMessage);
       });
   }
 
   fetchFeeds() {
     this.dispatch(); // trigger loading state
 
-    FeedSource.fetch()
+    return FeedSource.fetch()
       .then((feeds) => {
         // we can access other actions within our action through `this.actions`
         this.actions.updateFeeds(feeds);
@@ -36,7 +47,7 @@ class FeedActions {
   fetchFeedById(id) {
     this.dispatch(); // trigger loading state
 
-    FeedSource.fetchById(id)
+    return FeedSource.fetchById(id)
       .then((feed) => {
         this.actions.currentFeed(feed);
       })

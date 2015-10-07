@@ -1,5 +1,5 @@
 Steps
-* server rendering populates data
+* view entries queue
 * label feed entries with city, district, country, lat, lon
 * tag feed entries
 * place autocomplete
@@ -12,5 +12,6 @@ As needed
 * do i need elastic for any of this?
 * consolidate configuration with https://github.com/indexzero/nconf
 * logging
+* bookends for associations: http://city41.github.io/bookends/demo.html
 
 favicon is in 32b82e from http://www.favicon.cc/

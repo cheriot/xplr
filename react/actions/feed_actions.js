@@ -1,4 +1,4 @@
-import dispatcher from '../dispatcher';
+import alt from '../alt_dispatcher';
 import FeedSource from '../sources/feed_source';
 
 class FeedActions {
@@ -51,4 +51,4 @@ class FeedActions {
   }
 }
 
-module.exports = dispatcher.createActions(FeedActions);
+module.exports = alt.createActions(FeedActions);

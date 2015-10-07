@@ -1,4 +1,4 @@
-import dispatcher from '../dispatcher';
+import alt from '../alt_dispatcher';
 import FeedActions from '../actions/feed_actions';
 
 class FeedStore {
@@ -41,4 +41,4 @@ class FeedStore {
   }
 }
 
-module.exports = dispatcher.createStore(FeedStore, 'FeedStore');
+module.exports = alt.createStore(FeedStore, 'FeedStore');

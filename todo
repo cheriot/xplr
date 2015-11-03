@@ -1,5 +1,46 @@
+* Addis: http://eatyourworld.com/blog/dish_spotlight_kitfo_in_addis_ababa_ethiopia
+
 Steps
 * view entries queue
+  * actions
+  * store
+  * listen to feed deletions
+
+for any url:
+* render react markup
+* actions, instead of requesting data, record in a global store the data needed
+* on the client, make a bulk request
+* on the server, trigger bulk request handler
+
+Challenges:
+* how to reach into Alt's state on the server?
+* how to run something after all components have rendered?
+
+quicker, easier, option:
+* use a page component to handle/make the only data requst
+* the server responds with the extended message format
+* stores are populated and subsequent actions return data immediately
+
+Challenges:
+* how to get a store to check all requests from all requests?
+
+Message format
+{
+  lists: {
+    feeds: [ids],
+    feed_entry_queue: [ids]
+  },
+  entities: {
+    feeds: {id: entity},
+    feed_entries: {id, entity}
+  },
+  associations: {
+    feeds_feed_entries: {
+      feed_id: [ids]
+    }
+  }
+}
+
 * label feed entries with city, district, country, lat, lon
 * tag feed entries
 * place autocomplete
@@ -7,6 +48,12 @@ Steps
 
 Questions
 * Are these travel articles actually helpful?
+  * Use all from http://www.theexpeditioner.com/the-top-50-travel-blogs/
+  * http://www.wisebread.com/travel-resources
+  * http://www.48houradventure.com/
+  * http://wanderingtrader.com/
+  * http://eatyourworld.com/
+  * http://migrationology.com/blog/
 
 As needed
 * do i need elastic for any of this?

@@ -15,7 +15,6 @@ class FeedManagement extends React.Component {
 
     this.handleChangeFeed = this.handleChangeFeed.bind(this);
     this.handleCreateFeed = this.handleCreateFeed.bind(this);
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -33,7 +32,9 @@ class FeedManagement extends React.Component {
   }
 
   handleCreateFeed(newFeed) {
-    FeedActions.createFeed(newFeed).then(() => { this.state.newFeed = FeedStore.newFeed(); });
+    FeedActions
+      .createFeed(newFeed)
+      .then(() => { this.state.newFeed = FeedStore.newFeed(); });
   }
 
   handleChangeFeed(uri) {

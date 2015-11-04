@@ -1,12 +1,12 @@
 import React from 'react/addons';
-import Router from 'react-router';
+import { RouteHandler } from 'react-router';
 
 class Root extends React.Component {
   render() {
     return (
       <div>
-        Hello, World.
-        <Router.RouteHandler/>
+        Brand and navigation go here.
+        <RouteHandler/>
       </div>
     );
   }

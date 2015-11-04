@@ -22,17 +22,17 @@ class FeedList extends React.Component {
     }
 
     return (
-      <ul>
-        {this.props.feeds.map((feed) => {
-          return (
-            <li key={feed.id}>
-              {feed.uri}
-              &nbsp;
-              <Link to={`/management/feeds/${feed.id}`}>edit</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <ul>{this.props.feeds.map(this.renderFeed)}</ul>
+    );
+  }
+
+  renderFeed(feed) {
+    return (
+      <li key={feed.id}>
+        {feed.uri}
+        &nbsp;
+        <Link to={`/management/feeds/${feed.id}`}>edit</Link>
+      </li>
     );
   }
 }

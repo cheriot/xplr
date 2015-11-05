@@ -1,9 +1,14 @@
 import bookshelf from './bookshelf';
 import Checkit from 'checkit';
+import Feed from './feed';
 
 const FeedEntry = bookshelf.Model.extend({
   tableName: 'feed_entries',
   hasTimestamps: true,
+
+  feed: function() {
+    return this.belongsTo(Feed);
+  },
 
   initialize: function (attrs, opts) {
     this.on('saving', this.validateSave);

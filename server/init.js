@@ -24,32 +24,41 @@ app.set('view engine', 'ejs');
 //
 // Data API
 //
+
 import FeedResource from '../server/resources/feed_resource';
-app.get('/feeds', function(req, res) {
-  FeedResource.list(req, res)
+import EntryResource from '../server/resources/entry_resource';
+app.get('/feeds', (req, res) => {
+  FeedResource.list(req)
     .then((feeds) => {
       res.json(feeds)
     });
 });
 
 app.post('/feeds/create', (req, res) => {
-  FeedResource.create(req, res)
+  FeedResource.create(req)
     .then((feed) => {
       res.json(feed);
     });
 });
 
 app.get('/feeds/:id', (req, res) => {
-  FeedResource.get(req, res)
+  FeedResource.get(req)
     .then( (feed) => {
       res.json(feed);
     });
 });
 
 app.delete('/feeds/:id', (req, res) => {
-  FeedResource.destroy(req, res)
+  FeedResource.destroy(req)
     .then((feed) => {
       res.json({'deleted': true});
+    });
+});
+
+app.get('/entries', (req, res) => {
+  EntryResource.list(req)
+    .then((entries) => {
+      res.json(entries);
     });
 });
 
@@ -61,7 +70,7 @@ function isApi(req) { return /application\/json/.test(req.headers.accept); }
 function isHtml(req) { return /text\/html/.test(req.headers.accept); }
 
 app.get('/management', function(req, res) {
-  const list = FeedResource.list(req, res)
+  const list = FeedResource.list(req)
   if(isApi(req)) {
       list.then((feeds) => {
         res.json(feeds)

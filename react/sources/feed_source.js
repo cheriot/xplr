@@ -1,10 +1,6 @@
 import agent from '../agent';
 
 class FeedSource {
-  constructor() {
-    this.returnBody = this.returnBody.bind(this);
-  }
-
   fetch() {
     return agent.get('/feeds')
       .then(this.returnBody);

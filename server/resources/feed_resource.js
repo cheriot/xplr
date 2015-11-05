@@ -1,20 +1,20 @@
 import Feed from '../models/feed';
 
 class FeedResource {
-  static list(req, res) {
+  static list(req) {
     return Feed.fetchAll().then((feedCollection) => feedCollection.models);
   }
 
-  static create(req, res) {
+  static create(req) {
     var newFeed = req.body.feed;
     return Feed.forge(newFeed).save();
   }
 
-  static get(req, res) {
+  static get(req) {
     return this.forgeById(req).fetch();
   }
 
-  static destroy(req, res) {
+  static destroy(req) {
     return this.forgeById(req).destroy();
   }
 

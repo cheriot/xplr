@@ -2,9 +2,6 @@ import React from 'react/addons';
 import { Link } from 'react-router';
 
 class FeedList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     if (this.props.errorMessage) {

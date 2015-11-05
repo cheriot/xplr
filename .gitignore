@@ -3,3 +3,4 @@
 /node_modules
 public/client
 db/*.sqlite3
+config/secrets.json

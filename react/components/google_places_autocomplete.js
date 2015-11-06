@@ -2,13 +2,13 @@ import React from 'react/addons';
 import BasePortal from './base_portal';
 import googleMapPromise from './google_maps';
 
-class GooglePlacesAutocomplete extends React.Component {
+class GooglePlacesAutocomplete extends BasePortal {
 
-  componentDidMount() {
+  initExternalDOM(node) {
     // Add input that will become the autocomplete
     this.input = document.createElement('input');
     this.input.setAttribute('type', 'text');
-    React.findDOMNode(this).appendChild(this.input);
+    node.appendChild(this.input);
 
     googleMapPromise.then((maps) => {
       this.autocomplete = new google.maps.places.Autocomplete(
@@ -16,15 +16,12 @@ class GooglePlacesAutocomplete extends React.Component {
         {}
       );
       this.autocomplete.addListener('place_changed', this.onPlaceChanged.bind(this));
-      console.log('autocomplete', this.autocomplete);
-      // instantiate autocomplete
     });
   }
 
-  componentWillUnmount() {
-    // destroy autocomplete
+  destroyExternalDOM(node) {
     this.autocomplete.unbindAll();
-    React.findDOMNode(this).removeChild(this.input);
+    node.removeChild(this.input);
   }
 
   onPlaceChanged() {

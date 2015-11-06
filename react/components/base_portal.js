@@ -16,25 +16,26 @@ class BasePortal extends React.Component {
   }
 
   componentDidMount() {
-    initExternalDOM(this.getDOMNode());
+    this.initExternalDOM(this.getDOMNode());
     // Start a new React render tree with our node and the children
     // passed in from above. This is the other side of the portal.
-    renderChildren(this.props);
+    this.renderChildren(this.props);
   }
 
   componentWillUnmount() {
-    React.unmountComponentAtNode(this.node);
-    destroyExternalDOM(this.getDOMNode());
+    this.destroyExternalDOM(this.getDOMNode());
+    React.unmountComponentAtNode(this.getDOMNode());
   }
 
   componentWillReceiveProps(newProps) {
     // Pass updates to the other side of the portal.
-    renderChildren(newProps);
-    updateExternalDOM(this.getDOMNode(), newProps)
+    this.renderChildren(newProps);
+    this.updateExternalDOM(this.getDOMNode(), newProps)
   }
 
   renderChildren(props) {
-    React.renderComponent(<div>{this.props.children}</div>, node);
+    // How can I properly handle nested content in a portal?
+    // React.render(<div>{this.props.children}</div>, this.getDOMNode());
   }
 
   initExternalDOM(node) {
@@ -53,7 +54,7 @@ class BasePortal extends React.Component {
 
   getDOMNode() {
     return React.findDOMNode(this);
-  }
+ }
 }
 
-module.export = BasePortal;
+module.exports = BasePortal;

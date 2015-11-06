@@ -10,7 +10,6 @@
       var mapInitialized = false;
       var mapInitializers = [];
       function initMap() {
-        console.log('initMap');
         mapInitializers.forEach(function(initializer) {
           initializer();
         });

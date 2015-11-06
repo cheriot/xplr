@@ -12,7 +12,6 @@ class FeedSource {
   }
 
   destroy(id) {
-    console.log('FeedSOurce destroy', id);
     return agent.del(`/feeds/${id}`)
       .then(this.returnBody);
   }

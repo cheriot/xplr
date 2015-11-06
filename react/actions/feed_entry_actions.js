@@ -7,6 +7,20 @@ class FeedEntryActions {
     this.dispatch(feedEntries);
   }
 
+  ignore(feedEntry) {
+    console.log('now ignore', feedEntry);
+    return FeedEntrySource
+      .ignore(feedEntry)
+      .then(() => this.actions.fetchFeedEntries());
+  }
+
+  publish(feedEntry) {
+    console.log('now publish', feedEntry);
+    return FeedEntrySource
+      .publish(feedEntry)
+      .then(() => this.actions.fetchFeedEntries());
+  }
+
   fetchFeedEntries() {
     this.dispatch();
     return FeedEntrySource.fetch()

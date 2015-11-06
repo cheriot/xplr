@@ -50,9 +50,7 @@ app.get('/feeds/:id', (req, res) => {
 
 app.delete('/feeds/:id', (req, res) => {
   FeedResource.destroy(req)
-    .then((feed) => {
-      res.json({'deleted': true});
-    });
+    .then(() => res.json({'deleted': true}) );
 });
 
 app.get('/entries', (req, res) => {
@@ -60,6 +58,16 @@ app.get('/entries', (req, res) => {
     .then((entries) => {
       res.json(entries);
     });
+});
+
+app.post('/entries/:id/ignore', (req, res) => {
+  EntryResource.ignore(req)
+    .then(() => res.json({ignored: true}) );
+});
+
+app.post('/entries/:id/publish', (req, res) => {
+  EntryResource.publish(req)
+    .then(() => res.json({published: true}) );
 });
 
 //

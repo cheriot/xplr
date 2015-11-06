@@ -11,6 +11,16 @@ class EntryQueue extends React.Component {
     this.state = FeedEntryStore.getState();
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleIgnore = this.handleIgnore.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
+  }
+
+  handleIgnore(feedEntry) {
+    FeedEntryActions.ignore(feedEntry);
+  }
+
+  handlePublish(feedEntry) {
+    FeedEntryActions.publish(feedEntry);
   }
 
   componentDidMount() {
@@ -30,13 +40,16 @@ class EntryQueue extends React.Component {
     return (
       <FeedEntryList
         isLoading={this.state.loading == 'loading'}
-        feedEntries={this.state.feedEntries} />
+        feedEntries={this.state.feedEntries}
+        onIgnore={this.handleIgnore}
+        onPublish={this.handlePublish} />
     );
   }
 
 }
 
 class FeedEntryList extends React.Component {
+
   render() {
     if (this.props.errorMessage) {
       return <div>Something is wrong.</div>;
@@ -50,22 +63,63 @@ class FeedEntryList extends React.Component {
       );
     }
 
-    return <ul>{this.props.feedEntries.map(this.renderFeedEntry)}</ul>;
+    return <ul>{this.props.feedEntries.map(this.renderFeedEntry.bind(this))}</ul>;
   }
 
   renderFeedEntry(feedEntry) {
     return (
-      <li key={feedEntry.id}>
-        <div>
-          <a href={feedEntry.uri} target='_blank'>
-            <SafeText text={feedEntry.title} />
-          </a>
-          &lt;
-          <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
-        </div>
-        <GooglePlacesAutocomplete places={feedEntry.locations}/>
-        <button type='submit' disabled={!feedEntry.locations}>publish</button>
-        <button type='submit'>ignore</button>
+      <FeedEntryForm
+          key={feedEntry.id}
+          feedEntry={feedEntry}
+          onIgnore={this.props.onIgnore}
+          onPublish={this.props.onPublish}/>
+    );
+  }
+}
+
+class FeedEntryForm extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleIgnore = this.handleIgnore.bind(this);
+    this.handlePublish = this.handlePublish.bind(this);
+  }
+
+  handleIgnore(event) {
+    event.preventDefault();
+    this.props.onIgnore(this.props.feedEntry);
+  }
+
+  handlePublish(event) {
+    event.preventDefault();
+    this.props.onPublish(this.props.feedEntry);
+  }
+
+  render() {
+    const feedEntry = this.props.feedEntry;
+    return (
+      <li>
+        <form>
+          <div>
+            <a href={feedEntry.uri} target='_blank'>
+              <SafeText text={feedEntry.title} />
+            </a>
+            &lt;
+            <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
+          </div>
+          <GooglePlacesAutocomplete places={feedEntry.locations}/>
+          <button
+              type='submit'
+              onClick={this.handlePublish}
+              disabled={!feedEntry.locations}>
+            publish
+          </button>
+          <button
+              type='submit'
+              onClick={this.handleIgnore}>
+            ignore
+          </button>
+        </form>
       </li>
     );
   }

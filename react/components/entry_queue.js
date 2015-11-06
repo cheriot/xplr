@@ -2,6 +2,7 @@ import React from 'react/addons';
 import FeedEntryStore from '../stores/feed_entry_store';
 import FeedEntryActions from '../actions/feed_entry_actions';
 import GooglePlacesAutocomplete from './google_places_autocomplete';
+import SafeText from './safe_text';
 
 class EntryQueue extends React.Component {
 
@@ -56,7 +57,9 @@ class FeedEntryList extends React.Component {
     return (
       <li key={feedEntry.id}>
         <div>
-          <a href={feedEntry.uri} target='_blank'>{feedEntry.title}</a>
+          <a href={feedEntry.uri} target='_blank'>
+            <SafeText text={feedEntry.title} />
+          </a>
           &lt;
           <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
         </div>

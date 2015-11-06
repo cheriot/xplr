@@ -8,14 +8,10 @@ class FeedEntryActions {
   }
 
   fetchFeedEntries() {
-    console.log('fetchFeedEntries go');
     this.dispatch();
     return FeedEntrySource.fetch()
       .then((feedEntries) => {
         this.actions.updateFeedEntries(feedEntries);
-      })
-      .catch((errorMessage) => {
-        console.error('fetchFeedEntries', errorMessage);
       });
   }
 }

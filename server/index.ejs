@@ -6,6 +6,19 @@
   </head>
   <body>
     <section><%- reactHtml %></section>
+    <script type="text/javascript">
+      var mapInitialized = false;
+      var mapInitializers = [];
+      function initMap() {
+        console.log('initMap');
+        mapInitializers.forEach(function(initializer) {
+          initializer();
+        });
+        mapInitialized = true;
+      };
+    </script>
     <script src="<%- clientSrc %>"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%- googleKey %>&signed_in=true&libraries=places&callback=initMap"
+        async defer></script>
   </body>
 </html>

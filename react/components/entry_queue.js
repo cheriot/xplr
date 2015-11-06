@@ -1,6 +1,7 @@
 import React from 'react/addons';
 import FeedEntryStore from '../stores/feed_entry_store';
 import FeedEntryActions from '../actions/feed_entry_actions';
+import GooglePlacesAutocomplete from './google_places_autocomplete';
 
 class EntryQueue extends React.Component {
 
@@ -25,7 +26,6 @@ class EntryQueue extends React.Component {
   }
 
   render() {
-    console.log('render queue', this.state);
     return (
       <FeedEntryList
         isLoading={this.state.loading == 'loading'}
@@ -49,7 +49,6 @@ class FeedEntryList extends React.Component {
       );
     }
 
-    console.log('render list', this.props);
     return <ul>{this.props.feedEntries.map(this.renderFeedEntry)}</ul>;
   }
 
@@ -61,7 +60,7 @@ class FeedEntryList extends React.Component {
           &lt;
           <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
         </div>
-        <input type='text' placeholder='locations...'/>
+        <GooglePlacesAutocomplete places={feedEntry.locations}/>
         <button type='submit' disabled={!feedEntry.locations}>publish</button>
         <button type='submit'>ignore</button>
       </li>

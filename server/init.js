@@ -5,7 +5,7 @@ import Router from 'react-router';
 import routes from '../react/routes';
 import alt from '../react/alt_dispatcher';
 import Iso from 'iso';
-
+import config from '../config';
 
 var app = express(),
     port = 4444;
@@ -106,7 +106,11 @@ function reactRouteAndRender(req, res) {
     // Use Iso to hand our data to alt on the client side.
     const iso = new Iso();
     iso.add(reactHtml, alt.flush());
-    res.render('index.ejs', {reactHtml: iso.render(), clientSrc: clientSrc});
+    res.render('index.ejs', {
+      reactHtml: iso.render(),
+      clientSrc: clientSrc,
+      googleKey: config.googleKey
+    });
   });
 }
 

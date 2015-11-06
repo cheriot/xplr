@@ -1,12 +1,9 @@
-* Addis: http://eatyourworld.com/blog/dish_spotlight_kitfo_in_addis_ababa_ethiopia
 
-Steps
-* view entries queue
-  * actions
-  * store
-  * listen to feed deletions
+Up next
+* label feed entries with city, district, country, lat, lon
+* display feed entries for selected place
 
-for any url:
+for each api method:
 * render react markup
 * actions, instead of requesting data, record in a global store the data needed
 * on the client, make a bulk request
@@ -41,18 +38,13 @@ Message format
   }
 }
 
-* label feed entries with city, district, country, lat, lon
-* tag feed entries
-* place autocomplete
-* display feed entries for selected place
-
 Questions
 * Are these travel articles actually helpful?
+  *** http://eatyourworld.com/
   * Use all from http://www.theexpeditioner.com/the-top-50-travel-blogs/
   * http://www.wisebread.com/travel-resources
   * http://www.48houradventure.com/
   * http://wanderingtrader.com/
-  * http://eatyourworld.com/
   * http://migrationology.com/blog/
 
 As needed

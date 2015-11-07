@@ -20,11 +20,22 @@ module.exports = {
 	],
 	module:  {
 		loaders: [
-    {include: /\.json$/, loaders: ["json-loader"]},
+      {
+        include: /\.json$/,
+        loaders: ["json-loader"]
+      },
       {
         include: /\.js$/,
         exclude: /node_modules/,
         loaders: ["babel-loader?stage=0&optional=runtime&plugins=typecheck"]
+      },
+      {
+        test: /\.css$/,
+        loader: "style!css"
+      },
+      {
+        test: /\.less$/,
+        loader: 'style!css!less'
       }
 		]
 	},

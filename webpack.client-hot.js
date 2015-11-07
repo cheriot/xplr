@@ -15,15 +15,11 @@ config.plugins = [
   new webpack.NoErrorsPlugin()
 ];
 
-config.module = {
-  loaders: [
-    {include: /\.json$/, loaders: ["json-loader"]},
-    {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loaders: ['react-hot', 'babel-loader?stage=0&optional=runtime&plugins=typecheck']
-    }
-  ]
-}
+// Add react-hot without redefinging every the other loader.
+config.module.loaders.push({
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loaders: ['react-hot', "babel-loader?stage=0&optional=runtime&plugins=typecheck"]
+});
 
 module.exports = config;

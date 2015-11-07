@@ -23,9 +23,15 @@ class GooglePlacesAutocomplete extends BasePortal {
     console.log('place changed', place);
   }
 
+  styles() {
+    return {
+      width: '300px'
+    };
+  }
+
   render() {
-    return <div/>
     return <input
+      style={this.styles()}
       ref='placesInput'
       type='text' />
   }

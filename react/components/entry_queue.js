@@ -50,6 +50,12 @@ class EntryQueue extends React.Component {
 
 class FeedEntryList extends React.Component {
 
+  styles() {
+    return {
+      listStyle: 'none'
+    };
+  }
+
   render() {
     if (this.props.errorMessage) {
       return <div>Something is wrong.</div>;
@@ -63,7 +69,11 @@ class FeedEntryList extends React.Component {
       );
     }
 
-    return <ul>{this.props.feedEntries.map(this.renderFeedEntry.bind(this))}</ul>;
+    return (
+      <ul style={this.styles()}>
+        {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
+      </ul>
+    );
   }
 
   renderFeedEntry(feedEntry) {
@@ -95,10 +105,17 @@ class FeedEntryForm extends React.Component {
     this.props.onPublish(this.props.feedEntry);
   }
 
+  styles() {
+    return {
+      marginBottom: '30px'
+    };
+  }
+
   render() {
     const feedEntry = this.props.feedEntry;
+
     return (
-      <li>
+      <li style={this.styles()}>
         <form>
           <div>
             <a href={feedEntry.uri} target='_blank'>

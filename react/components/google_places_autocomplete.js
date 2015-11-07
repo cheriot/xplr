@@ -19,8 +19,8 @@ class GooglePlacesAutocomplete extends BasePortal {
   }
 
   onPlaceChanged() {
-    const place = this.autocomplete.getPlace();
-    console.log('place changed', place);
+    const googlePlace = this.autocomplete.getPlace();
+    if (googlePlace) this.props.onPlaceSelect(googlePlace);
   }
 
   styles() {

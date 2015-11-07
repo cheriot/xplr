@@ -8,6 +8,7 @@ class FeedEntryStore {
 
     this.bindListeners({
       handleUpdateFeedEntries: FeedEntryActions.UPDATE_FEED_ENTRIES,
+      handleUpdateFeedEntry: FeedEntryActions.UPDATE_FEED_ENTRY,
       handleLoading: FeedEntryActions.FETCH_FEED_ENTRIES
     });
   }
@@ -19,6 +20,11 @@ class FeedEntryStore {
 
   handleLoading() {
     this.loading = 'loading';
+  }
+
+  handleUpdateFeedEntry(feedEntry) {
+    const i = this.feedEntries.map((fe) => fe.id).indexOf(feedEntry.id);
+    this.feedEntries[i] = feedEntry;
   }
 }
 

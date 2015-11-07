@@ -16,6 +16,8 @@ app.use(express.static("./public"));
 app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+// SQL logger
+app.use(require('knex-logger')(require('./models/knex')));
 
 // Tell Express.js how to render index.ejs
 app.set('views', __dirname);
@@ -68,6 +70,11 @@ app.post('/entries/:id/ignore', (req, res) => {
 app.post('/entries/:id/publish', (req, res) => {
   EntryResource.publish(req)
     .then(() => res.json({published: true}) );
+});
+
+app.post('/entries/:id/places', (req, res) => {
+  EntryResource.addPlace(req)
+    .then((feedEntry) => res.json(feedEntry) );
 });
 
 //

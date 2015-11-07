@@ -13,6 +13,11 @@ class EntryQueue extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleIgnore = this.handleIgnore.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
+  }
+
+  handleChange(state) {
+    this.setState(state);
   }
 
   handleIgnore(feedEntry) {
@@ -21,6 +26,11 @@ class EntryQueue extends React.Component {
 
   handlePublish(feedEntry) {
     FeedEntryActions.publish(feedEntry);
+  }
+
+  handlePlaceSelect(feedEntry, googlePlace) {
+    console.log('handlePlaceSelect', feedEntry, googlePlace);
+    FeedEntryActions.selectPlace(feedEntry, googlePlace);
   }
 
   componentDidMount() {
@@ -32,17 +42,14 @@ class EntryQueue extends React.Component {
     FeedEntryStore.unlisten(this.handleChange)
   }
 
-  handleChange(state) {
-    this.setState(state);
-  }
-
   render() {
     return (
       <FeedEntryList
         isLoading={this.state.loading == 'loading'}
         feedEntries={this.state.feedEntries}
         onIgnore={this.handleIgnore}
-        onPublish={this.handlePublish} />
+        onPublish={this.handlePublish}
+        onPlaceSelect={this.handlePlaceSelect} />
     );
   }
 
@@ -82,7 +89,8 @@ class FeedEntryList extends React.Component {
           key={feedEntry.id}
           feedEntry={feedEntry}
           onIgnore={this.props.onIgnore}
-          onPublish={this.props.onPublish}/>
+          onPublish={this.props.onPublish}
+          onPlaceSelect={this.props.onPlaceSelect} />
     );
   }
 }
@@ -93,6 +101,7 @@ class FeedEntryForm extends React.Component {
     super(props);
     this.handleIgnore = this.handleIgnore.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
+    this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
   }
 
   handleIgnore(event) {
@@ -103,6 +112,10 @@ class FeedEntryForm extends React.Component {
   handlePublish(event) {
     event.preventDefault();
     this.props.onPublish(this.props.feedEntry);
+  }
+
+  handlePlaceSelect(googlePlace) {
+    this.props.onPlaceSelect(this.props.feedEntry, googlePlace);
   }
 
   styles() {
@@ -117,6 +130,7 @@ class FeedEntryForm extends React.Component {
     return (
       <li style={this.styles()}>
         <form>
+
           <div>
             <a href={feedEntry.uri} target='_blank'>
               <SafeText text={feedEntry.title} />
@@ -124,18 +138,27 @@ class FeedEntryForm extends React.Component {
             &lt;
             <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
           </div>
-          <GooglePlacesAutocomplete places={feedEntry.locations}/>
-          <button
-              type='submit'
-              onClick={this.handlePublish}
-              disabled={!feedEntry.locations}>
-            publish
-          </button>
-          <button
-              type='submit'
-              onClick={this.handleIgnore}>
-            ignore
-          </button>
+
+          <div>
+            {(feedEntry.places || []).length} places associated
+          </div>
+
+          <GooglePlacesAutocomplete
+              onPlaceSelect={this.handlePlaceSelect} />
+
+          <div>
+            <button
+                type='submit'
+                onClick={this.handlePublish}
+                disabled={!feedEntry.locations}>
+              publish
+            </button>
+            <button
+                type='submit'
+                onClick={this.handleIgnore}>
+              ignore
+            </button>
+          </div>
         </form>
       </li>
     );

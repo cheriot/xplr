@@ -1,7 +1,7 @@
 import Feed from '../models/feed';
 
 class FeedResource {
-  static list(req) {
+  static list() {
     return Feed.fetchAll().then((feedCollection) => feedCollection.models);
   }
 

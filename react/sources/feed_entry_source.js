@@ -12,7 +12,14 @@ class FeedEntrySource {
   }
 
   publish(feedEntry) {
-    return agent.post(`/entries/${feedEntry.id}/publish`, feedEntry).then(this.returnBody);
+    return agent.post(`/entries/${feedEntry.id}/publish`).then(this.returnBody);
+  }
+
+  selectPlace(feedEntry, googlePlace) {
+    // pull lat/lon out of functions so they're serialized
+    googlePlace.lat = googlePlace.geometry.location.lat();
+    googlePlace.lon = googlePlace.geometry.location.lng();
+    return agent.post(`/entries/${feedEntry.id}/places`, googlePlace).then(this.returnBody);
   }
 
   returnBody(response) {

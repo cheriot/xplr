@@ -7,15 +7,17 @@ class FeedEntryActions {
     this.dispatch(feedEntries);
   }
 
+  updateFeedEntry(feedEntry) {
+    this.dispatch(feedEntry);
+  }
+
   ignore(feedEntry) {
-    console.log('now ignore', feedEntry);
     return FeedEntrySource
       .ignore(feedEntry)
       .then(() => this.actions.fetchFeedEntries());
   }
 
   publish(feedEntry) {
-    console.log('now publish', feedEntry);
     return FeedEntrySource
       .publish(feedEntry)
       .then(() => this.actions.fetchFeedEntries());
@@ -27,6 +29,13 @@ class FeedEntryActions {
       .then((feedEntries) => {
         this.actions.updateFeedEntries(feedEntries);
       });
+  }
+
+  selectPlace(feedEntry, place) {
+    this.dispatch();
+    return FeedEntrySource
+      .selectPlace(feedEntry, place)
+      .then((feedEntry) => this.actions.updateFeedEntry(feedEntry));
   }
 }
 

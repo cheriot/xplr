@@ -5,14 +5,9 @@ import googleMapPromise from './google_maps';
 class GooglePlacesAutocomplete extends BasePortal {
 
   initExternalDOM(node) {
-    // Add input that will become the autocomplete
-    this.input = document.createElement('input');
-    this.input.setAttribute('type', 'text');
-    node.appendChild(this.input);
-
     googleMapPromise.then((maps) => {
       this.autocomplete = new google.maps.places.Autocomplete(
-        this.input,
+        React.findDOMNode(this),
         {}
       );
       this.autocomplete.addListener('place_changed', this.onPlaceChanged.bind(this));
@@ -21,7 +16,6 @@ class GooglePlacesAutocomplete extends BasePortal {
 
   destroyExternalDOM(node) {
     this.autocomplete.unbindAll();
-    node.removeChild(this.input);
   }
 
   onPlaceChanged() {

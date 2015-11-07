@@ -1,9 +1,19 @@
 
 Up next
 * label feed entries with city, district, country, lat, lon
-* display feed entries for selected place
+* display feed entries for country, city
+* https://github.com/googlemaps/js-marker-clusterer
 
-for each api method:
+Prototype Questions
+* Are these travel articles actually helpful?
+  *** http://eatyourworld.com/
+  * Use all from http://www.theexpeditioner.com/the-top-50-travel-blogs/
+  * http://www.wisebread.com/travel-resources
+  * http://www.48houradventure.com/
+  * http://wanderingtrader.com/
+  * http://migrationology.com/blog/
+
+Design for each api method:
 * render react markup
 * actions, instead of requesting data, record in a global store the data needed
 * on the client, make a bulk request
@@ -37,15 +47,6 @@ Message format
     }
   }
 }
-
-Questions
-* Are these travel articles actually helpful?
-  *** http://eatyourworld.com/
-  * Use all from http://www.theexpeditioner.com/the-top-50-travel-blogs/
-  * http://www.wisebread.com/travel-resources
-  * http://www.48houradventure.com/
-  * http://wanderingtrader.com/
-  * http://migrationology.com/blog/
 
 As needed
 * do i need elastic for any of this?

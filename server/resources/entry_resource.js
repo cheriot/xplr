@@ -4,11 +4,11 @@ import PlaceResource from './place_resource';
 class EntryResource {
 
   static list(req) {
-    // Oldest 10 in the queue
+    // Newest 10 in the queue
     return FeedEntry
       .where({published_state: 'queued'})
       .query('limit', 30)
-      .query('orderBy', 'created_at', 'asc')
+      .query('orderBy', 'created_at', 'desc')
       .fetchAll(this.fetchOptions())
       .then((feedEntryCollection) => {
         return feedEntryCollection.models;

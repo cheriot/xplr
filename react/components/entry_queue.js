@@ -75,8 +75,9 @@ class FeedEntryList extends React.Component {
       return <div>Something is wrong.</div>;
     }
 
+    let loadingIndicator = null;
     if (this.props.isLoading) {
-      return (
+      loadingIndicator = (
         <div>
           <img src="/ajax-loader.gif" />
         </div>
@@ -85,6 +86,7 @@ class FeedEntryList extends React.Component {
 
     return (
       <ul style={this.styles()}>
+        <li>{loadingIndicator}</li>
         {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
       </ul>
     );

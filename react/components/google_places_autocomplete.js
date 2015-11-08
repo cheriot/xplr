@@ -18,6 +18,12 @@ class GooglePlacesAutocomplete extends BasePortal {
     }
   }
 
+  updateExternalDOM(node, newProps) {
+    if (newProps.isFocus) {
+      this.refs.placesInput.getDOMNode().focus();
+    }
+  }
+
   destroyExternalDOM(node) {
     this.autocomplete.unbindAll();
   }

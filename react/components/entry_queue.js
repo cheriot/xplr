@@ -90,9 +90,10 @@ class FeedEntryList extends React.Component {
     );
   }
 
-  renderFeedEntry(feedEntry) {
+  renderFeedEntry(feedEntry, index) {
     return (
       <FeedEntryForm
+          isFocus={index === 0}
           key={feedEntry.id}
           feedEntry={feedEntry}
           onIgnore={this.props.onIgnore}
@@ -159,7 +160,8 @@ class FeedEntryForm extends React.Component {
         </ul>
 
         <GooglePlacesAutocomplete
-            onPlaceSelect={this.handlePlaceSelect} />
+            onPlaceSelect={this.handlePlaceSelect}
+            isFocus={this.props.isFocus} />
 
         <form>
           <button

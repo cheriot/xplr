@@ -12,6 +12,10 @@ class GooglePlacesAutocomplete extends BasePortal {
       );
       this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
     });
+
+    if (this.props.isFocus) {
+      this.refs.placesInput.getDOMNode().focus();
+    }
   }
 
   destroyExternalDOM(node) {

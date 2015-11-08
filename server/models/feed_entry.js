@@ -26,26 +26,18 @@ const FeedEntry = bookshelf.Model.extend({
     }).run(this.attributes);
   },
 
-});
-
-FeedEntry.findOrCreateFromRemote = function(feed, feedPost) {
-  const identity = {feed_id: feed.id, source_id: feedPost.guid};
-  return FeedEntry
-    .forge(identity)
-    .refresh()
-    .then((feedEntry) => {
-      if(!feedEntry) feedEntry = FeedEntry.forge(identity);
-      feedEntry.set('title',               feedPost.title);
-      feedEntry.set('uri',                 feedPost.link);
-      feedEntry.set('author',              feedPost.author);
-      feedEntry.set('summary',             feedPost.description);
-      feedEntry.set('source_id',           feedPost.guid);
-      feedEntry.set('source_updated_at',   feedPost.date);
-      feedEntry.set('source_published_at', feedPost.pubdate);
-      // We may be reimporting.
-      if(!feedEntry.get('published_state')) feedEntry.set('published_state', 'queued');
-      return feedEntry.save();
+  updateFromRemote: function(remoteEntry) {
+    this.set({
+      title:               remoteEntry.title,
+      uri:                 remoteEntry.link,
+      author:              remoteEntry.author,
+      summary:             remoteEntry.description,
+      source_id:           remoteEntry.guid,
+      source_updated_at:   remoteEntry.date,
+      source_published_at: remoteEntry.pubdate,
     });
-}
+    if(!this.get('published_state')) this.set('published_state', 'queued');
+  }
+});
 
 module.exports = FeedEntry

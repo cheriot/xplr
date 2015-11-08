@@ -1,6 +1,6 @@
 import Feed from '../models/feed';
-import FeedEntry from '../models/feed_entry';
 import FeedReader from '../models/feed_reader';
+import EntryResource from '../resources/entry_resource';
 
 Feed.query('orderBy', 'name')
   .fetchAll()
@@ -14,7 +14,7 @@ Feed.query('orderBy', 'name')
           return Promise.all([reader, feed.save()]);
         }).then(([reader, feed]) => {
           const importPost = (post) => {
-            return FeedEntry.findOrCreateFromRemote(feed, post);
+            return EntryResource.updateOrCreate(feed, post);
           };
           return Promise.all(reader.posts.map(importPost));
         });

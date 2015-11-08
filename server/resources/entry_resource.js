@@ -59,6 +59,18 @@ class EntryResource {
     return {withRelated: ['feed', 'places']};
   }
 
+  static updateOrCreate(feed, remoteEntry) {
+    const identity = {feed_id: feed.id, source_id: remoteEntry.guid};
+    return FeedEntry
+      .forge(identity)
+      .fetch()
+      .then((feedEntry) => {
+        if(!feedEntry) feedEntry = FeedEntry.forge(identity);
+        feedEntry.updateFromRemote(remoteEntry);
+        return feedEntry.save();
+      });
+  }
+
 }
 
 module.exports = EntryResource;

@@ -73,8 +73,15 @@ app.post('/entries/:id/publish', (req, res) => {
 });
 
 app.post('/entries/:id/places', (req, res) => {
-  EntryResource.addPlace(req)
+  const feedEntryId = req.params.id,
+        googlePlace = req.body;
+  EntryResource.addPlace(feedEntryId, googlePlace)
     .then((feedEntry) => res.json(feedEntry) );
+});
+
+app.delete('/entries/:feedEntryId/places/:placeId', (req, res) => {
+  EntryResource.removePlace(req.params.feedEntryId, req.params.placeId)
+    .then((feedEntry) => res.json(feedEntry));
 });
 
 //

@@ -18,7 +18,8 @@ class EntryResource {
   static ignore(req) {
     const id = req.params.id;
     // Query for the full record so validations can be checked.
-    return this.fetchById(id)
+    return this.forge(id)
+      .fetch()
       .then((feedEntry) => feedEntry.save({published_state: 'ignored'}));
   }
 
@@ -26,18 +27,31 @@ class EntryResource {
     console.log('publish', req.params.id, req.body);
   }
 
-  static addPlace(req) {
+  static addPlace(feedEntryId, googlePlace) {
     return Promise.all([
-      this.fetchById(req.params.id),
-      PlaceResource.updateOrCreate(req.body)
+      this.fetch(feedEntryId),
+      PlaceResource.updateOrCreate(googlePlace)
     ]).then(([feedEntry, place]) => {
       feedEntry.places().attach(place.id);
       return feedEntry.refresh(this.fetchOptions());
     });
   }
 
-  static fetchById(id, options) {
-    return FeedEntry.forge({id: id}).fetch(options);
+  static removePlace(feedEntryId, placeId) {
+    return this.forge(feedEntryId)
+      .places()
+      .detach(placeId)
+      .then(() => {
+        return this.fetch(feedEntryId);
+      });
+  }
+
+  static forge(id) {
+    return FeedEntry.forge({id: id});
+  }
+
+  static fetch(id) {
+    return this.forge(id).refresh(this.fetchOptions());
   }
 
   static fetchOptions() {

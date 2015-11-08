@@ -1,5 +1,6 @@
-import bookshelf from './bookshelf';
 import Checkit from 'checkit';
+
+import bookshelf from './bookshelf';
 import FeedEntry from './feed_entry';
 
 const Place = bookshelf.Model.extend({
@@ -44,7 +45,7 @@ const Place = bookshelf.Model.extend({
     this.set('geo_level', 'address');
     setGeoLevelIfType('country', 'country');
     setGeoLevelIfType('city', 'locality');
-  }
+  },
 });
 
 Place.updateOrCreateFromRemote = (googlePlace) => {

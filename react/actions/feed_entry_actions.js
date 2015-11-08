@@ -31,10 +31,17 @@ class FeedEntryActions {
       });
   }
 
-  selectPlace(feedEntry, place) {
+  selectPlace(feedEntry, googlePlace) {
     this.dispatch();
     return FeedEntrySource
-      .selectPlace(feedEntry, place)
+      .selectPlace(feedEntry, googlePlace)
+      .then((feedEntry) => this.actions.updateFeedEntry(feedEntry));
+  }
+
+  removePlace(feedEntry, place) {
+    this.dispatch();
+    return FeedEntrySource
+      .removePlace(feedEntry, place)
       .then((feedEntry) => this.actions.updateFeedEntry(feedEntry));
   }
 }

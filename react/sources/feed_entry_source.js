@@ -22,6 +22,10 @@ class FeedEntrySource {
     return agent.post(`/entries/${feedEntry.id}/places`, googlePlace).then(this.returnBody);
   }
 
+  removePlace(feedEntry, place) {
+    return agent.del(`/entries/${feedEntry.id}/places/${place.id}`).then(this.returnBody);
+  }
+
   returnBody(response) {
     return response.body;
   }

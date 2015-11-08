@@ -7,10 +7,10 @@ class GooglePlacesAutocomplete extends BasePortal {
   initExternalDOM(node) {
     googleMapPromise.then((maps) => {
       this.autocomplete = new google.maps.places.Autocomplete(
-        React.findDOMNode(this),
+        this.refs.placesInput.getDOMNode(),
         {}
       );
-      this.autocomplete.addListener('place_changed', this.onPlaceChanged.bind(this));
+      this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
     });
   }
 
@@ -18,12 +18,15 @@ class GooglePlacesAutocomplete extends BasePortal {
     this.autocomplete.unbindAll();
   }
 
-  onPlaceChanged() {
+  handlePlaceChanged = () => {
     const googlePlace = this.autocomplete.getPlace();
+    console.log('Google Place', googlePlace);
     if (googlePlace) this.props.onPlaceSelect(googlePlace);
-    console.log(this.autocomplete);
-    console.log(this.refs.placesInput.getDOMNode());
     this.refs.placesInput.getDOMNode().value = '';
+  }
+
+  handleStopSubmit = (event) => {
+    event.preventDefault();
   }
 
   styles() {
@@ -33,10 +36,14 @@ class GooglePlacesAutocomplete extends BasePortal {
   }
 
   render() {
-    return <input
-      style={this.styles()}
-      ref='placesInput'
-      type='text' />
+    return (
+      <form onSubmit={this.handleStopSubmit}>
+        <input
+            style={this.styles()}
+            ref='placesInput'
+            type='text' />
+      </form>
+    );
   }
 
 }

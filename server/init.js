@@ -68,7 +68,8 @@ app.post('/entries/:id/ignore', (req, res) => {
 });
 
 app.post('/entries/:id/publish', (req, res) => {
-  EntryResource.publish(req)
+  const id = req.params.id;
+  EntryResource.publish(id)
     .then(() => res.json({published: true}) );
 });
 

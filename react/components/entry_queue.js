@@ -1,3 +1,5 @@
+import _, { isEmpty } from 'lodash';
+
 import React from 'react/addons';
 import FeedEntryStore from '../stores/feed_entry_store';
 import FeedEntryActions from '../actions/feed_entry_actions';
@@ -138,39 +140,41 @@ class FeedEntryForm extends React.Component {
   render() {
     const feedEntry = this.props.feedEntry;
 
+    // Putting the autocomplete inside the same form as publish triggers
+    // a submit when the user selects from the autocomplete with the
+    // keyboard.
     return (
       <li style={this.styles()}>
+
+        <div>
+          <a href={feedEntry.uri} target='_blank'>
+            <SafeText text={feedEntry.title} />
+          </a>
+          &lt;
+          <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
+        </div>
+
+        <ul>
+          {feedEntry.places.map(this.renderPlace)}
+        </ul>
+
+        <GooglePlacesAutocomplete
+            onPlaceSelect={this.handlePlaceSelect} />
+
         <form>
-
-          <div>
-            <a href={feedEntry.uri} target='_blank'>
-              <SafeText text={feedEntry.title} />
-            </a>
-            &lt;
-            <a href={feedEntry.feed.uri} target='_blank'>{feedEntry.feed.title}</a>
-          </div>
-
-          <ul>
-            {feedEntry.places.map(this.renderPlace)}
-          </ul>
-
-          <GooglePlacesAutocomplete
-              onPlaceSelect={this.handlePlaceSelect} />
-
-          <div>
-            <button
-                type='submit'
-                onClick={this.handlePublish}
-                disabled={!feedEntry.locations}>
-              publish
-            </button>
-            <button
-                type='submit'
-                onClick={this.handleIgnore}>
-              ignore
-            </button>
-          </div>
+          <button
+              type='submit'
+              onClick={this.handlePublish}
+              disabled={isEmpty(feedEntry.places)}>
+            publish
+          </button>
+          <button
+              type='submit'
+              onClick={this.handleIgnore}>
+            ignore
+          </button>
         </form>
+
       </li>
     );
   }
@@ -195,13 +199,16 @@ class PlaceForm extends React.Component {
   render() {
     const deEmphasizedStyles = { color: 'lightgray' };
     const linkStyle = { textDecoration: 'none' };
+    const place = this.props.place;
 
     return (
       <li>
-        {this.props.place.name}
+        ({place.geo_level})
+        {' '}
+        {place.name}
         {' '}
         <span style={deEmphasizedStyles}>
-          {this.props.place.formatted_address}
+          {place.formatted_address}
         </span>
         {' '}
         <a

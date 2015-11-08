@@ -48,19 +48,4 @@ const Place = bookshelf.Model.extend({
   },
 });
 
-Place.updateOrCreateFromRemote = (googlePlace) => {
-  const forged = Place.forge({google_place_id: googlePlace.id});
-
-  const assignAndSave = (place) => {
-    if(!place) { place = forged; }
-    place.updateFromGooglePlace(googlePlace);
-    return place.save();
-  };
-
-  return forged
-    .fetch()
-    .then(assignAndSave)
-    .catch((message) => console.log('error', message) );
-}
-
 module.exports = Place

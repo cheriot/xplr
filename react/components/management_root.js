@@ -19,4 +19,4 @@ class ManagementRoot extends React.Component {
   }
 }
 
-module.exports = ManagementRoot;
+module.exports = ManagementRoot

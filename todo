@@ -6,18 +6,22 @@ Up next
 
 Prototype Questions
 * Are these travel articles actually helpful?
-  * http://eatyourworld.com/
   * Use all from http://www.theexpeditioner.com/the-top-50-travel-blogs/
-  * http://www.wisebread.com/travel-resources
   * http://www.48houradventure.com/
   * http://wanderingtrader.com/
   * http://migrationology.com/blog/
+  * http://www.wisebread.com/travel-resources
 
 * Are bloggers interested?
   * "find older content" http://www.nomadicmatt.com/travel-blogs/survey-feedback/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+MattsTravelSite+%28Matt%27s+Travel+Log%29
 
 * email only blogs
- * http://www.ourawesomeplanet.com/
+  * http://www.ourawesomeplanet.com/
+  * http://freeyourmindtravel.com/
+* single city sites
+  * http://www.eatingthaifood.com
+* city guides
+  * http://eatyourworld.com/
 
 Design for each api method:
 * render react markup

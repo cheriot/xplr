@@ -1,8 +1,10 @@
 
 Up next
-* label feed entries with city, district, country, lat, lon
-* display feed entries for country, city
+* record place's bounding box
 * https://github.com/googlemaps/js-marker-clusterer
+* crawl sites
+  * https://github.com/cgiffard/node-simplecrawler
+  * cheerio for html parsing
 
 Prototype Questions
 * Are these travel articles actually helpful?

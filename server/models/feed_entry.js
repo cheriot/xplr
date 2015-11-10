@@ -37,6 +37,12 @@ const FeedEntry = bookshelf.Model.extend({
       source_published_at: remoteEntry.pubdate,
     });
     if(!this.get('published_state')) this.set('published_state', 'queued');
+  },
+
+  serialize: function(options) {
+    const attrs = bookshelf.Model.prototype.serialize.call(this, options)
+    delete attrs.summary;
+    return attrs;
   }
 });
 

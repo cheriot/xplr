@@ -16,9 +16,19 @@ class EntryResource {
   }
 
   static fetchByPlace(placeId) {
-    console.log('Entry#fetchByPlace start');
     return FeedEntry
       .where({published_state: 'published'})
+      .query((qb) => {
+        qb.innerJoin(
+          'feed_entries_places as fep',
+          'fep.feed_entry_id',
+          'feed_entries.id'
+        ).innerJoin(
+          'places',
+          'places.id',
+          'fep.place_id'
+        ).where('places.id', placeId);
+      })
       .query('limit', 3)
       .query('orderBy', 'created_at', 'desc')
       .fetchAll(this.fetchOptions())

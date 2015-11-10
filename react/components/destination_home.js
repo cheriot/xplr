@@ -32,17 +32,36 @@ class DestinationHome extends React.Component {
   }
 
   render() {
-    if (!this.state.destinationPlace) {
+    if (!this.state.destinationPlace || !this.state.feedEntries) {
       return <p>We haven't yet found content here. Email cheriot@gmail.com if you find something that travelers should know about.</p>;
     }
 
     return (
       <section>
         <h1>{this.state.destinationPlace.name}</h1>
+        <ul>
+          {this.state.feedEntries.map(this.renderEntry)}
+        </ul>
       </section>
     );
   }
 
+  renderEntry(feedEntry) {
+    return <FeedEntryItem key={feedEntry.id} feedEntry={feedEntry} />
+  }
+
+}
+
+class FeedEntryItem extends React.Component {
+  render() {
+    return (
+      <li>
+        <a target='_blank' href={this.props.feedEntry.source_id}>
+          {this.props.feedEntry.title}
+        </a>
+      </li>
+    );
+  }
 }
 
 module.exports = DestinationHome

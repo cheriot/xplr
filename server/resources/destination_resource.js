@@ -14,24 +14,15 @@ class DestinationResource {
   }
 
   static fetchByPlace(placeId) {
-    console.log('fetchByPlace start');
     return Promise.all([
       PlaceResource.fetch(placeId),
       EntryResource.fetchByPlace(placeId)
     ]).then( ([place, feedEntries]) => {
       return {
         destinationPlace: place,
-        feed_entries: feedEntries
+        feedEntries: feedEntries
       };
     });
-    console.log('fetchByPlace end');
-    // fetch place
-    //
-    // return {
-    //   destinationPlace: {}
-    //   places: [],
-    //   feed_entries: []
-    // }
   }
 
 }

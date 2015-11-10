@@ -1,6 +1,7 @@
 import agent from './agent';
 
 class FeedSource {
+
   fetch() {
     return agent.get('/feeds')
       .then(this.returnBody);
@@ -24,6 +25,7 @@ class FeedSource {
   returnBody(response) {
     return response.body;
   }
+
 };
 
-module.exports = new FeedSource();
+module.exports = new FeedSource()

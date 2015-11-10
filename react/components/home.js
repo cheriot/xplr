@@ -16,16 +16,6 @@ class Home extends React.Component {
     // MapViewActions.mapDisconnect(this.refs.mapRoot.getDOMNode());
   }
 
-  handlePlaceSelect = (gPlace) => {
-    window.gPlace = gPlace;
-    // this.state.map.focus(gPlace);
-    console.log('navigate to selected place', this.state, gPlace.geometry);
-
-    PlaceActions
-      .createPlace(gPlace)
-      .then(place => this.transitionTo(`/destination/${place.id}`) );
-  }
-
   render() {
     // const mapStyles = { height: '300px' };
 

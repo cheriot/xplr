@@ -27,9 +27,10 @@ app.set('view engine', 'ejs');
 // Data API
 //
 
-import FeedResource from '../server/resources/feed_resource';
-import EntryResource from '../server/resources/entry_resource';
-import PlaceResource from '../server/resources/place_resource';
+import FeedResource from './resources/feed_resource';
+import EntryResource from './resources/entry_resource';
+import PlaceResource from './resources/place_resource';
+import DestinationResource from './resources/destination_resource';
 
 app.get('/feeds', (req, res) => {
   FeedResource.list(req)
@@ -58,7 +59,7 @@ app.delete('/feeds/:id', (req, res) => {
 });
 
 app.get('/entries', (req, res) => {
-  EntryResource.list(req)
+  EntryResource.queue()
     .then(entries => res.json(entries));
 });
 
@@ -94,32 +95,27 @@ app.post('/places/', (req, res) => {
 // Web Pages
 //
 
+app.get('/destinations/:placeId', (req, res) => {
+  DestinationResource.fetchByPlace(req.params.placeId)
+    .then(destination => {
+      if(isApi(req)) {
+        res.json(destination);
+      } else if(isHtml(req)) {
+        res.locals.data = {
+          "DestinationStore": destination
+        }
+        reactRouteAndRender(req, res);
+      } else {
+        console.log('Error: unexpected accepts header', req.headers.accepts);
+      }
+    });
+});
+
 function isApi(req) { return /application\/json/.test(req.headers.accept); }
 function isHtml(req) { return /text\/html/.test(req.headers.accept); }
 
-app.get('/management', function(req, res) {
-  const list = FeedResource.list(req)
-  if(isApi(req)) {
-      list.then((feeds) => {
-        res.json(feeds)
-      });
-  } else if(isHtml(req)) {
-    list.then((feeds) => {
-      res.locals.data = {
-        "FeedStore": {
-          "feeds": feeds,
-          "isLoading": false,
-          "currentFeed": null
-        }
-      }
-      reactRouteAndRender(req, res);
-    });
-  } else {
-    console.log('Error: unexpected accepts header', req.headers.accepts);
-  }
-});
-
 function reactRouteAndRender(req, res) {
+
   // Anything that the data API doesn't handle is either a react-router url or a 404,
   // which react-router will handle (just not yet..).
   Router.run(routes, req.url, function(Handler, state) {

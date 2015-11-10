@@ -11,7 +11,7 @@ class NavigationAutocomplete extends React.Component {
   handlePlaceSelect = (gPlace) => {
     PlaceActions
       .createPlace(gPlace)
-      .then(place => this.transitionTo(`/destination/${place.id}`) );
+      .then(place => this.transitionTo(`/destinations/${place.id}`) );
   }
 
   render() {

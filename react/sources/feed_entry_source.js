@@ -1,4 +1,6 @@
-import agent from '../agent';
+import agent from './agent';
+
+import PlaceSource from './place_source';
 
 class FeedEntrySource {
   fetch() {
@@ -15,11 +17,14 @@ class FeedEntrySource {
     return agent.post(`/entries/${feedEntry.id}/publish`).then(this.returnBody);
   }
 
-  selectPlace(feedEntry, googlePlace) {
+  selectPlace(feedEntry, gPlace) {
     // pull lat/lon out of functions so they're serialized
-    googlePlace.lat = googlePlace.geometry.location.lat();
-    googlePlace.lon = googlePlace.geometry.location.lng();
-    return agent.post(`/entries/${feedEntry.id}/places`, googlePlace).then(this.returnBody);
+    return PlaceSource
+      .create(gPlace)
+      .then(place => {
+        return agent.post(`/entries/${feedEntry.id}/places/${place.id}`)
+      })
+      .then(this.returnBody);
   }
 
   removePlace(feedEntry, place) {
@@ -31,4 +36,4 @@ class FeedEntrySource {
   }
 }
 
-module.exports = new FeedEntrySource();
+module.exports = new FeedEntrySource()

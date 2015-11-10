@@ -1,6 +1,6 @@
 import _, { isEmpty } from 'lodash';
-
 import React from 'react/addons';
+
 import FeedEntryStore from '../stores/feed_entry_store';
 import FeedEntryActions from '../actions/feed_entry_actions';
 import GooglePlacesAutocomplete from './google_places_autocomplete';

@@ -1,8 +1,9 @@
 import React from 'react/addons';
-import FeedStore from '../stores/feed_store';
-import FeedActions from '../actions/feed_actions';
 import reactMixin from 'react-mixin';
 import { Navigation } from 'react-router';
+
+import FeedStore from '../stores/feed_store';
+import FeedActions from '../actions/feed_actions';
 
 @reactMixin.decorate(Navigation)
 class FeedManagementEditor extends React.Component {

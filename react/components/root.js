@@ -3,10 +3,16 @@ import { RouteHandler } from 'react-router';
 
 class Root extends React.Component {
   render() {
+    const brandTitle = {color: 'gray'};
+    const brandSubtitle = {color: 'lightgray', fontSize: '18px'};
+
     return (
       <div>
-        Brand and navigation go here.
-        <RouteHandler/>
+        <h1 style={brandTitle}>
+          Xplr.in
+          <span style={brandSubtitle}> beyond lonely planet </span>
+        </h1>
+        <RouteHandler />
       </div>
     );
   }

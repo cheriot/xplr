@@ -13,7 +13,7 @@ import EntryQueue from './components/entry_queue';
 var routes = (
   <Route path="/" handler={Root}>
     <DefaultRoute handler={Home} />
-    <Route path="location/:id" handler={PlaceHome} />
+    <Route path="destination/:id" handler={PlaceHome} />
 
     <Route path="management" handler={ManagementRoot}>
       <Route path="feeds" handler={FeedManagement} />

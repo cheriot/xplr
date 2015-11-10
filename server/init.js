@@ -29,6 +29,8 @@ app.set('view engine', 'ejs');
 
 import FeedResource from '../server/resources/feed_resource';
 import EntryResource from '../server/resources/entry_resource';
+import PlaceResource from '../server/resources/place_resource';
+
 app.get('/feeds', (req, res) => {
   FeedResource.list(req)
     .then((feeds) => {
@@ -57,9 +59,7 @@ app.delete('/feeds/:id', (req, res) => {
 
 app.get('/entries', (req, res) => {
   EntryResource.list(req)
-    .then((entries) => {
-      res.json(entries);
-    });
+    .then(entries => res.json(entries));
 });
 
 app.post('/entries/:id/ignore', (req, res) => {
@@ -73,16 +73,21 @@ app.post('/entries/:id/publish', (req, res) => {
     .then(() => res.json({published: true}) );
 });
 
-app.post('/entries/:id/places', (req, res) => {
+app.post('/entries/:id/places/:placeId', (req, res) => {
   const feedEntryId = req.params.id,
-        googlePlace = req.body;
-  EntryResource.addPlace(feedEntryId, googlePlace)
-    .then((feedEntry) => res.json(feedEntry) );
+        placeId = req.params.placeId;
+  EntryResource.addPlace(feedEntryId, placeId)
+    .then(feedEntry => res.json(feedEntry) );
 });
 
 app.delete('/entries/:feedEntryId/places/:placeId', (req, res) => {
   EntryResource.removePlace(req.params.feedEntryId, req.params.placeId)
-    .then((feedEntry) => res.json(feedEntry));
+    .then(feedEntry => res.json(feedEntry));
+});
+
+app.post('/places/', (req, res) => {
+  PlaceResource.updateOrCreate(req.body)
+    .then(place => res.json(place));
 });
 
 //

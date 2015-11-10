@@ -27,23 +27,18 @@ class EntryResource {
       .then(feedEntry => feedEntry.save({published_state: 'published'}));
   }
 
-  static addPlace(feedEntryId, googlePlace) {
-    return Promise.all([
-      this.fetch(feedEntryId),
-      PlaceResource.updateOrCreate(googlePlace)
-    ]).then(([feedEntry, place]) => {
-      feedEntry.places().attach(place.id);
-      return feedEntry.refresh(this.fetchOptions());
-    });
+  static addPlace(feedEntryId, placeId) {
+    return this.forge(feedEntryId)
+      .places()
+      .attach(placeId)
+      .then( () => this.fetch(feedEntryId) );
   }
 
   static removePlace(feedEntryId, placeId) {
     return this.forge(feedEntryId)
       .places()
       .detach(placeId)
-      .then(() => {
-        return this.fetch(feedEntryId);
-      });
+      .then( () => this.fetch(feedEntryId) );
   }
 
   static forge(id) {

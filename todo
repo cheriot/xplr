@@ -1,7 +1,11 @@
 
 Up next
 * record place's bounding box
-* https://github.com/googlemaps/js-marker-clusterer
+* put map on the destination page
+* improve handling of places with no content
+  * show content for places on the map
+  * make sure the map includes the nearest place
+* needed? https://github.com/googlemaps/js-marker-clusterer
 * crawl sites
   * https://github.com/cgiffard/node-simplecrawler
   * cheerio for html parsing

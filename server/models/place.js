@@ -21,23 +21,27 @@ const Place = bookshelf.Model.extend({
     }).run(this.attributes);
   },
 
-  updateFromGooglePlace: function(googlePlace) {
+  updateFromGooglePlace: function(gPlace) {
     this.set({
-      name: googlePlace.name,
-      google_place_id: googlePlace.id,
-      google_uri: googlePlace.url,
-      formatted_address: googlePlace.formatted_address,
-      lat: googlePlace.lat,
-      lon: googlePlace.lon,
-      website: googlePlace.website
+      name: gPlace.name,
+      google_place_id: gPlace.id,
+      google_uri: gPlace.url,
+      formatted_address: gPlace.formatted_address,
+      lat: gPlace.lat,
+      lon: gPlace.lon,
+      website: gPlace.website,
+      viewport_lat_north: gPlace.viewport_lat_north,
+      viewport_lat_south: gPlace.viewport_lat_south,
+      viewport_lon_east: gPlace.viewport_lon_east,
+      viewport_lon_west: gPlace.viewport_lon_west
     });
 
-    this.updateGeoLevel(googlePlace);
+    this.updateGeoLevel(gPlace);
   },
 
-  updateGeoLevel(googlePlace) {
+  updateGeoLevel(gPlace) {
     const setGeoLevelIfType = (geoLevel, type) => {
-      if (googlePlace.types.indexOf(type) > -1) {
+      if (gPlace.types.indexOf(type) > -1) {
         this.set('geo_level', geoLevel);
       }
     }

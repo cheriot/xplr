@@ -33,6 +33,7 @@ class GooglePlacesAutocomplete extends BasePortal {
   handlePlaceChanged = () => {
     const googlePlace = this.autocomplete.getPlace();
     console.log('Google Place', googlePlace.types, googlePlace);
+    window.gPlace = googlePlace;
     if (googlePlace) this.props.onPlaceSelect(googlePlace);
     this.refs.placesInput.getDOMNode().value = '';
   }

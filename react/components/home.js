@@ -8,23 +8,19 @@ class Home extends React.Component {
 
   componentDidMount() {
     MapViewStore.listen(state => this.setState(state))
-    // MapViewActions.mapConnect(this.refs.mapRoot.getDOMNode());
   }
 
   componentWillUnmount() {
     MapViewStore.unlisten(this.handleChange);
-    // MapViewActions.mapDisconnect(this.refs.mapRoot.getDOMNode());
   }
 
   render() {
-    // const mapStyles = { height: '300px' };
 
     return (
       <div>
         <NavigationAutocomplete />
       </div>
     );
-    // <div id='map-canvas' style={mapStyles} ref='mapRoot' />
   }
 
 }

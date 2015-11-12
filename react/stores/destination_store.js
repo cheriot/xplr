@@ -4,7 +4,6 @@ import DestinationActions from '../actions/destination_actions';
 class DestinationStore {
 
   constructor() {
-    this.destinationPlace = null;
     this.bindListeners({
       handleUpdateDestination: DestinationActions.UPDATE_DESTINATION
     });

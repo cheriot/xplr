@@ -19,7 +19,7 @@ class DestinationResource {
       EntryResource.fetchByPlace(placeId)
     ]).then( ([place, feedEntries]) => {
       return {
-        destinationPlace: place,
+        place: place,
         feedEntries: feedEntries
       };
     });

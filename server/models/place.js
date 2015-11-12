@@ -27,14 +27,25 @@ const Place = bookshelf.Model.extend({
       google_place_id: gPlace.id,
       google_uri: gPlace.url,
       formatted_address: gPlace.formatted_address,
-      lat: gPlace.lat,
-      lon: gPlace.lon,
       website: gPlace.website,
-      viewport_lat_north: gPlace.viewport_lat_north,
-      viewport_lat_south: gPlace.viewport_lat_south,
-      viewport_lon_east: gPlace.viewport_lon_east,
-      viewport_lon_west: gPlace.viewport_lon_west
     });
+
+    // Sometimes google's autocomplete resutls will leave out the #geometry property.
+    if(gPlace.lat && gPlace.lon) {
+      this.set({
+        lat: gPlace.lat,
+        lon: gPlace.lon,
+      })
+    }
+
+    if(gPlace.viewport_lat_north) {
+      this.set({
+        viewport_lat_north: gPlace.viewport_lat_north,
+        viewport_lat_south: gPlace.viewport_lat_south,
+        viewport_lon_east: gPlace.viewport_lon_east,
+        viewport_lon_west: gPlace.viewport_lon_west
+      })
+    }
 
     this.updateGeoLevel(gPlace);
   },

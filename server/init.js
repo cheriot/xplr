@@ -7,6 +7,10 @@ import alt from '../react/alt_dispatcher';
 import Iso from 'iso';
 import config from '../config';
 
+process.on('unhandledRejection', function(error, promise) {
+  console.error("UNHANDLED REJECTION", error.stack);
+});
+
 var app = express(),
     port = 4444;
 

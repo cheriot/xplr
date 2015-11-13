@@ -1,5 +1,5 @@
 import _, { isEmpty } from 'lodash';
-import React from 'react/addons';
+import React from 'react';
 
 import FeedEntryStore from '../stores/feed_entry_store';
 import FeedEntryActions from '../actions/feed_entry_actions';

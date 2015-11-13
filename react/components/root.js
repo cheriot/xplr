@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import { RouteHandler } from 'react-router';
 
 class Root extends React.Component {

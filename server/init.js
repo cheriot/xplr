@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import React from 'react/addons';
+import React from 'react';
 import Router from 'react-router';
 import routes from '../react/routes';
 import alt from '../react/alt_dispatcher';

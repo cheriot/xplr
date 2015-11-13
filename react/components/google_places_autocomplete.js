@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import BasePortal from './base_portal';
 import googleMapPromise from '../models/google_maps';
 
@@ -9,20 +9,20 @@ class GooglePlacesAutocomplete extends BasePortal {
       const opts = {types: this.props.placeTypes || []};
 
       this.autocomplete = new google.maps.places.Autocomplete(
-        this.refs.placesInput.getDOMNode(),
+        this.refs.placesInput,
         opts
       );
       this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
     });
 
     if (this.props.isFocus) {
-      this.refs.placesInput.getDOMNode().focus();
+      this.refs.placesInput.focus();
     }
   }
 
   updateExternalDOM(node, newProps) {
     if (newProps.isFocus) {
-      this.refs.placesInput.getDOMNode().focus();
+      this.refs.placesInput.focus();
     }
   }
 
@@ -35,7 +35,7 @@ class GooglePlacesAutocomplete extends BasePortal {
     console.log('Google Place', googlePlace.types, googlePlace);
     window.gPlace = googlePlace;
     if (googlePlace) this.props.onPlaceSelect(googlePlace);
-    this.refs.placesInput.getDOMNode().value = '';
+    this.refs.placesInput.value = '';
   }
 
   handleStopSubmit = (event) => {

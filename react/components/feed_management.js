@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import FeedStore from '../stores/feed_store';
 import FeedActions from '../actions/feed_actions';
 import FeedInput from './feed_input';

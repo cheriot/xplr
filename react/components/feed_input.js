@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 class FeedInput extends React.Component {
 
@@ -16,7 +16,7 @@ class FeedInput extends React.Component {
 
   handleChange() {
     this.props.onChange(
-      this.refs.feedUriInput.getDOMNode().value
+      this.refs.feedUriInput.value
     )
   }
 

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';

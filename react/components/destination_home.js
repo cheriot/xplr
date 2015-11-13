@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import _ from 'lodash';
 
 import DestinationActions from '../actions/destination_actions';
@@ -69,12 +69,12 @@ class MapView extends React.Component {
 
   componentDidMount() {
     MapViewStore.listen(this.handleChange);
-    MapViewActions.mapConnect(this.refs.mapRoot.getDOMNode());
+    MapViewActions.mapConnect(this.refs.mapRoot);
   }
 
   componentWillUnmount() {
     MapViewStore.unlisten(this.handleChange);
-    MapViewActions.mapDisconnect(this.refs.mapRoot.getDOMNode());
+    MapViewActions.mapDisconnect(this.refs.mapRoot);
   }
 
   handleChange = (state) => {

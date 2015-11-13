@@ -1,4 +1,5 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 // Based on
 // https://github.com/ryanflorence/react-training/blob/gh-pages/lessons/05-wrapping-dom-libs.md
@@ -24,7 +25,8 @@ class BasePortal extends React.Component {
 
   componentWillUnmount() {
     this.destroyExternalDOM(this.getDOMNode());
-    React.unmountComponentAtNode(this.getDOMNode());
+    // ???
+    // ReactDOM.unmountComponentAtNode(this.getDOMNode());
   }
 
   componentWillReceiveProps(newProps) {
@@ -35,7 +37,7 @@ class BasePortal extends React.Component {
 
   renderChildren(props) {
     // How can I properly handle nested content in a portal?
-    // React.render(<div>{this.props.children}</div>, this.getDOMNode());
+    // ReactDOM.render(<div>{this.props.children}</div>, this.getDOMNode());
   }
 
   initExternalDOM(node) {
@@ -53,7 +55,7 @@ class BasePortal extends React.Component {
   }
 
   getDOMNode() {
-    return React.findDOMNode(this);
+    return ReactDOM.findDOMNode(this);
  }
 }
 

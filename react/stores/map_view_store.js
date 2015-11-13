@@ -19,7 +19,7 @@ class MapViewStore {
       const gMap = new maps.Map(domNode, {
         zoom: 2,
         center: {lat: 20.530892091775808, lng: 7.667925781250009},
-        mapTypeId: google.maps.MapTypeId.SATELLITE
+        mapTypeId: google.maps.MapTypeId.TERRAIN
       });
       google.maps.event.trigger(gMap, 'resize');
       this.setState({map: new GoogleMap(gMap)});

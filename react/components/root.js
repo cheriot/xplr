@@ -9,7 +9,7 @@ class Root extends React.Component {
     return (
       <div>
         <h1 style={brandTitle}>
-          Xplr.in
+          <a href='/'>Xplr.in</a>
           <span style={brandSubtitle}> beyond lonely planet </span>
         </h1>
         <RouteHandler />

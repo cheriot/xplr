@@ -10,6 +10,7 @@ class GoogleMap {
     this.initialFocusSet = false;
     _.forEach(this.markers || [], marker => marker.setMap(null));
     this.markers = [];
+    this.idMarkers = {};
   }
 
   focus(place, addHighlightMarker) {
@@ -37,6 +38,9 @@ class GoogleMap {
   }
 
   marker(place, options, listener) {
+    const existingMarker = this.idMarkers[place.id];
+    if (existingMarker) return;
+
     const markerOptions = _.assign(
       {
         position: {lat: place.lat, lng: place.lon},
@@ -47,10 +51,15 @@ class GoogleMap {
     );
     const marker = new google.maps.Marker(markerOptions);
     if (listener) marker.addListener('click', listener);
+    this.idMarkers[place.id] = marker;
     this.markers.push(marker);
   }
 
   highlightMarker(place) {
+    // the previous marker my not have been highlighted so remove it
+    const existingMarker = this.idMarkers[place.id];
+    if (existingMarker) existingMarker.setMap(null);
+
     const highlightOptions = {
       animation: google.maps.Animation.DROP,
     }

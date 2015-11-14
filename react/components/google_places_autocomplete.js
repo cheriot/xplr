@@ -6,11 +6,10 @@ class GooglePlacesAutocomplete extends BasePortal {
 
   initExternalDOM(node) {
     googleMapPromise.then((maps) => {
-      const opts = {types: this.props.placeTypes || []};
 
       this.autocomplete = new google.maps.places.Autocomplete(
         this.refs.placesInput,
-        opts
+        this.autocompleteOptions()
       );
       this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
     });
@@ -18,6 +17,10 @@ class GooglePlacesAutocomplete extends BasePortal {
     if (this.props.isFocus) {
       this.refs.placesInput.focus();
     }
+  }
+
+  autocompleteOptions() {
+    return {types: this.props.placeTypes || []};
   }
 
   updateExternalDOM(node, newProps) {
@@ -31,10 +34,50 @@ class GooglePlacesAutocomplete extends BasePortal {
   }
 
   handlePlaceChanged = () => {
-    const googlePlace = this.autocomplete.getPlace();
-    console.log('Google Place', googlePlace.types, googlePlace);
-    window.gPlace = googlePlace;
-    if (googlePlace) this.props.onPlaceSelect(googlePlace);
+    let gPlace = this.autocomplete.getPlace();
+
+    if (gPlace.id) {
+      // The user selected one of the autocomplete suggestions.
+      this.selectPlace(gPlace);
+    } else if (!gPlace.id && gPlace.name) {
+      // place_changed will fire when the user has pressed enter without
+      // selecting anything from the autocomplete. We need to take that string,
+      // make the autocomplete call ourselves and call again for details on
+      // the first autocomplete result.
+      const options = _.assign(
+        this.autocompleteOptions(),
+        {input: gPlace.name, offset: gPlace.name.length}
+      )
+
+      const handlePlacePredictionResponse = (predictions, status) => {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          new google.maps.places.PlacesService(this.refs.attribution)
+            .getDetails(
+              {placeId: predictions[0].place_id},
+              handlePlaceDetailResponse
+            );
+        } else {
+          console.log('unexpected place prediction response', status, predictions, options);
+        }
+      }
+
+      const handlePlaceDetailResponse = (gPlace, status) => {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+          this.selectPlace(gPlace);
+        } else {
+          console.log('unexpected place prediction response', status, predictions, options);
+        }
+      }
+
+      const autocompleteService = new google.maps.places.AutocompleteService()
+        .getPlacePredictions(options, handlePlacePredictionResponse);
+    }
+  }
+
+  selectPlace(gPlace) {
+    console.log('Google Place', gPlace.types, gPlace);
+    window.gPlace = gPlace;
+    this.props.onPlaceSelect(gPlace);
     this.refs.placesInput.value = '';
   }
 
@@ -57,6 +100,7 @@ class GooglePlacesAutocomplete extends BasePortal {
             ref='placesInput'
             placeholder={placeholder}
             type='text' />
+        <div ref='attribution' style={{hidden: true}} />
       </form>
     );
   }

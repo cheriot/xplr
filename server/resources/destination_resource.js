@@ -3,14 +3,12 @@ import EntryResource from './entry_resource';
 
 class DestinationResource {
 
-  static fetch(box) {
-    const { nw, ne, se, sw } = box;
-    // query places with those bounds (cities only - for map markers)
-    // query for feed entries with a place within those bounds
-    // return {
-    //   places: [],
-    //   feed_entries: []
-    // }
+  static fetch(bounds) {
+    console.log('fetch box', bounds);
+    return PlaceResource.nearBy(bounds)
+      .then(places => {
+        return {nearByDestinations: places};
+      });
   }
 
   static fetchByPlace(placeId) {
@@ -29,7 +27,7 @@ class DestinationResource {
 
   static createDestination(place) {
     return PlaceResource
-      .nearBy(place)
+      .nearByPlace(place)
       .then(places => {
         return {
           place: place,

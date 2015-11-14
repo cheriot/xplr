@@ -19,16 +19,25 @@ class PlaceResource {
       .catch((message) => console.log('error', message) );
   }
 
-  static nearBy(place) {
-    return Place.where('lat', '<', place.get('viewport_lat_north'))
-      .where('lat', '>', place.get('viewport_lat_south'))
-      .where('lon', '<', place.get('viewport_lon_east'))
-      .where('lon', '>', place.get('viewport_lon_west'))
-      .where('geo_level', 'city')
-      .fetchAll()
+  static nearByPlace(place) {
+    return this.nearBy(this.bounds(place))
       .then(collection => {
         return _.filter(collection.models, found => found.id != place.id);
       });
+  }
+
+  static nearBy(bounds) {
+    return Place
+      .where('lat', '<', bounds.viewport_lat_north)
+      .where('lat', '>', bounds.viewport_lat_south)
+      .where('lon', '<', bounds.viewport_lon_east)
+      .where('lon', '>', bounds.viewport_lon_west)
+      .where('geo_level', 'city')
+      .fetchAll()
+  }
+
+  static bounds(place) {
+    return place.attributes;
   }
 }
 

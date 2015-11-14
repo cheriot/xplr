@@ -100,6 +100,11 @@ app.post('/places/', (req, res) => {
 // Web Pages
 //
 
+app.get('/destinations/nearBy', (req, res) => {
+  DestinationResource.fetch(req.query)
+    .then(destination => res.json(destination));
+});
+
 app.get('/destinations/:placeId', (req, res) => {
   DestinationResource.fetchByPlace(req.params.placeId)
     .then(destination => {

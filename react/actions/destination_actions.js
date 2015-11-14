@@ -9,7 +9,12 @@ class DestinationActions {
 
   fetch(placeId) {
     return DestinationSource.fetch(placeId)
-      .then( destination => this.actions.updateDestination(destination) );
+      .then(destination => this.actions.updateDestination(destination));
+  }
+
+  fetchNearBy(bounds) {
+    return DestinationSource.fetchNearBy(bounds)
+      .then(destination => this.actions.updateDestination(destination));
   }
 
 }

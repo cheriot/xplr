@@ -56,6 +56,21 @@ class GoogleMap {
     }
     this.marker(place, highlightOptions);
   }
+
+  listen(eventName, listener) {
+    google.maps.event.addListener(this.gMap, eventName, listener);
+  }
+
+  getBounds() {
+    const bounds = this.gMap.getBounds();
+    return {
+      viewport_lat_north: bounds.getNorthEast().lat(),
+      viewport_lat_south: bounds.getSouthWest().lat(),
+      viewport_lon_east: bounds.getNorthEast().lng(),
+      viewport_lon_west: bounds.getSouthWest().lng()
+    }
+  }
+
 }
 
 module.exports = GoogleMap

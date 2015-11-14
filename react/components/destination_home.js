@@ -39,6 +39,11 @@ class DestinationHome extends React.Component {
     this.transitionTo(`/destinations/${place.id}`);
   }
 
+  handleMapMove = (bounds) => {
+    console.log('map moved to', bounds);
+    DestinationActions.fetchNearBy(bounds);
+  }
+
   componentWillReceiveProps(newProps) {
     this.fetchWhenNeeded(newProps);
   }
@@ -52,7 +57,7 @@ class DestinationHome extends React.Component {
 
   render() {
     let message = '';
-    if (!this.state.place || !this.state.feedEntries) {
+    if (this.state.place && _.isEmpty(this.state.feedEntries)) {
       message = <p>We haven't yet found content here. Email cheriot@gmail.com if you find something that travelers should know about.</p>;
     }
 
@@ -63,7 +68,8 @@ class DestinationHome extends React.Component {
         <h1>{this.state.place ? this.state.place.name : ''}</h1>
         <MapView
             destination={this.state}
-            onSelectDestination={this.handleDestinationSelect} />
+            onSelectDestination={this.handleDestinationSelect}
+            onMapMove={this.handleMapMove} />
         {message}
         <ul>
           {this.state.feedEntries.map(this.renderEntry)}
@@ -94,9 +100,14 @@ class MapView extends React.Component {
     this.setState(state);
   }
 
+  handleMapMove = (bounds) => {
+    if (this.props.onMapMove) this.props.onMapMove(bounds);
+  }
+
   render() {
     if (this.state && this.state.map && this.props.destination) {
       this.state.map.goToDestination(this.props.destination, this.props.onSelectDestination);
+      this.state.map.setMovementListener(this.handleMapMove);
     }
 
     const mapStyles = { height: '300px' };

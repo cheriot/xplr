@@ -4,6 +4,8 @@ import _ from 'lodash';
 class DestinationMap {
   constructor(map) {
     this.map = map;
+    this.map.listen('idle', this.handleMovement);
+    this.skipNextMovement = true;
   }
 
   goToDestination(destination, onSelectDestination) {
@@ -14,6 +16,18 @@ class DestinationMap {
     this.destination = destination;
     this.nearBy(destination.nearByDestinations, onSelectDestination);
     this.focus(destination.place);
+  }
+
+  setMovementListener(listener) {
+    this.movementListener = listener;
+  }
+
+  handleMovement = (a, b, c) => {
+    if (this.skipNextMovement) {
+      this.skipNextMovement = false;
+    } else if (this.movementListener) {
+      this.movementListener(this.map.getBounds());
+    }
   }
 
   focus(place) {

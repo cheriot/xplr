@@ -5,8 +5,13 @@ class DestinationStore {
 
   constructor() {
     this.bindListeners({
+      handleFetch: DestinationActions.FETCH,
       handleUpdateDestination: DestinationActions.UPDATE_DESTINATION
     });
+  }
+
+  handleFetch() {
+    this.setState({});
   }
 
   handleUpdateDestination(destination) {

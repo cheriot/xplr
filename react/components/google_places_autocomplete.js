@@ -76,7 +76,7 @@ class GooglePlacesAutocomplete extends BasePortal {
 
   selectPlace(gPlace) {
     console.log('Google Place', gPlace.types, gPlace);
-    window.gPlace = gPlace;
+    window.gPlace = gPlace; // debugging
     this.props.onPlaceSelect(gPlace);
     this.refs.placesInput.value = '';
   }

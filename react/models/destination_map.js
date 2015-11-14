@@ -6,25 +6,26 @@ class DestinationMap {
     this.map = map;
   }
 
-  goToDestination(destination) {
+  goToDestination(destination, onSelectDestination) {
     if(!destination || !destination.place) return;
-    console.log('goToDestination', destination);
+    if(this.destination && this.destination.place.id != destination.place.id) {
+      this.map.reset();
+    }
+    this.destination = destination;
+    this.nearBy(destination.nearByDestinations, onSelectDestination);
     this.focus(destination.place);
-    this.nearBy(destination.nearByDestinations);
   }
 
   focus(place) {
     // add marker if it's a city with a the highlight color
-    if (place.geo_level == 'city') {
-      this.map.highlightMarker(place);
-    }
-    this.map.focus(place);
+    this.map.focus(place, place.geo_level == 'city');
   }
 
-  nearBy(places) {
+  nearBy(places, listener) {
     // add markers
     _.forEach(places, place => {
-      this.map.marker(place);
+      const placeListener = () => listener(place);
+      this.map.marker(place, {}, placeListener);
     });
   }
 

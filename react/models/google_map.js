@@ -2,13 +2,25 @@
 class GoogleMap {
   constructor(gMap) {
     this.gMap = gMap;
+    this.reset();
+  }
+
+  reset() {
+    console.log('reset map');
     this.initialFocusSet = false;
+    _.forEach(this.markers || [], marker => marker.setMap(null));
     this.markers = [];
   }
 
-  focus(place) {
+  focus(place, addHighlightMarker) {
     if(!this.initialFocusSet) {
       this.initialFocusSet = true;
+      if (addHighlightMarker) {
+        // Only add the marker once the map is moved to the new location.
+        google.maps.event.addListenerOnce(this.gMap, 'idle', () => {
+          this.highlightMarker(place);
+        });
+      }
       this.fit(place);
     }
   }
@@ -42,9 +54,7 @@ class GoogleMap {
     const highlightOptions = {
       animation: google.maps.Animation.DROP,
     }
-    setTimeout(() => {
-      this.marker(place, highlightOptions);
-    },800);
+    this.marker(place, highlightOptions);
   }
 }
 

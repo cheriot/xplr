@@ -1,4 +1,6 @@
 import React from 'react';
+import reactMixin from 'react-mixin';
+import { Navigation } from 'react-router';
 import _ from 'lodash';
 
 import DestinationActions from '../actions/destination_actions';
@@ -6,18 +8,13 @@ import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
 
+@reactMixin.decorate(Navigation)
 class DestinationHome extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = _.defaults(
-      DestinationStore.getState(),
-      {feedEntries: []}
-    )
-
-    if (this.needFetch()) {
-      DestinationActions.fetch(this.props.params.id);
-    }
+    this.state = {feedEntries: []};
+    this.fetchWhenNeeded(this.props);
   }
 
   componentDidMount() {
@@ -32,10 +29,25 @@ class DestinationHome extends React.Component {
     this.setState(state);
   }
 
-  needFetch() {
+  needFetch(props) {
     // allow 4 and '4'
     return !(this.state && this.state.place
-       && this.state.place.id == this.props.params.id);
+       && this.state.place.id == props.params.id);
+  }
+
+  handleDestinationSelect = (place) => {
+    this.transitionTo(`/destinations/${place.id}`);
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.fetchWhenNeeded(newProps);
+  }
+
+  fetchWhenNeeded(props) {
+    if (this.needFetch(props)) {
+      console.log('need fetch', this.state, props);
+      DestinationActions.fetch(props.params.id);
+    }
   }
 
   render() {
@@ -49,7 +61,9 @@ class DestinationHome extends React.Component {
     return (
       <section>
         <h1>{this.state.place ? this.state.place.name : ''}</h1>
-        <MapView destination={this.state} />
+        <MapView
+            destination={this.state}
+            onSelectDestination={this.handleDestinationSelect} />
         {message}
         <ul>
           {this.state.feedEntries.map(this.renderEntry)}
@@ -82,7 +96,7 @@ class MapView extends React.Component {
 
   render() {
     if (this.state && this.state.map && this.props.destination) {
-      this.state.map.goToDestination(this.props.destination);
+      this.state.map.goToDestination(this.props.destination, this.props.onSelectDestination);
     }
 
     const mapStyles = { height: '300px' };

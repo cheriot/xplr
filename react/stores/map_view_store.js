@@ -16,14 +16,15 @@ class MapViewStore {
 
   handleMapConnect(promise) {
     promise.then( ([maps, domNode]) => {
+      // The map will not appear until told which part of
+      // the world to show.
+      // zoom: 2,
+      // center: {lat: 20.530892091775808, lng: 7.667925781250009},
       const gMap = new maps.Map(domNode, {
-        zoom: 2,
-        center: {lat: 20.530892091775808, lng: 7.667925781250009},
         mapTypeId: google.maps.MapTypeId.TERRAIN
       });
-      google.maps.event.trigger(gMap, 'resize');
       this.setState({map: this.createDestinationMap(gMap)});
-      window.gMap = gMap; // easier debugging
+      window.gMap = gMap; // debugging
     })
   }
 

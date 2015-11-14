@@ -1,7 +1,8 @@
 
 Up next
-* record place's bounding box
-* put map on the destination page
+* add markers as the map moves
+* show feedEntries of the country of the selected destination
+* make the highlighted marker bounce when clicked
 * improve handling of places with no content
   * show content for places on the map
   * make sure the map includes the nearest place
@@ -28,6 +29,10 @@ Prototype Questions
   * http://www.eatingthaifood.com
 * city guides
   * http://eatyourworld.com/
+* existing guides with *some* good content
+  * http://www.roughguides.com/article/taiwan-street-food/
+* extensive niche guides
+  * seat61.com
 
 Design for each api method:
 * render react markup

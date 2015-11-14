@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import Router from 'react-router';
 import routes from '../react/routes';
 import alt from '../react/alt_dispatcher';
@@ -128,7 +129,7 @@ function reactRouteAndRender(req, res) {
     alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
     // Render HTML with all the data alt has been given.
-    var reactHtml = React.renderToString(<Handler {...state} />),
+    var reactHtml = ReactDOMServer.renderToString(<Handler {...state} />),
         clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
         clientSrc = `${clientSrcDomain}/client/bundle.js`;
 

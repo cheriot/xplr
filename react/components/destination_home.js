@@ -49,8 +49,7 @@ class DestinationHome extends React.Component {
     return (
       <section>
         <h1>{this.state.place ? this.state.place.name : ''}</h1>
-        <MapView
-            focusedPlace={this.state.place} />
+        <MapView destination={this.state} />
         {message}
         <ul>
           {this.state.feedEntries.map(this.renderEntry)}
@@ -82,8 +81,8 @@ class MapView extends React.Component {
   }
 
   render() {
-    if (this.state && this.state.map && this.props.focusedPlace) {
-      this.state.map.initialFocus(this.props.focusedPlace);
+    if (this.state && this.state.map && this.props.destination) {
+      this.state.map.goToDestination(this.props.destination);
     }
 
     const mapStyles = { height: '300px' };

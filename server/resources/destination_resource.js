@@ -14,15 +14,28 @@ class DestinationResource {
   }
 
   static fetchByPlace(placeId) {
+    const destinationPromise = PlaceResource
+      .fetch(placeId)
+      .then(this.createDestination);
+
     return Promise.all([
-      PlaceResource.fetch(placeId),
+      destinationPromise,
       EntryResource.fetchByPlace(placeId)
-    ]).then( ([place, feedEntries]) => {
-      return {
-        place: place,
-        feedEntries: feedEntries
-      };
+    ]).then( ([destination, feedEntries]) => {
+      destination.feedEntries = feedEntries;
+      return destination;
     });
+  }
+
+  static createDestination(place) {
+    return PlaceResource
+      .nearBy(place)
+      .then(places => {
+        return {
+          place: place,
+          nearByDestinations: places,
+        };
+      });
   }
 
 }

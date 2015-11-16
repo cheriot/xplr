@@ -24,7 +24,7 @@ class DestinationResource {
       EntryResource.fetchByPlace(placeId),
       PlaceResource.nearByPlace(place),
     ];
-    if (placeId != countryId) {
+    if (place.isCity()) {
       // For countries these are the same queries as above.
       promises.push(
         PlaceResource.fetch(countryId),

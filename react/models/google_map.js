@@ -27,13 +27,19 @@ class GoogleMap {
 
   fit(place) {
     // google's place object: gMap.fitBounds(gPlace.geometry.viewport)
-    const bounds = {
-      ne: {lat: place.viewport_lat_north, lng: place.viewport_lon_east},
-      sw: {lat: place.viewport_lat_south, lng: place.viewport_lon_west}
-    };
-    this.gMap.fitBounds(
-      new google.maps.LatLngBounds(bounds.sw, bounds.ne)
-    );
+    if (place.viewport_lat_north && place.viewport_lat_south
+        && place.viewport_lon_east && place.viewport_lon_west) {
+      const bounds = {
+        ne: {lat: place.viewport_lat_north, lng: place.viewport_lon_east},
+        sw: {lat: place.viewport_lat_south, lng: place.viewport_lon_west}
+      };
+      this.gMap.fitBounds(
+        new google.maps.LatLngBounds(bounds.sw, bounds.ne)
+      );
+    } else {
+      this.gMap.setCenter({lat: place.lat, lng: place.lon});
+      this.gMap.setZoom(place.geo_level == 'city' ? 9 : 4);
+    }
   }
 
   marker(place, options, listener) {

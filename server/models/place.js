@@ -73,6 +73,12 @@ const Place = bookshelf.Model.extend({
     this.set('country_id', country_id);
   },
 
+  isCity() {
+    // Exclude continents and countries.
+    const countryId = this.get('country_id');
+    return countryId && countryId != this.get('id');
+  },
+
 });
 
 module.exports = Place

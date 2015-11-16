@@ -144,7 +144,7 @@ function reactRouteAndRender(req, res) {
     res.render('index.ejs', {
       reactHtml: iso.render(),
       clientSrc: clientSrc,
-      googleKey: config.googleKey
+      googleKey: config.googleKeyClient
     });
   });
 }

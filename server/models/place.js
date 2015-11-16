@@ -22,9 +22,10 @@ const Place = bookshelf.Model.extend({
   },
 
   updateFromGooglePlace: function(gPlace) {
+    console.log('update', this.attributes.id, this.attributes.name, 'from google');
     this.set({
       name: gPlace.name,
-      google_place_id: gPlace.id,
+      google_place_id: gPlace.place_id,
       google_uri: gPlace.url,
       formatted_address: gPlace.formatted_address,
       website: gPlace.website,
@@ -60,7 +61,18 @@ const Place = bookshelf.Model.extend({
     this.set('geo_level', 'address');
     setGeoLevelIfType('country', 'country');
     setGeoLevelIfType('city', 'locality');
+    setGeoLevelIfType('city', 'sublocality');
+    setGeoLevelIfType('city', 'natural_feature');
+    setGeoLevelIfType('city', 'park');
+    setGeoLevelIfType('city', 'administrative_area_level_1');
   },
+
+  setCountry(place) {
+    const country_id = place.get('id');
+    if (!country_id) throw new Error('Country has no id');
+    this.set('country_id', country_id);
+  },
+
 });
 
 module.exports = Place

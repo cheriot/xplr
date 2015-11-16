@@ -57,7 +57,7 @@ class PlaceResource {
   }
 
   static assignCountry(place, gPlace) {
-    console.log('assignCountry', gPlace.address_components);
+    console.log('assignCountry', gPlace.address_components, gPlace.types);
     const countryName = this.findCountry(gPlace.address_components).long_name;
 
     return Place.where('name', countryName)
@@ -67,6 +67,9 @@ class PlaceResource {
         if (countryPlace) {
           console.log('DB country', countryPlace.get('id'), countryPlace.get('name'));
           return countryPlace;
+        } else if (this.findCountry([gPlace])) {
+          // place is a country. Save it so we have an id to set as the countryId.
+          return place.save();
         } else {
           console.log('remote country needed', countryPlace);
           return this.populateCountry(countryName);

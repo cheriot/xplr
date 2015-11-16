@@ -68,9 +68,9 @@ const Place = bookshelf.Model.extend({
   },
 
   setCountry(place) {
-    const country_id = place.get('id');
-    if (!country_id) throw new Error('Country has no id');
-    this.set('country_id', country_id);
+    const countryId = place.get('id');
+    if (!countryId) throw new Error('Country has no id');
+    this.set('country_id', countryId);
   },
 
   isCity() {

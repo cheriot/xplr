@@ -163,7 +163,8 @@ class FeedEntryForm extends React.Component {
 
         <GooglePlacesAutocomplete
             onPlaceSelect={this.handlePlaceSelect}
-            isFocus={this.props.isFocus} />
+            isFocus={this.props.isFocus}
+            types={['(regions)']} />
 
         <form>
           <button

@@ -12,26 +12,33 @@ class DestinationResource {
   }
 
   static fetchByPlace(placeId) {
-    const destinationPromise = PlaceResource
+    return PlaceResource
       .fetch(placeId)
       .then(this.createDestination);
-
-    return Promise.all([
-      destinationPromise,
-      EntryResource.fetchByPlace(placeId)
-    ]).then( ([destination, feedEntries]) => {
-      destination.feedEntries = feedEntries;
-      return destination;
-    });
   }
 
   static createDestination(place) {
-    return PlaceResource
-      .nearByPlace(place)
-      .then(places => {
+    const placeId = place.get('id');
+    const countryId = place.get('country_id');
+    const promises = [
+      EntryResource.fetchByPlace(placeId),
+      PlaceResource.nearByPlace(place),
+    ];
+    if (placeId != countryId) {
+      // For countries these are the same queries as above.
+      promises.push(
+        PlaceResource.fetch(countryId),
+        EntryResource.fetchByPlace(countryId)
+      );
+    }
+    return Promise.all(promises)
+      .then(([feedEntries, places, country, countryFeedEntries]) => {
         return {
           place: place,
+          feedEntries: feedEntries,
           nearByDestinations: places,
+          country: country,
+          countryFeedEntries: countryFeedEntries
         };
       });
   }

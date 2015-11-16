@@ -6,7 +6,6 @@ class GoogleMap {
   }
 
   reset() {
-    console.log('reset map');
     this.initialFocusSet = false;
     _.forEach(this.markers || [], marker => marker.setMap(null));
     this.markers = [];

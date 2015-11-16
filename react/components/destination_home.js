@@ -8,12 +8,17 @@ import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
 
+import {maybe} from '../models/maybe';
+
 @reactMixin.decorate(Navigation)
 class DestinationHome extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {feedEntries: []};
+    this.state = {
+      feedEntries: [],
+      countryFeedEntries: []
+    };
     this.fetchWhenNeeded(this.props);
   }
 
@@ -61,11 +66,13 @@ class DestinationHome extends React.Component {
       message = <p>We haven't yet found content here. Email cheriot@gmail.com if you find something that travelers should know about.</p>;
     }
 
+    const country = maybe(this.state, 'country');
+
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
     return (
       <section>
-        <h1>{this.state.place ? this.state.place.name : ''}</h1>
+        <h1>{maybe(this.state, 'place', 'name')}</h1>
         <MapView
             destination={this.state}
             onSelectDestination={this.handleDestinationSelect}
@@ -73,6 +80,14 @@ class DestinationHome extends React.Component {
         {message}
         <ul>
           {this.state.feedEntries.map(this.renderEntry)}
+        </ul>
+        <h2>
+          <a href={`/destinations/${maybe(country, 'id')}`}>
+            {maybe(country, 'name')}
+          </a>
+        </h2>
+        <ul>
+          {this.state.countryFeedEntries.map(this.renderEntry)}
         </ul>
       </section>
     );

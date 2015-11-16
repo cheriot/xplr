@@ -1,7 +1,7 @@
 
 Up next
-* add markers as the map moves
-* show feedEntries of the country of the selected destination
+* only show places with content
+  * publish places more selectively?
 * make the highlighted marker bounce when clicked
 * improve handling of places with no content
   * show content for places on the map

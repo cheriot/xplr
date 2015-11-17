@@ -1,7 +1,9 @@
 
 Up next
+* why is the destination page not isomorphic?
 * only show places with content
   * publish places more selectively?
+* merge places: whitsunday island
 * make the highlighted marker bounce when clicked
 * improve handling of places with no content
   * show content for places on the map
@@ -22,13 +24,18 @@ Prototype Questions
 * Are bloggers interested?
   * "find older content" http://www.nomadicmatt.com/travel-blogs/survey-feedback/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+MattsTravelSite+%28Matt%27s+Travel+Log%29
 
-* email only blogs
+* email/social only blogs
   * http://www.ourawesomeplanet.com/
+  * http://www.joaoleitao.com/
+* broken feeds
+  * http://thesavvybackpacker.com/
   * http://freeyourmindtravel.com/
 * single city sites
   * http://www.eatingthaifood.com
+  * http://istanbuleats.com/
 * city guides
   * http://eatyourworld.com/
+  * http://travelsofadam.com/city-guides/manchester/
 * existing guides with *some* good content
   * http://www.roughguides.com/article/taiwan-street-food/
 * extensive niche guides

@@ -150,7 +150,7 @@ class FeedEntryForm extends React.Component {
       <li style={this.styles()}>
 
         <div>
-          <a href={feedEntry.source_id} target='_blank'>
+          <a href={feedEntry.uri} target='_blank'>
             <SafeText text={feedEntry.title} />
           </a>
           &lt;

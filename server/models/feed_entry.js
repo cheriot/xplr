@@ -22,7 +22,9 @@ const FeedEntry = bookshelf.Model.extend({
   validate: function() {
     return new Checkit({
       uri: ['required', 'url'],
-      published_state: (val) => ['published', 'queued', 'ignored'].indexOf(val) > -1
+      published_state: (val) => {
+        return ['published', 'queued', 'ignored', 'delayed'].indexOf(val) > -1
+      }
     }).run(this.attributes);
   },
 

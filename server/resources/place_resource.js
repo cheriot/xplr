@@ -67,7 +67,7 @@ class PlaceResource {
         if (countryPlace) {
           console.log('DB country', countryPlace.get('id'), countryPlace.get('name'));
           return countryPlace;
-        } else if (this.findCountry([gPlace])) {
+        } else if (this.findCountry([gPlace], false)) {
           // place is a country. Save it so we have an id to set as the countryId.
           return place.save();
         } else {
@@ -103,9 +103,9 @@ class PlaceResource {
       });
   }
 
-  static findCountry(placeslike) {
+  static findCountry(placeslike, required=true) {
     const country = _.find(placeslike, p => p.types.indexOf('country') > -1);
-    if (!country) throw new Error(`NO COUNTRY FOUND ${placeslike}`);
+    if (!country && required) throw new Error(`NO COUNTRY FOUND ${placeslike}`);
     return country;
   }
 

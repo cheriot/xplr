@@ -83,7 +83,7 @@ class FeedReader {
     if (charset && !/utf-*8/i.test(charset)) {
       this.originalCharset = charset;
       // Use iconv if its not utf8 already.
-      iconv = new Iconv(charset, 'utf-8');
+      const iconv = new Iconv(charset, 'utf-8');
       console.log('Converting from charset %s to utf-8', charset);
       iconv.on('error', onError);
       // If we're using iconv, stream will be the output of iconv

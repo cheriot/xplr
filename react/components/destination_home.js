@@ -15,10 +15,12 @@ class DestinationHome extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      feedEntries: [],
-      countryFeedEntries: []
-    };
+    this.state = _.assign({
+        feedEntries: [],
+        countryFeedEntries: []
+      },
+      DestinationStore.getState()
+    );
     this.fetchWhenNeeded(this.props);
   }
 
@@ -45,7 +47,6 @@ class DestinationHome extends React.Component {
   }
 
   handleMapMove = (bounds) => {
-    console.log('map moved to', bounds);
     DestinationActions.fetchNearBy(bounds);
   }
 
@@ -55,7 +56,6 @@ class DestinationHome extends React.Component {
 
   fetchWhenNeeded(props) {
     if (this.needFetch(props)) {
-      console.log('need fetch', this.state, props);
       DestinationActions.fetch(props.params.id);
     }
   }

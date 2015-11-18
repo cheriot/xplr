@@ -129,7 +129,6 @@ function reactRouteAndRender(req, res) {
   // Anything that the data API doesn't handle is either a react-router url or a 404,
   // which react-router will handle (just not yet..).
   Router.run(routes, req.url, function(Handler, state) {
-    console.log('render react on server');
     // Connect data to alt's stores.
     alt.bootstrap(JSON.stringify(res.locals.data || {}));
 

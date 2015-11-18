@@ -7,6 +7,7 @@ import DestinationActions from '../actions/destination_actions';
 import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
+import NavigationAutocomplete from './navigation_autocomplete';
 
 import {maybe} from '../models/maybe';
 
@@ -72,6 +73,7 @@ class DestinationHome extends React.Component {
     // happens in every code path.
     return (
       <section>
+        <NavigationAutocomplete />
         <h1>{maybe(this.state, 'place', 'name')}</h1>
         <MapView
             destination={this.state}

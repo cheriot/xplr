@@ -49,6 +49,13 @@ class PlaceResource {
       .where('lon', '<', bounds.viewport_lon_east)
       .where('lon', '>', bounds.viewport_lon_west)
       .where('geo_level', 'city')
+      .query(qb => {
+        qb.innerJoin(
+          'feed_entries_places as fep',
+          'fep.place_id',
+          'places.id'
+        )
+      })
       .fetchAll()
   }
 

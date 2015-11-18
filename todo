@@ -1,10 +1,8 @@
 
 Up next
-* why is the destination page not isomorphic?
-* only show places with content
-  * publish places more selectively?
+* publish places more selectively?
 * make the highlighted marker highlighted and bounce when clicked
-* show places within the country/continent selected!
+* list places within the country/continent selected!
 * handle continents!
 * improve handling of places with no/little content
   * show content for places on the map

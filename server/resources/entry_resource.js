@@ -23,11 +23,7 @@ class EntryResource {
           'feed_entries_places as fep',
           'fep.feed_entry_id',
           'feed_entries.id'
-        ).innerJoin(
-          'places',
-          'places.id',
-          'fep.place_id'
-        ).where('places.id', placeId);
+        ).where('fep.place_id', placeId);
       })
       .query('limit', 3)
       .query('orderBy', 'created_at', 'desc')

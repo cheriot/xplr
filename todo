@@ -3,9 +3,10 @@ Up next
 * why is the destination page not isomorphic?
 * only show places with content
   * publish places more selectively?
-* merge places: whitsunday island
-* make the highlighted marker bounce when clicked
-* improve handling of places with no content
+* make the highlighted marker highlighted and bounce when clicked
+* show places within the country/continent selected!
+* handle continents!
+* improve handling of places with no/little content
   * show content for places on the map
   * make sure the map includes the nearest place
 * needed? https://github.com/googlemaps/js-marker-clusterer
@@ -15,10 +16,11 @@ Up next
 
 Prototype Questions
 * Are these travel articles actually helpful?
-  * Use all from http://www.theexpeditioner.com/the-top-50-travel-blogs/
+  * Use all from
+    * http://www.theexpeditioner.com/the-top-50-travel-blogs/
+    * http://www.adventurouskate.com/solo-female-travelers-over-40/
+    * http://nomadicsamuel.com/top100travelblogs
   * http://www.48houradventure.com/
-  * http://wanderingtrader.com/
-  * http://migrationology.com/blog/
   * http://www.wisebread.com/travel-resources
 
 * Are bloggers interested?
@@ -27,15 +29,24 @@ Prototype Questions
 * email/social only blogs
   * http://www.ourawesomeplanet.com/
   * http://www.joaoleitao.com/
+  * http://twomonkeystravelgroup.com/city-travel-guide/
+  * http://www.goatsontheroad.com/
+  * http://www.theexpeditioner.com/
+  * http://mytanfeet.com/
+  * http://migrationology.com/blog/
 * broken feeds
   * http://thesavvybackpacker.com/
   * http://freeyourmindtravel.com/
+  * http://feeds.feedblitz.com/cheapestdestinationsblog
+  * http://www.traveldudes.org/
 * single city sites
   * http://www.eatingthaifood.com
   * http://istanbuleats.com/
 * city guides
   * http://eatyourworld.com/
   * http://travelsofadam.com/city-guides/manchester/
+* state guides
+  * http://uncoveringpa.com/ Anything I can offer? How to even categorize? Hide markers.
 * existing guides with *some* good content
   * http://www.roughguides.com/article/taiwan-street-food/
 * extensive niche guides

@@ -4,7 +4,6 @@ import EntryResource from './entry_resource';
 class DestinationResource {
 
   static fetch(bounds) {
-    console.log('fetch box', bounds);
     return PlaceResource.nearBy(bounds)
       .then(places => {
         return {nearByDestinations: places};
@@ -24,6 +23,7 @@ class DestinationResource {
       EntryResource.fetchByPlace(placeId),
       PlaceResource.nearByPlace(place),
     ];
+
     if (place.isCity()) {
       // For countries these are the same queries as above.
       promises.push(
@@ -34,11 +34,11 @@ class DestinationResource {
     return Promise.all(promises)
       .then(([feedEntries, places, country, countryFeedEntries]) => {
         return {
-          place: place,
-          feedEntries: feedEntries,
-          nearByDestinations: places,
-          country: country,
-          countryFeedEntries: countryFeedEntries
+          place: place || null,
+          feedEntries: feedEntries || [],
+          nearByDestinations: places || [],
+          country: country || null,
+          countryFeedEntries: countryFeedEntries || []
         };
       });
   }

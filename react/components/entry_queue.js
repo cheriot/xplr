@@ -75,18 +75,24 @@ class FeedEntryList extends React.Component {
       return <div>Something is wrong.</div>;
     }
 
-    let loadingIndicator = null;
+    let message = null;
     if (this.props.isLoading) {
-      loadingIndicator = (
+      message = (
         <div>
           <img src="/ajax-loader.gif" />
+        </div>
+      );
+    } else if (_.isEmpty(this.props.feedEntries)) {
+      message = (
+        <div>
+          Empty queue
         </div>
       );
     }
 
     return (
       <ul style={this.styles()}>
-        <li>{loadingIndicator}</li>
+        <li>{message}</li>
         {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
       </ul>
     );

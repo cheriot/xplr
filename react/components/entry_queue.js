@@ -224,6 +224,7 @@ class PlaceForm extends React.Component {
         {' '}
         <a
             href
+            tabIndex='-1'
             onClick={this.handleRemove}
             style={linkStyle}>
           x

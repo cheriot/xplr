@@ -64,6 +64,26 @@ class PlaceResource {
       });
   }
 
+  static fetchByCountry(countryId) {
+    return Place
+      .where('country_id', countryId)
+      .where('geo_level', 'city')
+      .query(qb => {
+        qb.innerJoin(
+          'feed_entries_places as fep',
+          'fep.place_id',
+          'places.id'
+        )
+      })
+      .query('groupBy', 'places.id')
+      .fetchAll()
+      .then(places => {
+        const ids = places.map(p => p.get('id'))
+        return Place.where('id', 'in', ids)
+          .fetchAll({withRelated: ['feedEntries']})
+      });
+  }
+
   static withinViewport(place) {
     return this.boundedBy(this.bounds(place))
       .then(collection => {

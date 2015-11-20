@@ -93,6 +93,7 @@ class DestinationHome extends React.Component {
   }
 
   renderListDestination(relatedDestination) {
+    if (relatedDestination.feedEntries.length == 0) return;
     return (
       <div key={relatedDestination.place.id}>
         <h2>

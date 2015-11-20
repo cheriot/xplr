@@ -23,8 +23,8 @@ class DestinationResource {
     const countryId = place.get('country_id');
 
     const markerPromise = PlaceResource.withinViewport(place);
-    let listPromise = null;
 
+    let listPromise = null;
     if (place.isCity()) {
       const countryPromise = PlaceResource.fetch(countryId, {withRelated: ['feedEntries']});
       const nearestToPromise = PlaceResource.nearestTo(place);
@@ -36,8 +36,8 @@ class DestinationResource {
         .then(places => places.map(this.placeToDestination));
 
     } else if (place.isCountry()) {
-      // get cities in this country, get the continent, call this.relatedPlaces
-      // countryFeedEntriesPromise = EntryResource.fetchByPlace(countryId);
+      listPromise = PlaceResource.fetchByCountry(countryId)
+        .then(places => places.map(this.placeToDestination));
     } else {
       console.log('ERROR: Unknown kind of place.', place);
     }

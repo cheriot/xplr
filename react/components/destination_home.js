@@ -18,7 +18,7 @@ class DestinationHome extends React.Component {
     super(props);
     this.state = _.assign({
         feedEntries: [],
-        countryFeedEntries: []
+        listDestinations: [],
       },
       DestinationStore.getState()
     );
@@ -83,20 +83,28 @@ class DestinationHome extends React.Component {
         <ul>
           {this.state.feedEntries.map(this.renderEntry)}
         </ul>
-        <h2>
-          <a href={`/destinations/${maybe(country, 'id')}`}>
-            {maybe(country, 'name')}
-          </a>
-        </h2>
-        <ul>
-          {this.state.countryFeedEntries.map(this.renderEntry)}
-        </ul>
+        {this.state.listDestinations.map(this.renderListDestination.bind(this))}
       </section>
     );
   }
 
   renderEntry(feedEntry) {
     return <FeedEntryItem key={feedEntry.id} feedEntry={feedEntry} />
+  }
+
+  renderListDestination(relatedDestination) {
+    return (
+      <div key={relatedDestination.place.id}>
+        <h2>
+          <a href={`/destinations/${relatedDestination.place.id}`}>
+            {relatedDestination.place.name}
+          </a>
+        </h2>
+        <ul>
+          {relatedDestination.feedEntries.map(this.renderEntry)}
+        </ul>
+      </div>
+    );
   }
 
 }

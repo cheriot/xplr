@@ -37,7 +37,7 @@ class DestinationMap {
     let closest = null;
     let addHighlightMarker = false;
     if (destination.place.isCity) {
-      closest = _.take(destination.listDestinations.map(d => d.place), 1);
+      closest = _.take(destination.listDestinations.map(d => d.place), 3);
       addHighlightMarker = true;
     } else {
       const countryId = destination.place.country_id;

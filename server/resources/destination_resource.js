@@ -1,5 +1,6 @@
 import _ from 'lodash';
 
+import geoCalc from '../../react/models/geo_calc';
 import PlaceResource from './place_resource';
 import EntryResource from './entry_resource';
 
@@ -31,6 +32,7 @@ class DestinationResource {
         .then(([relatedDestinations, countryDestinations]) => {
           return relatedDestinations.models.concat(countryDestinations);
         })
+        .then(places => geoCalc.orderByDistance(place, places))
         .then(places => places.map(this.placeToDestination));
 
     } else if (place.isCountry()) {

@@ -50,10 +50,19 @@ class GoogleMap {
       {
         position: {lat: place.lat, lng: place.lon},
         map: this.gMap,
-        title: place.name
+        title: place.name,
+        icon: {
+          path: 'M24-8c0 4.4-3.6 8-8 8h-32c-4.4 0-8-3.6-8-8v-32c0-4.4 3.6-8 8-8h32c4.4 0 8 3.6 8 8v32z',
+          fillColor: 'red',
+          fillOpacity: 1,
+          scale: 0.2,
+          strokeColor: 'white',
+          strokeWeight: 2
+        },
       },
       options
     );
+    console.log('markerOptions', markerOptions);
     const marker = new google.maps.Marker(markerOptions);
     if (listener) marker.addListener('click', listener);
     this.idMarkers[place.id] = marker;
@@ -67,6 +76,14 @@ class GoogleMap {
 
     const highlightOptions = {
       animation: google.maps.Animation.DROP,
+      icon: {
+        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+        fillColor: 'red',
+        fillOpacity: 1,
+        scale: 0.5,
+        strokeColor: 'white',
+        strokeWeight: 2,
+      },
     }
     this.marker(place, highlightOptions);
   }

@@ -14,7 +14,7 @@ class DestinationMap {
       this.map.reset();
     }
     this.destination = destination;
-    this.nearBy(destination.nearByDestinations, onSelectDestination);
+    this.nearBy(destination.markerPlaces, onSelectDestination);
     this.focus(destination.place);
   }
 

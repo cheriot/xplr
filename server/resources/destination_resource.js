@@ -8,7 +8,7 @@ class DestinationResource {
   static fetch(bounds) {
     return PlaceResource.boundedBy(bounds)
       .then(places => {
-        return {nearByDestinations: places};
+        return {markerPlaces: places};
       });
   }
 

@@ -32,7 +32,8 @@ class DestinationResource {
       listPromise = Promise.all([nearestToPromise, countryPromise])
         .then(([relatedDestinations, countryDestinations]) => {
           return relatedDestinations.models.concat(countryDestinations);
-        });
+        })
+        .then(places => places.map(this.placeToDestination));
 
     } else if (place.isCountry()) {
       // get cities in this country, get the continent, call this.relatedPlaces
@@ -56,6 +57,15 @@ class DestinationResource {
           listDestinations: listDestinations || [],
         };
       });
+  }
+
+  static placeToDestination(place) {
+    const feedEntries = place.related('feedEntries').models;
+    delete place.relations.feedEntries;
+    return {
+      place: place,
+      feedEntries: feedEntries
+    }
   }
 
 }

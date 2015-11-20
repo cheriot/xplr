@@ -1,12 +1,11 @@
 
 Up next
-* publish places more selectively?
-* make the highlighted marker highlighted and bounce when clicked
-* list places within the country/continent selected!
+* bug that removes the highlighted city when navigating by map
+* highlight places in country on country page
+* keep the map's zoom level when clicking on markers
+* list country before nearby cities
 * handle continents!
-* improve handling of places with no/little content
-  * show content for places on the map
-  * make sure the map includes the nearest place
+* make the highlighted marker highlighted and bounce when clicked
 * needed? https://github.com/googlemaps/js-marker-clusterer
 * crawl sites
   * https://github.com/cgiffard/node-simplecrawler
@@ -49,6 +48,7 @@ Prototype Questions
   * http://www.roughguides.com/article/taiwan-street-food/
 * extensive niche guides
   * seat61.com
+  * http://en.travelepisodes.com/
 
 Design for each api method:
 * render react markup

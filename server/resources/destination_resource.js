@@ -22,8 +22,6 @@ class DestinationResource {
     const placeId = place.get('id');
     const countryId = place.get('country_id');
 
-    const markerPromise = PlaceResource.withinViewport(place);
-
     let listPromise = null;
     if (place.isCity()) {
       const countryPromise = PlaceResource.fetch(countryId, {withRelated: ['feedEntries']});
@@ -44,16 +42,14 @@ class DestinationResource {
 
     const promises = [
       EntryResource.fetchByPlace(placeId),
-      markerPromise,
       listPromise,
     ];
 
     return Promise.all(promises)
-      .then(([feedEntries, markerPlaces, listDestinations]) => {
+      .then(([feedEntries, listDestinations]) => {
         return {
           place: place || null,
           feedEntries: feedEntries || [],
-          markerPlaces: markerPlaces || [],
           listDestinations: listDestinations || [],
         };
       });

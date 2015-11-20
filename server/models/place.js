@@ -51,7 +51,7 @@ const Place = bookshelf.Model.extend({
     this.updateGeoLevel(gPlace);
   },
 
-  updateGeoLevel(gPlace) {
+  updateGeoLevel: function(gPlace) {
     const setGeoLevelIfType = (geoLevel, type) => {
       if (gPlace.types.indexOf(type) > -1) {
         this.set('geo_level', geoLevel);
@@ -70,23 +70,29 @@ const Place = bookshelf.Model.extend({
     setGeoLevelIfType('continent', 'continent');
   },
 
-  setCountry(place) {
+  setCountry: function(place) {
     const countryId = place.get('id');
     if (!countryId) throw new Error('Country has no id');
     this.set('country_id', countryId);
   },
 
-  isCity() {
+  isCity: function() {
     // Exclude continents and countries.
     const countryId = this.get('country_id');
     return countryId && countryId != this.get('id');
   },
 
-  isCountry() {
+  isCountry: function() {
     const countryId = this.get('country_id');
     return countryId && countryId == this.get('id');
-  }
+  },
 
+  serialize: function(options) {
+    const attrs = bookshelf.Model.prototype.serialize.call(this, options)
+    attrs.isCity = this.isCity();
+    attrs.isCountry = this.isCountry();
+    return attrs;
+  }
 });
 
 module.exports = Place

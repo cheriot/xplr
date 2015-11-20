@@ -1,10 +1,12 @@
+import _ from 'lodash';
+
 import PlaceResource from './place_resource';
 import EntryResource from './entry_resource';
 
 class DestinationResource {
 
   static fetch(bounds) {
-    return PlaceResource.nearBy(bounds)
+    return PlaceResource.boundedBy(bounds)
       .then(places => {
         return {nearByDestinations: places};
       });
@@ -13,32 +15,45 @@ class DestinationResource {
   static fetchByPlace(placeId) {
     return PlaceResource
       .fetch(placeId)
-      .then(this.createDestination);
+      .then(this.createDestination.bind(this));
   }
 
   static createDestination(place) {
     const placeId = place.get('id');
     const countryId = place.get('country_id');
-    const promises = [
-      EntryResource.fetchByPlace(placeId),
-      PlaceResource.nearByPlace(place),
-    ];
+
+    const markerPromise = PlaceResource.withinViewport(place);
+    let listPromise = null;
 
     if (place.isCity()) {
-      // For countries these are the same queries as above.
-      promises.push(
-        PlaceResource.fetch(countryId),
-        EntryResource.fetchByPlace(countryId)
-      );
+      const countryPromise = PlaceResource.fetch(countryId, {withRelated: ['feedEntries']});
+      const nearestToPromise = PlaceResource.nearestTo(place);
+
+      listPromise = Promise.all([nearestToPromise, countryPromise])
+        .then(([relatedDestinations, countryDestinations]) => {
+          return relatedDestinations.models.concat(countryDestinations);
+        });
+
+    } else if (place.isCountry()) {
+      // get cities in this country, get the continent, call this.relatedPlaces
+      // countryFeedEntriesPromise = EntryResource.fetchByPlace(countryId);
+    } else {
+      console.log('ERROR: Unknown kind of place.', place);
     }
+
+    const promises = [
+      EntryResource.fetchByPlace(placeId),
+      markerPromise,
+      listPromise,
+    ];
+
     return Promise.all(promises)
-      .then(([feedEntries, places, country, countryFeedEntries]) => {
+      .then(([feedEntries, markerPlaces, listDestinations]) => {
         return {
           place: place || null,
           feedEntries: feedEntries || [],
-          nearByDestinations: places || [],
-          country: country || null,
-          countryFeedEntries: countryFeedEntries || []
+          markerPlaces: markerPlaces || [],
+          listDestinations: listDestinations || [],
         };
       });
   }

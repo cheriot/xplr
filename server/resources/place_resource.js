@@ -1,11 +1,13 @@
 import _ from 'lodash';
+
+import knex from '../models/knex';
 import googleAPI from '../models/google_api';
 import Place from '../models/place';
 
 class PlaceResource {
 
-  static fetch(id) {
-    return Place.forge({id: id}).fetch();
+  static fetch(id, options) {
+    return Place.forge({id: id}).fetch(options);
   }
 
   static fetchOrForge(gPlace) {
@@ -35,14 +37,41 @@ class PlaceResource {
       .catch((message, b, c) => console.log('error', message, b, c) );
   }
 
-  static nearByPlace(place) {
-    return this.nearBy(this.bounds(place))
+  static nearestTo(place) {
+    const distance = knex.raw(
+      `abs(places.lat - ?) + abs(places.lon - ?) as distance`,
+      [place.get('lat'), place.get('lon')]
+    );
+    return Place
+      .query(qb => qb.select('places.id', distance))
+      .where('geo_level', 'city')
+      .where('id', '<>', place.get('id'))
+      .query('limit',10)
+      .query('orderBy','distance', 'asc')
+      .query(qb => {
+        qb.innerJoin(
+          'feed_entries_places as fep',
+          'fep.place_id',
+          'places.id'
+        )
+      })
+      .query('groupBy', 'places.id')
+      .fetchAll()
+      .then(places => {
+        const ids = places.map(p => p.get('id'));
+        return Place.where('id', 'in', ids)
+          .fetchAll({withRelated: ['feedEntries']})
+      });
+  }
+
+  static withinViewport(place) {
+    return this.boundedBy(this.bounds(place))
       .then(collection => {
         return _.filter(collection.models, found => found.id != place.id);
       });
   }
 
-  static nearBy(bounds) {
+  static boundedBy(bounds) {
     return Place
       .where('lat', '<', bounds.viewport_lat_north)
       .where('lat', '>', bounds.viewport_lat_south)

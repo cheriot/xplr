@@ -1,7 +1,6 @@
 import Checkit from 'checkit';
 
 import bookshelf from './bookshelf';
-import FeedEntry from './feed_entry';
 
 const Place = bookshelf.Model.extend({
   tableName: 'places',
@@ -11,7 +10,8 @@ const Place = bookshelf.Model.extend({
     //this.on('saving', this.validate);
   },
 
-  feedEntities: function() {
+  feedEntries: function() {
+    const FeedEntry = require('./feed_entry');
     return this.belongsToMany(FeedEntry);
   },
 
@@ -81,6 +81,11 @@ const Place = bookshelf.Model.extend({
     const countryId = this.get('country_id');
     return countryId && countryId != this.get('id');
   },
+
+  isCountry() {
+    const countryId = this.get('country_id');
+    return countryId && countryId == this.get('id');
+  }
 
 });
 

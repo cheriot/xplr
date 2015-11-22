@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {maybe} from '../models/maybe'
 
 // Create a map that represents a destination.
 class DestinationMap {
@@ -9,12 +10,13 @@ class DestinationMap {
 
   goToDestination(destination, onSelectDestination) {
     if(!destination || !destination.place) return;
+    console.log('goTo', destination.place.name, 'from', maybe(this.destination, 'place', 'name'));
     if(this.destination && this.destination.place.id != destination.place.id) {
       this.map.reset();
     }
-
     this.destination = destination;
-    this.nearBy(destination.markerPlaces, onSelectDestination);
+
+    this.nearBy(destination.place, destination.markerPlaces, onSelectDestination);
     this.focus(destination);
   }
 
@@ -40,6 +42,7 @@ class DestinationMap {
       closest = _.take(destination.listDestinations.map(d => d.place), 3);
       addHighlightMarker = true;
     } else {
+      console.log('isCountry');
       const countryId = destination.place.country_id;
       closest = _(destination.listDestinations)
         .map(d => d.place)
@@ -52,11 +55,16 @@ class DestinationMap {
     this.map.focus(destination.place, addHighlightMarker, closest);
   }
 
-  nearBy(places, listener) {
+  nearBy(place, places, listener) {
     // add markers
-    _.forEach(places, place => {
-      const placeListener = () => listener(place);
-      this.map.marker(place, {}, placeListener);
+    _.forEach(places, p => {
+      const placeListener = () => listener(p);
+
+      if (place.isCountry && p.country_id == place.id) {
+        this.map.highlightMarker(p, placeListener);
+      } else {
+        this.map.marker(p, {}, placeListener);
+      }
     });
   }
 

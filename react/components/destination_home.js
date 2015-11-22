@@ -118,6 +118,7 @@ class MapView extends React.Component {
   }
 
   componentWillUnmount() {
+    console.log('destroying maps dom node');
     MapViewStore.unlisten(this.handleChange);
     MapViewActions.mapDisconnect(this.refs.mapRoot);
   }
@@ -136,8 +137,9 @@ class MapView extends React.Component {
       this.state.map.setMovementListener(this.handleMapMove);
     }
 
+    // Always render the same thing since google maps is created around
+    // this dom node.
     const mapStyles = { height: '300px' };
-
     return (
       <div ref='mapRoot' id='map-canvas' style={mapStyles} />
     );

@@ -1,13 +1,38 @@
 // Application's facade around the google maps API
+
 class GoogleMap {
   constructor(gMap) {
     this.gMap = gMap;
     this.reset();
+
+    this.highlightOptions = {
+      animation: google.maps.Animation.DROP,
+      icon: {
+        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+        fillColor: 'gold',
+        fillOpacity: 1,
+        scale: 0.5,
+        strokeColor: 'red',
+        strokeWeight: 2,
+      },
+    };
+
+    this.normalOptions = {
+        map: this.gMap,
+        icon: {
+          path: 'M24-8c0 4.4-3.6 8-8 8h-32c-4.4 0-8-3.6-8-8v-32c0-4.4 3.6-8 8-8h32c4.4 0 8 3.6 8 8v32z',
+          fillColor: 'red',
+          fillOpacity: 1,
+          scale: 0.2,
+          strokeColor: 'white',
+          strokeWeight: 2
+        },
+      };
   }
 
   reset() {
     this.initialFocusSet = false;
-    _.forEach(this.markers || [], marker => marker.setMap(null));
+    _.forEach(this.markers || [], marker => marker.setMap(null) );
     this.markers = [];
     this.idMarkers = {};
   }
@@ -16,10 +41,8 @@ class GoogleMap {
     if(!this.initialFocusSet) {
       this.initialFocusSet = true;
       if (addHighlightMarker) {
-        // Only add the marker once the map is moved to the new location.
-        google.maps.event.addListenerOnce(this.gMap, 'idle', () => {
+          console.log('quick highlight', place.name);
           this.highlightMarker(place);
-        });
       }
 
       if (!_.isEmpty(closest)) {
@@ -58,53 +81,56 @@ class GoogleMap {
   }
 
   marker(place, options, listener) {
-    const existingMarker = this.idMarkers[place.id];
-    if (existingMarker) return;
+    if (this.hasMarker(place)) return;
 
     const markerOptions = _.assign(
+      {},
+      this.normalOptions,
       {
         position: {lat: place.lat, lng: place.lon},
-        map: this.gMap,
         title: place.name,
-        icon: {
-          path: 'M24-8c0 4.4-3.6 8-8 8h-32c-4.4 0-8-3.6-8-8v-32c0-4.4 3.6-8 8-8h32c4.4 0 8 3.6 8 8v32z',
-          fillColor: 'red',
-          fillOpacity: 1,
-          scale: 0.2,
-          strokeColor: 'white',
-          strokeWeight: 2
-        },
       },
-      options
+      options,
     );
     const marker = new google.maps.Marker(markerOptions);
     if (listener) marker.addListener('click', listener);
-    this.idMarkers[place.id] = marker;
-    this.markers.push(marker);
+    this.recordMarker(place, marker);
   }
 
-  highlightMarker(place) {
+  highlightMarker(place, listener) {
     // the previous marker my not have been highlighted so remove it
-    const existingMarker = this.idMarkers[place.id];
-    if (existingMarker) existingMarker.setMap(null);
-
-    // http://map-icons.com
-    const highlightOptions = {
-      animation: google.maps.Animation.DROP,
-      icon: {
-        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-        fillColor: 'gold',
-        fillOpacity: 1,
-        scale: 0.5,
-        strokeColor: 'red',
-        strokeWeight: 2,
-      },
+    if (this.isHighlighted(place)) {
+      return;
     }
-    this.marker(place, highlightOptions);
+    if (this.hasMarker(place)) {
+      this.clearMarker(place);
+    }
+
+    // http://map-icons.com for svg path
+    this.marker(place, this.highlightOptions, listener);
   }
 
   listen(eventName, listener) {
     google.maps.event.addListener(this.gMap, eventName, listener);
+  }
+
+  clearMarker(place) {
+    this.idMarkers[place.id].setMap(null);
+    delete this.idMarkers[place.id];
+  }
+
+  hasMarker(place) {
+    return this.idMarkers[place.id]
+  }
+
+  isHighlighted(place) {
+    const marker = this.hasMarker(place);
+    return marker && marker.getIcon().fillColor == this.highlightOptions.icon.fillColor;
+  }
+
+  recordMarker(place, marker) {
+    this.idMarkers[place.id] = marker;
+    this.markers.push(marker);
   }
 
   getBounds() {

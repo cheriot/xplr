@@ -26,13 +26,14 @@ class DestinationResource {
     let listPromise = null;
     if (place.isCity()) {
       const countryPromise = PlaceResource.fetch(countryId, {withRelated: ['feedEntries']});
-      const nearestToPromise = PlaceResource.nearestTo(place);
+      const nearestToPromise = PlaceResource.nearestTo(place)
+        .then(collection => collection.models)
+        .then(places => geoCalc.orderByDistance(place, places));
 
       listPromise = Promise.all([nearestToPromise, countryPromise])
         .then(([relatedDestinations, countryDestinations]) => {
-          return relatedDestinations.models.concat(countryDestinations);
+          return relatedDestinations.concat(countryDestinations);
         })
-        .then(places => geoCalc.orderByDistance(place, places))
         .then(places => places.map(this.placeToDestination));
 
     } else if (place.isCountry()) {

@@ -1,11 +1,8 @@
-
 Up next
-* bug that removes the highlighted city when navigating by map
-* highlight places in country on country page
 * keep the map's zoom level when clicking on markers
-* list country before nearby cities
+  * some kind of less jaring change
 * handle continents!
-* make the highlighted marker highlighted and bounce when clicked
+* make the selected destination marker bounce when clicked
 * needed? https://github.com/googlemaps/js-marker-clusterer
 * crawl sites
   * https://github.com/cgiffard/node-simplecrawler

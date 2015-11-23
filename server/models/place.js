@@ -66,6 +66,7 @@ const Place = bookshelf.Model.extend({
     setGeoLevelIfType('city', 'park');
     setGeoLevelIfType('city', 'administrative_area_level_1');
     setGeoLevelIfType('city', 'administrative_area_level_2');
+    setGeoLevelIfType('city', 'administrative_area_level_3');
     setGeoLevelIfType('city', 'colloquial_area');
     // Must be last because they're also "natural_feature"s
     setGeoLevelIfType('continent', 'continent');

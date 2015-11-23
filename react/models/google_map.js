@@ -60,7 +60,15 @@ class GoogleMap {
     _.forEach(closest, p => {
       bounds.extend(this.latLng(p))
     });
-    this.gMap.fitBounds(bounds);
+    if (this.gMap.getBounds()) {
+      // A map is already shown, avoid jarring changes by moving as little as possible.
+      this.gMap.panToBounds(bounds);
+      // Even less map movement:
+      // this.gMap.panTo(point);
+    } else {
+      console.log('fitBounds', this.gMap.getZoom());
+      this.gMap.fitBounds(bounds);
+    }
   }
 
   fitViewport(place) {

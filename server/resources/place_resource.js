@@ -46,7 +46,7 @@ class PlaceResource {
       .query(qb => qb.select('places.id', distance))
       .where('geo_level', 'city')
       .where('id', '<>', place.get('id'))
-      .query('limit',10)
+      .query('limit',5)
       .query('orderBy','distance', 'asc')
       .query(qb => {
         qb.innerJoin(

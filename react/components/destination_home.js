@@ -1,6 +1,6 @@
 import React from 'react';
 import reactMixin from 'react-mixin';
-import { Navigation } from 'react-router';
+import {Link, Navigation} from 'react-router';
 import _ from 'lodash';
 
 import DestinationActions from '../actions/destination_actions';
@@ -97,9 +97,9 @@ class DestinationHome extends React.Component {
     return (
       <div key={relatedDestination.place.id}>
         <h2>
-          <a href={`/destinations/${relatedDestination.place.id}`}>
+          <Link to={`/destinations/${relatedDestination.place.id}`}>
             {relatedDestination.place.name}
-          </a>
+          </Link>
         </h2>
         <ul>
           {relatedDestination.feedEntries.map(this.renderEntry)}

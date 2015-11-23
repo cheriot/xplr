@@ -61,11 +61,10 @@ class GoogleMap {
     });
     if (this.gMap.getBounds()) {
       // A map is already shown, avoid jarring changes by moving as little as possible.
+      console.log('new bounds', bounds, place.name, closest.map(c => c.name));
+      this.gMap.fitBounds(bounds);
       this.gMap.panToBounds(bounds);
-      // Even less map movement:
-      // this.gMap.panTo(point);
     } else {
-      console.log('fitBounds', this.gMap.getZoom());
       this.gMap.fitBounds(bounds);
     }
   }

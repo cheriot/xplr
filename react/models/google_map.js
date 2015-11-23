@@ -41,8 +41,7 @@ class GoogleMap {
     if(!this.initialFocusSet) {
       this.initialFocusSet = true;
       if (addHighlightMarker) {
-          console.log('quick highlight', place.name);
-          this.highlightMarker(place);
+          this.highlightMarker(place, this.temporaryBounce);
       }
 
       if (!_.isEmpty(closest)) {
@@ -101,7 +100,7 @@ class GoogleMap {
       options,
     );
     const marker = new google.maps.Marker(markerOptions);
-    if (listener) marker.addListener('click', listener);
+    if (listener) marker.addListener('click', () => listener(marker, place));
     this.recordMarker(place, marker);
   }
 
@@ -149,6 +148,11 @@ class GoogleMap {
       viewport_lon_east: bounds.getNorthEast().lng(),
       viewport_lon_west: bounds.getSouthWest().lng()
     }
+  }
+
+  temporaryBounce(marker) {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(() => marker.setAnimation(null), 500);
   }
 
   latLng(place) {

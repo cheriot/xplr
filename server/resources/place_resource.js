@@ -95,8 +95,22 @@ class PlaceResource {
     return Place
       .where('lat', '<', bounds.viewport_lat_north)
       .where('lat', '>', bounds.viewport_lat_south)
-      .where('lon', '<', bounds.viewport_lon_east)
-      .where('lon', '>', bounds.viewport_lon_west)
+      .query(qb => {
+        if (bounds.viewport_lon_east > bounds.viewport_lon_west) {
+          qb.where('lon', '<', bounds.viewport_lon_east)
+          qb.where('lon', '>', bounds.viewport_lon_west)
+        } else {
+          // Bounding box crosses 180 (approx the dateline). Like ANZAC.
+          qb.where(function() {
+            qb.where('lon', '<', bounds.viewport_lon_east)
+            qb.where('lon', '>', 0)
+          })
+          .orWhere(function() {
+            qb.where('lon', '<', 0)
+            qb.where('lon', '>', bounds.viewport_lon_west)
+          });
+        }
+      })
       .where('geo_level', 'city')
       .query(qb => {
         qb.innerJoin(
@@ -105,7 +119,7 @@ class PlaceResource {
           'places.id'
         )
       })
-      .fetchAll()
+      .fetchAll();
   }
 
   static bounds(place) {

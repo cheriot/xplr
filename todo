@@ -1,12 +1,16 @@
 Up next
-* keep the map's zoom level when clicking on markers
-  * some kind of less jaring change
+* thumbnailer
+* styles
+* authentication around management page
+
+After launch
 * handle continents!
-* make the selected destination marker bounce when clicked
-* needed? https://github.com/googlemaps/js-marker-clusterer
+* custom autocomplete that
+  * prefers continents, regions, then addresses
 * crawl sites
   * https://github.com/cgiffard/node-simplecrawler
   * cheerio for html parsing
+* needed? https://github.com/googlemaps/js-marker-clusterer
 
 Prototype Questions
 * Are these travel articles actually helpful?

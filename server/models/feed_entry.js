@@ -47,6 +47,8 @@ const FeedEntry = bookshelf.Model.extend({
     attrs.thumbnail_data_uri = this.thumbnailDataUri();
     delete attrs.summary_thumbnail_uri;
     delete attrs.summary_thumbnail;
+    attrs.title = attrs.summary_title || attrs.title;
+    delete attrs.summary_title;
     return attrs;
   },
 

@@ -1,4 +1,9 @@
 import _ from 'lodash';
+import temp from 'temp';
+temp.track();
+import fs from 'fs';
+import easyimage from 'easyimage';
+
 import agent from '../../../react/sources/agent';
 import Feed from '../feed';
 import FeedEntry from '../feed_entry';
@@ -39,13 +44,38 @@ function fetchSummary(uri) {
 function generateThumbnail(summary) {
   // {src, size[x,y], type}
   const image = _.first(summary.images);
-  console.log('generateThumbnail of', image);
   return agent
     .get(image.src)
-    .then(res => res.body.toString('base64'))
-    .then(thumbnail => {
-      summary.thumbnail = thumbnail;
-      return summary;
+    .then(res => {
+      const originalSize = res.body.length;
+
+      const {path: imagePath, fd: imageFd} = temp.openSync('summary-full');
+      fs.writeSync(imageFd, res.body, 0, res.body.length);
+      fs.closeSync(imageFd);
+
+      const convertedPath = temp.path({prefix: 'converted', suffix: '.jpg'});
+      const thumbnailPath = temp.path('summary-thumbnail');
+
+      return easyimage.convert({ src: imagePath, dst: convertedPath })
+        .then(() => {
+          return easyimage.thumbnail({
+            src: convertedPath,
+            dst: thumbnailPath,
+            width: 300,
+            quality: 50,
+          })
+        })
+        .then(() => {
+          // store in base64
+          const thumbnailData = fs.readFileSync(thumbnailPath);
+          console.log('thumbnail size', thumbnailData.length, thumbnailData.length/originalSize*100, '% of original')
+          summary.thumbnail_uri = image.src;
+          summary.thumbnail = thumbnailData.toString('base64');
+          // clean up all the temp files
+          temp.cleanupSync();
+          return summary;
+        });
+
     });
 }
 
@@ -60,14 +90,16 @@ function summarize(feedEntry) {
         summary_title: summary.title,
         summary_description: summary.description,
         summary_thumbnail: summary.thumbnail,
+        summary_thumbnail_uri: summary.thumbnail_uri,
+        summarized_at: new Date(),
       });
       return feedEntry.save();
     })
     .catch(err => {
       console.log('ERROR', err);
+      // throw err;
       console.log('continue..');
       return Promise.all([]);
-      //throw err;
     });
 }
 
@@ -83,6 +115,9 @@ function promiseInSequence(array, func) {
   );
 }
 
+// * https://github.com/gottfrois/link_thumbnailer
+// * http://link-thumbnailer-demo.herokuapp.com/
+// * https://tech.shareaholic.com/2012/11/02/how-to-find-the-image-that-best-respresents-a-web-page/
 export function summarizeFeedEntries(force=false) {
   const all = FeedEntry.where('published_state', 'in', ['published', 'queued']);
   const summarizable = force ? all : all.where({summarized_at: null})

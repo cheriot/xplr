@@ -44,8 +44,15 @@ const FeedEntry = bookshelf.Model.extend({
   serialize: function(options) {
     const attrs = bookshelf.Model.prototype.serialize.call(this, options)
     delete attrs.summary;
+    attrs.thumbnail_data_uri = this.thumbnailDataUri();
+    delete attrs.summary_thumbnail_uri;
+    delete attrs.summary_thumbnail;
     return attrs;
-  }
+  },
+
+  thumbnailDataUri() {
+    return `data:image/jpg;base64,${this.get('summary_thumbnail')}`;
+  },
 });
 
 module.exports = FeedEntry

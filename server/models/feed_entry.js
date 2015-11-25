@@ -44,11 +44,20 @@ const FeedEntry = bookshelf.Model.extend({
   serialize: function(options) {
     const attrs = bookshelf.Model.prototype.serialize.call(this, options)
     delete attrs.summary;
+    delete attrs.google_place_id;
+    delete attrs.viewport_lat_north;
+    delete attrs.viewport_lat_south;
+    delete attrs.viewport_lon_east;
+    delete attrs.viewport_lon_west;
+    delete attrs.created_at;
+
     attrs.thumbnail_data_uri = this.thumbnailDataUri();
     delete attrs.summary_thumbnail_uri;
     delete attrs.summary_thumbnail;
+
     attrs.title = attrs.summary_title || attrs.title;
     delete attrs.summary_title;
+
     return attrs;
   },
 

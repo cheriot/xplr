@@ -36,7 +36,7 @@ export function importFeedEntries() {
 
 function fetchSummary(uri) {
   return agent
-    .get('http://link-thumbnailer-api.herokuapp.com/thumbnails/new')
+    .get('http://localhost:3000/thumbnails/new')
     .query({url: uri})
     .then(res => res.body);
 }
@@ -80,7 +80,7 @@ function generateThumbnail(summary) {
 }
 
 function summarize(feedEntry) {
-  const uri = feedEntry.get('uri');
+  const uri = feedEntry.bestUri();
   console.log('summarize', feedEntry.get('id'), feedEntry.get('title'), uri);
   return fetchSummary(uri)
     .then(generateThumbnail)

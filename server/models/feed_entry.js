@@ -1,3 +1,4 @@
+import isUri from 'isuri';
 import bookshelf from './bookshelf';
 import Checkit from 'checkit';
 import Feed from './feed';
@@ -26,6 +27,21 @@ const FeedEntry = bookshelf.Model.extend({
         return ['published', 'queued', 'ignored', 'delayed'].indexOf(val) > -1
       }
     }).run(this.attributes);
+  },
+
+  bestUri: function() {
+    const sourceId = this.get('source_id');
+    const uri = this.get('uri');
+    if (!isUri.test(sourceId))
+      return uri;
+    else if (/feedproxy/.test(uri)) {
+      // google's feedproxy doesn't play well with link_thumbnailer
+      return sourceId;
+    } else if (uri.length > sourceId.length) {
+      return uri;
+    } else {
+      return sourceId;
+    }
   },
 
   updateFromRemote: function(remoteEntry) {
@@ -57,6 +73,9 @@ const FeedEntry = bookshelf.Model.extend({
 
     attrs.title = attrs.summary_title || attrs.title;
     delete attrs.summary_title;
+
+    attrs.uri = this.bestUri();
+    delete attrs.source_id;
 
     return attrs;
   },

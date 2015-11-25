@@ -150,7 +150,7 @@ class FeedEntryItem extends React.Component {
   render() {
     return (
       <li>
-        <a target='_blank' href={this.props.feedEntry.source_id}>
+        <a target='_blank' href={this.props.feedEntry.uri}>
           <img src={this.props.feedEntry.thumbnail_data_uri} />
           <br />
           {this.props.feedEntry.title}

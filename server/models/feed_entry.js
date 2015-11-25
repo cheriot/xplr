@@ -32,7 +32,10 @@ const FeedEntry = bookshelf.Model.extend({
   bestUri: function() {
     const sourceId = this.get('source_id');
     const uri = this.get('uri');
-    if (!isUri.test(sourceId))
+    // Most sourceId values are better urls that skip google's feedproxy
+    // but some are not valid uris or are tokens that happen to be valid
+    // uris without being web uris.
+    if (!isUri.test(sourceId) || sourceId.indexOf('http') == -1)
       return uri;
     else if (/feedproxy/.test(uri)) {
       // google's feedproxy doesn't play well with link_thumbnailer

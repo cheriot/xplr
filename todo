@@ -1,7 +1,12 @@
 Up next
 * styles
+  * bootstrap css
+  * bootstrap theme
+  * custom css
 * authentication around management page
 * deploy to heroku
+  * convert to postgres
+  * upload data to production
 
 After launch
 * handle continents!
@@ -43,6 +48,7 @@ Prototype Questions
 * city guides
   * http://eatyourworld.com/
   * http://travelsofadam.com/city-guides/manchester/
+  * http://www.bridgesandballoons.com/travel/
 * address guides
   * http://earthcam.com/usa/california/sanfrancisco/?cam=rowingclub
 * state guides
@@ -52,6 +58,8 @@ Prototype Questions
 * extensive niche guides
   * seat61.com
   * http://en.travelepisodes.com/
+* traveltainment
+  * http://matadornetwork.com/
 
 Design for each api method:
 * render react markup

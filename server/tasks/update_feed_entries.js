@@ -3,5 +3,5 @@ import {importFeedEntries,summarizeFeedEntries} from '../models/etl/feed_entry_i
 const exit = () => process.exit();
 
 importFeedEntries()
-  .then(summarizeFeedEntries)
+  .then(() => summarizeFeedEntries())
   .then(exit, exit);

@@ -9,12 +9,14 @@
     "alt": "^0.17.4",
     "body-parser": "^1.14.1",
     "bookshelf": "^0.8.2",
+    "bootstrap": "^3.3.6",
     "checkit": "^0.5.1",
     "css-loader": "^0.22.0",
     "easyimage": "^2.1.0",
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "feedparser": "^1.1.4",
+    "file-loader": "^0.8.5",
     "geolib": "^2.0.18",
     "iconv": "^2.1.11",
     "iso": "^4.2.0",
@@ -37,7 +39,8 @@
     "superagent": "^1.4.0",
     "superagent-promise": "^1.0.3",
     "temp": "^0.8.3",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "babel": "^5.8.23",

@@ -15,10 +15,10 @@ module.exports = {
 	},
 	plugins: [
 		new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false}),
+    new ExtractTextPlugin("bundle.css"),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin("bundle.css")
 	],
 	module:  {
 		loaders: [

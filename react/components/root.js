@@ -8,10 +8,13 @@ class Root extends React.Component {
 
     return (
       <div>
-        <h1 style={brandTitle}>
-          <a href='/'>Xplr.in</a>
-          <span style={brandSubtitle}> beyond lonely planet </span>
-        </h1>
+        <div className='container'>
+          <h1 style={brandTitle}>
+            <a href='/'>Xplr.in</a>
+            <span style={brandSubtitle}> beyond lonely planet </span>
+          </h1>
+        </div>
+
         <RouteHandler />
       </div>
     );

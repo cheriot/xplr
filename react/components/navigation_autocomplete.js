@@ -16,11 +16,13 @@ class NavigationAutocomplete extends React.Component {
 
   render() {
     return (
-      <GooglePlacesAutocomplete
-          onPlaceSelect={this.handlePlaceSelect}
-          isFocus={true}
-          placeholder='Where do you want to go?'
-          placeTypes={['(regions)']} />
+      <div className='navigation-autocomplete'>
+        <GooglePlacesAutocomplete
+            onPlaceSelect={this.handlePlaceSelect}
+            isFocus={true}
+            placeholder='Where do you want to go?'
+            placeTypes={['(regions)']} />
+      </div>
     );
   }
 

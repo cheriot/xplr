@@ -4,4 +4,7 @@ const exit = () => process.exit();
 
 importFeedEntries()
   .then(() => summarizeFeedEntries())
-  .then(exit, exit);
+  .then(exit)
+  .catch((err) => {
+    console.log(`ERROR: ${err}`);
+  });

@@ -1,5 +1,6 @@
 var webpack = require('webpack'),
-    path = require('path');
+    path = require('path'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
 	target:  "web",
@@ -16,7 +17,8 @@ module.exports = {
 		new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false}),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),
-		new webpack.optimize.UglifyJsPlugin()
+		new webpack.optimize.UglifyJsPlugin(),
+    new ExtractTextPlugin("bundle.css")
 	],
 	module:  {
 		loaders: [
@@ -31,11 +33,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: "style!css"
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less'
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
       },
       {
         test: /\.(otf|eot|svg|ttf|woff|woff2)$/,

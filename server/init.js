@@ -135,7 +135,8 @@ function reactRouteAndRender(req, res) {
     // Render HTML with all the data alt has been given.
     var reactHtml = ReactDOMServer.renderToString(<Handler {...state} />),
         clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
-        clientSrc = `${clientSrcDomain}/client/bundle.js`;
+        clientSrc = `${clientSrcDomain}/client/bundle.js`,
+        styleSrc = `${clientSrcDomain}/client/bundle.css`;
 
     // Use Iso to hand our data to alt on the client side.
     const iso = new Iso();
@@ -143,6 +144,7 @@ function reactRouteAndRender(req, res) {
     res.render('index.ejs', {
       reactHtml: iso.render(),
       clientSrc: clientSrc,
+      styleSrc: styleSrc,
       googleKey: config.googleKeyClient
     });
   });

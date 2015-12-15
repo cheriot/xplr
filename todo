@@ -1,15 +1,18 @@
 Up next
 * styles
   * custom css
+  * separate css file
 * authentication around management page
 * deploy to heroku
   * convert to postgres
   * upload data to production
+* regions: carribean, eastern europe, se asia
+* multiple autocomplete sources
+  * contenints, regions, (regions), all
 
 After launch
-* handle continents!
-* custom autocomplete that
-  * prefers continents, regions, then addresses
+* scrape urls from travel guide ebooks
+* use links without feeds
 * crawl sites
   * https://github.com/cgiffard/node-simplecrawler
   * cheerio for html parsing

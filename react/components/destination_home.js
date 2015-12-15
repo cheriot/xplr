@@ -73,17 +73,23 @@ class DestinationHome extends React.Component {
     // happens in every code path.
     return (
       <section>
-        <NavigationAutocomplete />
-        <h1>{maybe(this.state, 'place', 'name')}</h1>
+        <div className='container'>
+          <NavigationAutocomplete />
+          <h1>{maybe(this.state, 'place', 'name')}</h1>
+        </div>
+
         <MapView
             destination={this.state}
             onSelectDestination={this.handleDestinationSelect}
             onMapMove={this.handleMapMove} />
-        {message}
-        <ul>
-          {this.state.feedEntries.map(this.renderEntry)}
-        </ul>
-        {this.state.listDestinations.map(this.renderListDestination.bind(this))}
+
+        <div className='container'>
+          {message}
+          <ul>
+            {this.state.feedEntries.map(this.renderEntry)}
+          </ul>
+          {this.state.listDestinations.map(this.renderListDestination.bind(this))}
+        </div>
       </section>
     );
   }

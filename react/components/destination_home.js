@@ -72,7 +72,7 @@ class DestinationHome extends React.Component {
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
     return (
-      <section>
+      <section className='component-destination-home'>
         <div className='container'>
           <NavigationAutocomplete />
           <h1>{maybe(this.state, 'place', 'name')}</h1>
@@ -85,7 +85,7 @@ class DestinationHome extends React.Component {
 
         <div className='container'>
           {message}
-          <ul>
+          <ul className='feed-entry-list'>
             {this.state.feedEntries.map(this.renderEntry)}
           </ul>
           {this.state.listDestinations.map(this.renderListDestination.bind(this))}
@@ -107,7 +107,7 @@ class DestinationHome extends React.Component {
             {relatedDestination.place.name}
           </Link>
         </h2>
-        <ul>
+        <ul className='feed-entry-list'>
           {relatedDestination.feedEntries.map(this.renderEntry)}
         </ul>
       </div>
@@ -158,7 +158,6 @@ class FeedEntryItem extends React.Component {
       <li>
         <a target='_blank' href={this.props.feedEntry.uri}>
           <img src={this.props.feedEntry.thumbnail_data_uri} />
-          <br />
           {this.props.feedEntry.title}
         </a>
         <br />

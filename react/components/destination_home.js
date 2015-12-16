@@ -73,7 +73,7 @@ class DestinationHome extends React.Component {
     // happens in every code path.
     return (
       <section className='component-destination-home'>
-        <div className='container'>
+        <div className='container container-narrow'>
           <NavigationAutocomplete />
           <h1>{maybe(this.state, 'place', 'name')}</h1>
         </div>
@@ -83,7 +83,7 @@ class DestinationHome extends React.Component {
             onSelectDestination={this.handleDestinationSelect}
             onMapMove={this.handleMapMove} />
 
-        <div className='container'>
+        <div className='container container-narrow'>
           {message}
           <ul className='feed-entry-list'>
             {this.state.feedEntries.map(this.renderEntry)}

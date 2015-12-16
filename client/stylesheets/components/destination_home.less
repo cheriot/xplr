@@ -2,13 +2,17 @@
   .feed-entry-list {
     list-style-type: none;
     padding-left: 0;
+
+    @img-height: 100px;
+
     li {
       clear: both;
-      min-height: 100px;
+      min-height: @img-height;
       margin-top: 10px;
     }
+
     img {
-      height: 100px;
+      height: @img-height;
       float: left;
       padding-right: 5px;
     }

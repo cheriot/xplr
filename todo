@@ -1,14 +1,11 @@
 Up next
-* styles
-  * custom css
-  * separate css file
 * authentication around management page
 * deploy to heroku
   * convert to postgres
   * upload data to production
-* regions: carribean, eastern europe, se asia
 * multiple autocomplete sources
-  * contenints, regions, (regions), all
+  * contenints, (regions), all
+  * country-groups: carribean, eastern europe, se asia
 
 After launch
 * scrape urls from travel guide ebooks

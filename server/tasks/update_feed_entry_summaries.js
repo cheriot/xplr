@@ -4,4 +4,5 @@ summarizeFeedEntries()
   .then(() => process.exit())
   .catch((err) => {
     console.log(`ERROR: ${err}`);
+    throw err;
   });

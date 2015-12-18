@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('title');
     table.string('uri');
     table.string('author');
-    table.string('summary');
+    table.text('summary');
     table.string('source_id');
     table.timestamp('source_updated_at');
     table.timestamp('source_published_at');

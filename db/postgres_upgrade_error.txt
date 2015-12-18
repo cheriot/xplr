@@ -1,0 +1,107 @@
+==> Installing postgresql
+==> Downloading
+https://homebrew.bintray.com/bottles/postgresql-9.4.5_2.el_capitan.bottle.tar.gz
+########################################################################
+100.0%
+==> Pouring postgresql-9.4.5_2.el_capitan.bottle.tar.gz
+Error: The `brew link` step did not complete successfully
+The formula built, but is not symlinked into /usr/local
+Could not symlink bin/clusterdb
+Target /usr/local/bin/clusterdb
+is a symlink belonging to postgresql93. You can unlink it:
+  brew unlink postgresql93
+
+To force the link and overwrite all conflicting files:
+  brew link --overwrite postgresql
+
+To list all files that would be deleted:
+  brew link --overwrite --dry-run postgresql
+
+Possible conflicting files are:
+/usr/local/bin/clusterdb -> /usr/local/Cellar/postgresql93/9.3.5/bin/clusterdb
+/usr/local/bin/createdb -> /usr/local/Cellar/postgresql93/9.3.5/bin/createdb
+/usr/local/bin/createlang ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/createlang
+/usr/local/bin/createuser ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/createuser
+/usr/local/bin/dropdb -> /usr/local/Cellar/postgresql93/9.3.5/bin/dropdb
+/usr/local/bin/droplang -> /usr/local/Cellar/postgresql93/9.3.5/bin/droplang
+/usr/local/bin/dropuser -> /usr/local/Cellar/postgresql93/9.3.5/bin/dropuser
+/usr/local/bin/ecpg -> /usr/local/Cellar/postgresql93/9.3.5/bin/ecpg
+/usr/local/bin/initdb -> /usr/local/Cellar/postgresql93/9.3.5/bin/initdb
+/usr/local/bin/oid2name -> /usr/local/Cellar/postgresql93/9.3.5/bin/oid2name
+/usr/local/bin/pg_archivecleanup ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_archivecleanup
+/usr/local/bin/pg_basebackup ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_basebackup
+/usr/local/bin/pg_config -> /usr/local/Cellar/postgresql93/9.3.5/bin/pg_config
+/usr/local/bin/pg_controldata ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_controldata
+/usr/local/bin/pg_ctl -> /usr/local/Cellar/postgresql93/9.3.5/bin/pg_ctl
+/usr/local/bin/pg_dump -> /usr/local/Cellar/postgresql93/9.3.5/bin/pg_dump
+/usr/local/bin/pg_dumpall ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_dumpall
+/usr/local/bin/pg_isready ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_isready
+/usr/local/bin/pg_receivexlog ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_receivexlog
+/usr/local/bin/pg_resetxlog ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_resetxlog
+/usr/local/bin/pg_restore ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_restore
+/usr/local/bin/pg_standby ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_standby
+/usr/local/bin/pg_test_fsync ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_test_fsync
+/usr/local/bin/pg_test_timing ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_test_timing
+/usr/local/bin/pg_upgrade ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_upgrade
+/usr/local/bin/pg_xlogdump ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pg_xlogdump
+/usr/local/bin/pgbench -> /usr/local/Cellar/postgresql93/9.3.5/bin/pgbench
+/usr/local/bin/pltcl_delmod ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pltcl_delmod
+/usr/local/bin/pltcl_listmod ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pltcl_listmod
+/usr/local/bin/pltcl_loadmod ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/pltcl_loadmod
+/usr/local/bin/postgres -> /usr/local/Cellar/postgresql93/9.3.5/bin/postgres
+/usr/local/bin/postmaster ->
+/usr/local/Cellar/postgresql93/9.3.5/bin/postmaster
+/usr/local/bin/psql -> /usr/local/Cellar/postgresql93/9.3.5/bin/psql
+/usr/local/bin/reindexdb -> /usr/local/Cellar/postgresql93/9.3.5/bin/reindexdb
+/usr/local/bin/vacuumdb -> /usr/local/Cellar/postgresql93/9.3.5/bin/vacuumdb
+/usr/local/bin/vacuumlo -> /usr/local/Cellar/postgresql93/9.3.5/bin/vacuumlo
+==> /usr/local/Cellar/postgresql/9.4.5_2/bin/initdb /usr/local/var/postgres
+Last 15 lines from /Users/cheriot/Library/Logs/Homebrew/postgresql/01.initdb:
+2015-12-17 05:54:32 +0700
+
+/usr/local/Cellar/postgresql/9.4.5_2/bin/initdb
+/usr/local/var/postgres
+
+The files belonging to this database system will be owned by user "cheriot".
+This user must also own the server process.
+
+initdb: file "/usr/local/share/postgresql/postgres.bki" does not exist
+This might mean you have a corrupted installation or identified
+the wrong directory with the invocation option -L.
+couldn't understand kern.osversion `15.0.0'
+Warning: The post-install step did not complete successfully
+You can try again using `brew postinstall postgresql`
+==> Caveats
+If builds of PostgreSQL 9 are failing and you have version 8.x installed,
+you may need to remove the previous version first. See:
+  https://github.com/Homebrew/homebrew/issues/2510
+
+To migrate existing data from a previous major version (pre-9.4) of
+PostgreSQL, see:
+  https://www.postgresql.org/docs/9.4/static/upgrading.html
+
+To load postgresql:
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+Or, if you don't want/need launchctl, you can just run:
+  postgres -D /usr/local/var/postgres
+==> Summary
+🍺  /usr/local/Cellar/postgresql/9.4.5_2: 3021 files, 40M
+cheriot@MacBook-Air:~/devspace$

@@ -1,0 +1,10 @@
+-- Command file for pgloader to convert from sqlite.
+-- pgloader <filename>
+
+load database
+     from 'dev.sqlite3'
+     into postgresql:///xplr_development
+
+ with include drop, create tables, create indexes, reset sequences
+
+  set work_mem to '16MB', maintenance_work_mem to '512 MB';

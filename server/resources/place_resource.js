@@ -38,12 +38,14 @@ class PlaceResource {
   }
 
   static nearestTo(place) {
+    // Unneeded max() because of the group by.
     const distance = knex.raw(
-      `abs(places.lat - ?) + abs(places.lon - ?) as distance`,
+      `abs(max(places.lat) - ?) + abs(max(places.lon) - ?) as distance`,
       [place.get('lat'), place.get('lon')]
     );
     return Place
       .query(qb => qb.select('places.id', distance))
+      .query('select', 'places.id')
       .where('geo_level', 'city')
       .where('id', '<>', place.get('id'))
       .query('limit',5)
@@ -66,6 +68,7 @@ class PlaceResource {
 
   static fetchByCountry(countryId) {
     return Place
+      .query('select', 'places.id')
       .where('country_id', countryId)
       .where('geo_level', 'city')
       .query(qb => {

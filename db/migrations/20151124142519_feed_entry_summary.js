@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
   return knex.schema.table('feed_entries', t => {
     t.string('summary_title');
     t.string('summary_description');
-    t.binary('summary_thumbnail');
+    t.text('summary_thumbnail');
     t.string('summary_thumbnail_uri');
     t.timestamp('summarized_at');
   });

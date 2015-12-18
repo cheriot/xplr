@@ -1,8 +1,8 @@
 import initKnex from 'knex';
 var knex = initKnex({
-  client: 'sqlite3',
+  client: 'pg',
   connection: {
-    filename: './db/dev.sqlite3'
+    database: 'xplr_development'
   },
   pool: {
     min: 1,

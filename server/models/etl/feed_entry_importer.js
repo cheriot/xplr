@@ -12,7 +12,7 @@ import EntryResource from '../../resources/entry_resource';
 
 export function importFeedEntries() {
   return Feed
-    .query('orderBy', 'name')
+    .query('orderBy', 'title')
     .fetchAll()
     .then((collection) => {
       const feedPromises = collection.models.map((feed) => {

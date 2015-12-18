@@ -13,7 +13,6 @@ config.entry.unshift(
 // Remove optimization plugins while in development.
 config.plugins = _.filter(config.plugins, function(plugin) {
   var name = plugin.constructor.name;
-  console.log('evaluate', plugin.constructor.name, ['DedupePlugin', 'OccurenceOrderPlugin', 'UglifyJsPlugin'].indexOf(name) > -1);
   return ['DedupePlugin', 'OccurenceOrderPlugin', 'UglifyJsPlugin'].indexOf(name) == -1;
 });
 

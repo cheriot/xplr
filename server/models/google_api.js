@@ -7,10 +7,10 @@ class GoogleAPI {
     this.key = key;
   }
 
-  placeAutocomplete(name) {
+  placeAutocomplete(name, types) {
     return this.get(
       'https://maps.googleapis.com/maps/api/place/autocomplete/json',
-      {input: name, types: '(regions)'},
+      {input: name, types: types},
       PlaceAutocompleteResponse
     );
   }

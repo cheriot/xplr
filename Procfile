@@ -1,1 +1,1 @@
-web: node ./server/init.js
+web: node ./server.js

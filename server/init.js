@@ -13,7 +13,7 @@ process.on('unhandledRejection', function(error, promise) {
 });
 
 var app = express(),
-    port = 4444;
+    port = (process.env.PORT || 4444);
 
 // Serve static assets (change before production!)
 app.use(express.static("./public"));

@@ -1,11 +1,10 @@
 Up next
 * authentication around management page
 * deploy to heroku
-  * convert to postgres
-  * upload data to production
-* multiple autocomplete sources
-  * contenints, (regions), all
-  * country-groups: carribean, eastern europe, se asia
+  * add secrets to heroku env
+  * fix css and js paths in heroku
+  * upload data to production https://devcenter.heroku.com/articles/heroku-postgres-import-export
+* countries on map when no city found
 
 After launch
 * scrape urls from travel guide ebooks
@@ -14,6 +13,9 @@ After launch
   * https://github.com/cgiffard/node-simplecrawler
   * cheerio for html parsing
 * needed? https://github.com/googlemaps/js-marker-clusterer
+* multiple autocomplete sources
+  * contenints, (regions), all
+  * country-groups: carribean, eastern europe, se asia
 
 Prototype Questions
 * Are these travel articles actually helpful?
@@ -101,3 +103,7 @@ As needed
 * bookends for associations: http://city41.github.io/bookends/demo.html
 
 favicon is in 32b82e from http://www.favicon.cc/
+
+Long Term
+* destinations/sights on map
+* hotels on map https://developer.hotelbeds.com

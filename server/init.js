@@ -18,7 +18,6 @@ var app = express(),
     port = (process.env.PORT || 4444);
 
 // Serve static assets (change before production!)
-console.log('**** static assets in ', path.join(process.cwd(), "public"));
 app.use(express.static(path.join(process.cwd(), "public")));
 // for parsing application/json
 app.use(bodyParser.json());

@@ -46,8 +46,8 @@
     "babel": "^5.8.23",
     "babel-runtime": "^5.8.25",
     "babel-loader": "^5.3.2",
-    "babel-plugin-typecheck": "^1.2.0"
-    "webpack": "^1.12.2",
+    "babel-plugin-typecheck": "^1.2.0",
+    "webpack": "^1.12.2"
   },
   "devDependencies": {
     "babel-eslint": "^4.1.3",

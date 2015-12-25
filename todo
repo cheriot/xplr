@@ -1,6 +1,8 @@
 Up next
 * authentication around management page
 * deploy to heroku
+  * point xplr.in to heroku
+  * use secrets from env
   * add secrets to heroku env
   * fix css and js paths in heroku
   * upload data to production https://devcenter.heroku.com/articles/heroku-postgres-import-export

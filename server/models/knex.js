@@ -1,9 +1,8 @@
+import config from '../../config';
 import initKnex from 'knex';
 var knex = initKnex({
   client: 'pg',
-  connection: {
-    database: 'xplr_development'
-  },
+  connection: config.DATABASE_URL,
   pool: {
     min: 1,
     max: 1

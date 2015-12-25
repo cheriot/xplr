@@ -1,7 +1,7 @@
 import nconf from 'nconf';
 
 nconf
-  .file('secret', 'config/secrets.json')
+  .env()
   .file('config/application.json');
 
 export default nconf.get();

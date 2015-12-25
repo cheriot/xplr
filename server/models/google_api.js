@@ -74,4 +74,4 @@ class PlaceDetailResponse extends BaseResponse {
   }
 }
 
-module.exports = new GoogleAPI(config.googleKeyServer);
+module.exports = new GoogleAPI(config.GOOGLE_KEY_SERVER);

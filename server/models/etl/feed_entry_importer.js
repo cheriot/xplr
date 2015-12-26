@@ -36,7 +36,8 @@ export function importFeedEntries() {
 
 function fetchSummary(uri) {
   return agent
-    .get('http://localhost:3000/thumbnails/new')
+    //.get('http://localhost:3000/thumbnails/new')
+    .get('https://link-thumbnailer-api-cheriot.herokuapp.com/thumbnails/new')
     .query({url: uri})
     .then(res => res.body);
 }

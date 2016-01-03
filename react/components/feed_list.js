@@ -19,13 +19,15 @@ class FeedList extends React.Component {
     }
 
     return (
-      <ul>{this.props.feeds.map(this.renderFeed)}</ul>
+      <ul className='feed-list'>{this.props.feeds.map(this.renderFeed)}</ul>
     );
   }
 
   renderFeed(feed) {
     return (
       <li key={feed.id}>
+        <span className='feed-id'>{feed.id}</span>
+        &nbsp;
         {feed.uri}
         &nbsp;
         <Link to={`/management/feeds/${feed.id}`}>edit</Link>

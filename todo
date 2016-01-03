@@ -1,8 +1,13 @@
 Up next
-* authentication around management page
+* new tagline
 * handle missing images better
+* authentication around management page
 * countries on map when no city found
 * google analytics
+
+Tech Debt
+* cluster: https://devcenter.heroku.com/articles/node-best-practices#cluster-your-app
+* duplication between knexfile.js and server/models/knex.js
 
 After launch
 * scrape urls from travel guide ebooks
@@ -14,6 +19,7 @@ After launch
 * multiple autocomplete sources
   * contenints, (regions), all
   * country-groups: carribean, eastern europe, se asia
+* add bloggers from http://hippie-inheels.com/17-travel-bloggers-to-follow-in-2016/
 
 Prototype Questions
 * Are these travel articles actually helpful?
@@ -58,6 +64,8 @@ Prototype Questions
   * http://en.travelepisodes.com/
 * traveltainment
   * http://matadornetwork.com/
+* organized articles
+  * http://www.nytimes.com/travel/guides/north-america/canada/british-columbia/overview.html
 
 Design for each api method:
 * render react markup

@@ -1,11 +1,16 @@
+require('./babel');
+
+var config = require('./config');
 // Update with your config settings.
 
 module.exports = {
 
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './db/dev.sqlite3'
+    client: 'pg',
+    connection: config.DATABASE_URL,
+    pool: {
+      min: 1,
+      max: 1
     },
     migrations: {
       tableName: 'migrations',
@@ -14,34 +19,28 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'xplr_staging',
-      user:     'username',
-      password: 'password'
-    },
+    client: 'pg',
+    connection: config.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'migrations'
+      tableName: 'migrations',
+      directory: './db/migrations'
     }
   },
 
   production: {
-    client: 'postgresql',
-    connection: {
-      database: 'xplr_production',
-      user:     'username',
-      password: 'password'
-    },
+    client: 'pg',
+    connection: config.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
     },
     migrations: {
-      tableName: 'migrations'
+      tableName: 'migrations',
+      directory: './db/migrations'
     }
   }
 

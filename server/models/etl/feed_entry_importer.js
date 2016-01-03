@@ -12,7 +12,8 @@ import EntryResource from '../../resources/entry_resource';
 
 export function importFeedEntries() {
   return Feed
-    .query('orderBy', 'title')
+    .query('orderBy', 'updated_at', 'desc')
+    .where('is_ignored', false)
     .fetchAll()
     .then((collection) => {
       return promiseInSequence(collection.models, fetchFeedEntries);

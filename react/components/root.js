@@ -11,7 +11,7 @@ class Root extends React.Component {
         <div className='container container-narrow'>
           <h1 style={brandTitle}>
             <a href='/'>Xplr.in</a>
-            <span style={brandSubtitle}> beyond lonely planet </span>
+            <span style={brandSubtitle}> the best in travel writing </span>
           </h1>
         </div>
 

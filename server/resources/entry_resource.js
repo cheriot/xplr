@@ -7,7 +7,7 @@ class EntryResource {
     // Newest 10 in the queue
     return FeedEntry
       .where({published_state: 'queued'})
-      .query('limit', 30)
+      .query('limit', 10)
       .query('orderBy', 'created_at', 'desc')
       .fetchAll(this.fetchOptions())
       .then((feedEntryCollection) => {

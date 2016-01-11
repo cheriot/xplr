@@ -65,7 +65,7 @@ class GooglePlacesAutocomplete extends BasePortal {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           this.selectPlace(gPlace);
         } else {
-          console.log('unexpected place prediction response', status, predictions, options);
+          console.log('unexpected place prediction response', status, gPlace);
         }
       }
 

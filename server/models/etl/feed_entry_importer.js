@@ -63,7 +63,7 @@ function generateThumbnail(summary) {
           return easyimage.thumbnail({
             src: convertedPath,
             dst: thumbnailPath,
-            width: 300,
+            width: 150,
             quality: 50,
           })
         })
@@ -72,7 +72,9 @@ function generateThumbnail(summary) {
           const thumbnailData = fs.readFileSync(thumbnailPath);
           console.log('thumbnail size', thumbnailData.length, thumbnailData.length/originalSize*100, '% of original')
           summary.thumbnail_uri = image.src;
-          summary.thumbnail = thumbnailData.toString('base64');
+          if(!_.isEmpty(thumbnailData)) {
+            summary.thumbnail = thumbnailData.toString('base64');
+          }
           // clean up all the temp files
           temp.cleanupSync();
           return summary;

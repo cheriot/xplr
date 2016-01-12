@@ -84,7 +84,12 @@ const FeedEntry = bookshelf.Model.extend({
   },
 
   thumbnailDataUri() {
-    return `data:image/jpg;base64,${this.get('summary_thumbnail')}`;
+    const thumbnail = this.get('summary_thumbnail');
+    if(thumbnail) {
+      return `data:image/jpg;base64,${this.get('summary_thumbnail')}`;
+    } else {
+      return null;
+    }
   },
 });
 

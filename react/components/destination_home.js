@@ -157,13 +157,21 @@ class FeedEntryItem extends React.Component {
     return (
       <li>
         <a target='_blank' href={this.props.feedEntry.uri}>
-          <img src={this.props.feedEntry.thumbnail_data_uri} />
+          {this.renderThumbnail()}
           {this.props.feedEntry.title}
         </a>
         <br />
         {this.props.feedEntry.summary_description}
       </li>
     );
+  }
+
+  renderThumbnail() {
+    if(this.props.feedEntry.thumbnail_data_uri) {
+      return <img src={this.props.feedEntry.thumbnail_data_uri} />
+    } else {
+      return <img src='http://www.fillmurray.com/g/150/150' />
+    }
   }
 }
 

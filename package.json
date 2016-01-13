@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "alt": "^0.17.4",
+    "babel": "^5.8.23",
+    "babel-loader": "^5.3.2",
+    "babel-plugin-typecheck": "^1.2.0",
+    "babel-runtime": "^5.8.25",
     "body-parser": "^1.14.1",
     "bookshelf": "^0.8.2",
     "bootstrap": "^3.3.6",
@@ -33,6 +37,7 @@
     "less-loader": "^2.2.1",
     "lodash": "^3.10.1",
     "nconf": "^0.8.2",
+    "newrelic": "^1.24.1",
     "path": "^0.12.7",
     "pg": "^4.4.3",
     "react": "^0.14.2",
@@ -47,10 +52,6 @@
     "temp": "^0.8.3",
     "underscore": "^1.8.3",
     "url-loader": "^0.5.7",
-    "babel": "^5.8.23",
-    "babel-runtime": "^5.8.25",
-    "babel-loader": "^5.3.2",
-    "babel-plugin-typecheck": "^1.2.0",
     "webpack": "^1.12.2"
   },
   "devDependencies": {

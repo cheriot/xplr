@@ -159,7 +159,7 @@ class PlaceResource {
   static populateCountry(countryName) {
     // For a country not in the DB yet. Autocomplete, get details, and insert.
     console.log('populateCountry', countryName);
-    return googleAPI.placeAutocomplete(countryName, '(regions)')
+    return googleAPI.placeAutocomplete(`${countryName} country`, '(regions)')
       .then(result => {
         console.log('autocomplete result', result);
         const prediction = this.findCountry(result.predictions);

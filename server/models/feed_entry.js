@@ -52,7 +52,7 @@ const FeedEntry = bookshelf.Model.extend({
       title:               remoteEntry.title,
       uri:                 remoteEntry.link,
       author:              remoteEntry.author,
-      summary:             remoteEntry.description,
+      // big and not useful: summary:             remoteEntry.description,
       source_id:           remoteEntry.guid,
       source_updated_at:   remoteEntry.date,
       source_published_at: remoteEntry.pubdate,

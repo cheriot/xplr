@@ -19,10 +19,8 @@ class PlaceResource {
   }
 
   static updateOrCreate(gPlace) {
-    console.log('updateOrCreate', gPlace);
     return this.fetchOrForge(gPlace)
       .then(place => {
-        console.log('start with', place);
         place.updateFromGooglePlace(gPlace);
 
         if (gPlace.types.indexOf('continent') > -1) {
@@ -132,7 +130,6 @@ class PlaceResource {
   }
 
   static assignCountry(place, gPlace) {
-    console.log('assignCountry', gPlace.address_components, gPlace.types);
     const countryName = this.findCountry(gPlace.address_components).long_name;
 
     return Place.where('name', countryName)
@@ -159,9 +156,10 @@ class PlaceResource {
   static populateCountry(countryName) {
     // For a country not in the DB yet. Autocomplete, get details, and insert.
     console.log('populateCountry', countryName);
+    // Add "country" to the search string so towns named Lebanon don't crowd
+    // out the country.
     return googleAPI.placeAutocomplete(`${countryName} country`, '(regions)')
       .then(result => {
-        console.log('autocomplete result', result);
         const prediction = this.findCountry(result.predictions);
         return googleAPI.placeDetail(prediction.place_id);
       })

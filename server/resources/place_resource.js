@@ -19,8 +19,10 @@ class PlaceResource {
   }
 
   static updateOrCreate(gPlace) {
+    console.log('updateOrCreate', gPlace);
     return this.fetchOrForge(gPlace)
       .then(place => {
+        console.log('start with', place);
         place.updateFromGooglePlace(gPlace);
 
         if (gPlace.types.indexOf('continent') > -1) {
@@ -178,6 +180,7 @@ class PlaceResource {
 
   static findCountry(placeslike, required=true) {
     const country = _.find(placeslike, p => p.types.indexOf('country') > -1);
+    console.log('findCountry', placeslike, country);
     if (!country && required) throw new Error(`NO COUNTRY FOUND ${placeslike}`);
     return country;
   }

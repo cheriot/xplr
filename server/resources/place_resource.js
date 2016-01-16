@@ -158,8 +158,10 @@ class PlaceResource {
 
   static populateCountry(countryName) {
     // For a country not in the DB yet. Autocomplete, get details, and insert.
+    console.log('populateCountry', countryName);
     return googleAPI.placeAutocomplete(countryName, '(regions)')
       .then(result => {
+        console.log('autocomplete result', result);
         const prediction = this.findCountry(result.predictions);
         return googleAPI.placeDetail(prediction.place_id);
       })
@@ -180,7 +182,6 @@ class PlaceResource {
 
   static findCountry(placeslike, required=true) {
     const country = _.find(placeslike, p => p.types.indexOf('country') > -1);
-    console.log('findCountry', placeslike, country);
     if (!country && required) throw new Error(`NO COUNTRY FOUND ${placeslike}`);
     return country;
   }

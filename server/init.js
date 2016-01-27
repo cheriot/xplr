@@ -9,6 +9,7 @@ import routes from '../react/routes';
 import alt from '../react/alt_dispatcher';
 import Iso from 'iso';
 import config from '../config';
+import nocache from './middleware/no_cache';
 
 process.on('unhandledRejection', function(error, promise) {
   console.error("UNHANDLED REJECTION", error.stack);
@@ -65,7 +66,7 @@ app.delete('/feeds/:id', (req, res) => {
     .then(() => res.json({'deleted': true}) );
 });
 
-app.get('/entries', (req, res) => {
+app.get('/entries', nocache, (req, res) => {
   EntryResource.queue()
     .then(entries => res.json(entries));
 });

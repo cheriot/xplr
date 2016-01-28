@@ -37,12 +37,12 @@ class EntryResource {
     const id = req.params.id;
     // Query for the full record so validations can be checked.
     return this.fetch(id)
-      .then(feedEntry => feedEntry.save({published_state: 'ignored'}));
+      .then(feedEntry => feedEntry.save({published_state: 'ignored'}, {patch: true}));
   }
 
   static publish(id) {
     return this.fetch(id)
-      .then(feedEntry => feedEntry.save({published_state: 'published'}));
+      .then(feedEntry => feedEntry.save({published_state: 'published'}, {patch: true}));
   }
 
   static addPlace(feedEntryId, placeId) {

@@ -1,0 +1,15 @@
+Useful Commands
+
+* psql
+  "postgresql://xplr:<password>@xplr-production.cotmzyvqz96d.us-east-1.rds.amazonaws.com/postgres?sslmode=verify-full&sslrootcert=config/amazon-rds-ca-cert.pem"
+
+Required Environment
+
+DATABASE_URL:             postgres://<username>:<password>@<host>:5432/<database>
+GOOGLE_KEY_CLIENT:        <key>
+GOOGLE_KEY_SERVER:        <key>
+NEW_RELIC_APP_NAME:       Xplr
+NEW_RELIC_CAPTURE_PARAMS: true
+NEW_RELIC_LICENSE_KEY:    <key>
+NEW_RELIC_LOG:            stdout
+NEW_RELIC_NO_CONFIG_FILE: true

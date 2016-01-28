@@ -23,10 +23,12 @@ config.plugins = config.plugins.concat([
 ]);
 
 // Add react-hot without redefinging every the other loader.
-config.module.loaders.push({
+// Add to the begining (shift) because babel running before react-hot generates
+// strange errors.
+config.module.loaders.shift({
   test: /\.js$/,
   exclude: /node_modules/,
-  loaders: ['react-hot', "babel-loader?stage=0&optional=runtime&plugins=typecheck"]
+  loaders: ['react-hot', "babel-loader?stage=0&optional=runtime"]
 });
 
 module.exports = config;

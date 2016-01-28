@@ -31,7 +31,7 @@ module.exports = {
       {
         include: /\.js$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader?stage=0&optional=runtime&plugins=typecheck"]
+        loaders: ["babel-loader?stage=0&optional=runtime"]
       },
       {
         test: /\.css$/,

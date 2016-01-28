@@ -10,12 +10,6 @@ config.entry.unshift(
   'webpack/hot/only-dev-server'
 );
 
-// Remove optimization plugins while in development.
-config.plugins = _.filter(config.plugins, function(plugin) {
-  var name = plugin.constructor.name;
-  return ['DedupePlugin', 'OccurenceOrderPlugin', 'UglifyJsPlugin'].indexOf(name) == -1;
-});
-
 // Add dev only plugins.
 config.plugins = config.plugins.concat([
   new webpack.HotModuleReplacementPlugin(),

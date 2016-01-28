@@ -69,7 +69,7 @@
   "scripts": {
     "start": "node ./server",
     "postinstall": "npm run build-client",
-    "build-client": "node ./node_modules/webpack/bin/webpack.js -p --verbose --colors --display-error-details --config ./webpack.client.js",
+    "build-client": "node ./node_modules/webpack/bin/webpack.js -p --optimize-dedupe --verbose --colors --display-error-details --config ./webpack.client.js",
     "hot-client": "node ./node_modules/webpack/bin/webpack.js -d --verbose --colors --display-error-details --config ./webpack.client-hot.js && ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --port 5555 --content-base public --config webpack.client-hot.js",
     "hot": "REACT_HOT='hot' ./node_modules/concurrently/src/main.js \"npm run hot-client\" \"npm run watch-server\"",
     "watch-client": "node ./node_modules/webpack/bin/webpack.js -d --verbose --colors --display-error-details --config ./webpack.client.js --watch",

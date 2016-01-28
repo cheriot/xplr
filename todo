@@ -1,6 +1,6 @@
 Up next
-* new tagline
-* handle missing images better
+* migrate to RDS: is it faster and more isolated?
+* destroy heroku database plan
 * authentication around management page
 * countries on map when no city found
 * google analytics

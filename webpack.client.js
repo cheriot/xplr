@@ -14,7 +14,9 @@ module.exports = {
 		publicPath:    "client/"
 	},
 	plugins: [
-		new webpack.DefinePlugin({__CLIENT__: true, __SERVER__: false}),
+    new webpack.DefinePlugin({
+      'GA_TRACKING_CODE': JSON.stringify(process.env.GA_TRACKING_CODE)
+    }),
     new ExtractTextPlugin("bundle.css"),
 		new webpack.optimize.DedupePlugin(),
 		new webpack.optimize.OccurenceOrderPlugin(),

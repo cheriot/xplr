@@ -7,7 +7,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: config.DATABASE_URL,
+    connection: config.DATABASE_URL_RDS,
     pool: {
       min: 1,
       max: 1
@@ -20,7 +20,7 @@ module.exports = {
 
   staging: {
     client: 'pg',
-    connection: config.DATABASE_URL,
+    connection: config.DATABASE_URL_RDS,
     pool: {
       min: 2,
       max: 10
@@ -33,7 +33,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: config.DATABASE_URL,
+    connection: config.DATABASE_URL_RDS,
     pool: {
       min: 2,
       max: 10

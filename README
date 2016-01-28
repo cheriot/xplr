@@ -6,6 +6,7 @@ Useful Commands
 Required Environment
 
 DATABASE_URL:             postgres://<username>:<password>@<host>:5432/<database>
+DATABASE_URL_RDS:         postgres://<username>:<password>@<host>:5432/<database>
 GOOGLE_KEY_CLIENT:        <key>
 GOOGLE_KEY_SERVER:        <key>
 NEW_RELIC_APP_NAME:       Xplr

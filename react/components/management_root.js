@@ -5,7 +5,7 @@ class ManagementRoot extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <ul className='container container-narrow'>
           <li>
             <Link to={`/management/queue`}>queue</Link>
           </li>

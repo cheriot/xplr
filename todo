@@ -1,15 +1,18 @@
 Up next
-* migrate to RDS: is it faster and more isolated?
-* destroy heroku database plan
+* slugs instead of ids
+  * slugs in db
+  * slugs in urls
 * authentication around management page
-* countries on map when no city found
-* google analytics
+* analytics: track outbound links
+* meta theme-color to control mobile chrome's color
 
 Tech Debt
+* destroy heroku database plan
 * cluster: https://devcenter.heroku.com/articles/node-best-practices#cluster-your-app
 * duplication between knexfile.js and server/models/knex.js
 
 After launch
+* countries on map when no city found
 * scrape urls from travel guide ebooks
 * use links without feeds
 * crawl sites

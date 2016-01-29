@@ -145,7 +145,11 @@ class MapView extends React.Component {
 
     // Always render the same thing since google maps is created around
     // this dom node.
-    const mapStyles = { height: '300px' };
+    const mapStyles = {
+      height: '300px',
+      maxWidth: '650px',
+      margin: 'auto'
+    };
     return (
       <div ref='mapRoot' id='map-canvas' style={mapStyles} />
     );

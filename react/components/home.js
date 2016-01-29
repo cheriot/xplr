@@ -15,15 +15,4 @@ class Home extends React.Component {
 
 }
 
-class PlaceMap extends React.Component {
-
-  // this.props
-  // * map
-  // * places[]
-  // * each place
-}
-
-class FeedEntryList extends React.Component {
-}
-
 module.exports = Home

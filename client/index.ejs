@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href="<%- styleSrc %>" />
+    <link rel='stylesheet' href="[[*-bundle-*.css]]" />
     <title>Xplr</title>
   </head>
   <body>
@@ -19,7 +19,7 @@
         mapInitialized = true;
       };
     </script>
-    <script src="<%- clientSrc %>"></script>
+    <script src="[[*-bundle-*.js]]"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=<%- googleKey %>&signed_in=true&libraries=places&callback=initMap"
         async defer></script>
     <script>

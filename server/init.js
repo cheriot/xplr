@@ -136,18 +136,16 @@ function reactRouteAndRender(req, res) {
     alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
     // Render HTML with all the data alt has been given.
-    var reactHtml = ReactDOMServer.renderToString(<Handler {...state} />),
-        clientSrcDomain = process.env.REACT_HOT == "hot" ? "http://localhost:5555" : "",
-        clientSrc = `${clientSrcDomain}/client/bundle.js`,
-        styleSrc = `${clientSrcDomain}/client/bundle.css`;
+    var reactHtml = ReactDOMServer.renderToString(<Handler {...state} />);
 
     // Use Iso to hand our data to alt on the client side.
     const iso = new Iso();
     iso.add(reactHtml, alt.flush());
-    res.render('index.ejs', {
+
+    // Render the ejs template that has been processed by webpack to link
+    // to the rest of the client assets.
+    res.render('../public/client/index.ejs', {
       reactHtml: iso.render(),
-      clientSrc: clientSrc,
-      styleSrc: styleSrc,
       googleKey: config.GOOGLE_KEY_CLIENT
     });
   });

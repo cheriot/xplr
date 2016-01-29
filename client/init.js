@@ -6,9 +6,10 @@ import alt from '../react/alt_dispatcher';
 import Iso from 'iso';
 import ga from 'react-ga';
 
-// Importing stylesheets only works through webpack, not
+// Importing stylesheets and images only works through webpack, not
 // on the server.
 import './stylesheets/application.less';
+import './index.ejs';
 
 Iso.bootstrap((state, meta, domNode) => {
   alt.bootstrap(state);

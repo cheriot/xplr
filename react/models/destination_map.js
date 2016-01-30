@@ -1,11 +1,14 @@
 import _ from 'lodash';
 import {maybe} from '../models/maybe'
 
-// Create a map that represents a destination.
 class DestinationMap {
   constructor(map) {
     this.map = map;
     this.map.listen('idle', this.handleMovement);
+  }
+
+  clean() {
+    this.map.clean();
   }
 
   goToDestination(destination, onSelectDestination) {

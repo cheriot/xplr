@@ -37,6 +37,11 @@ class GoogleMap {
     this.idMarkers = {};
   }
 
+  clean() {
+    this.reset();
+    google.maps.event.clearInstanceListeners(this.gMap);
+  }
+
   focus(place, addHighlightMarker, closest) {
     if(!this.initialFocusSet) {
       this.initialFocusSet = true;

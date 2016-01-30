@@ -14,20 +14,40 @@ class MapViewStore {
     });
   }
 
-  handleMapConnect([maps, domNode]) {
-    // The map will not appear until told which part of
-    // the world to show.
-    const gMap = new maps.Map(domNode, {
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-    });
-    this.setState({map: this.createDestinationMap(gMap)});
-    window.gMap = gMap; // debugging
+  handleMapConnect([maps, mapWrapperDom]) {
+    // Have we created a map already? If so, reuse that dom node to work around:
+    // https://code.google.com/p/gmaps-api-issues/issues/detail?id=3803
+    if (!this.mapCanvasDom) {
+      // First map render!
+      console.log('first map render!');
+
+      // The map will not appear until told which part of
+      // the world to show.
+      const domNode = document.createElement("div");
+      domNode.id = 'map-canvas';
+      mapWrapperDom.appendChild(domNode);
+
+      const gMap = new maps.Map(domNode, {
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+      });
+      this.setState({
+        mapCanvasDom: domNode,
+        map: this.createDestinationMap(gMap)
+      });
+      window.gMap = gMap; // debugging
+    } else {
+      mapWrapperDom.appendChild(this.mapCanvasDom);
+    }
   }
 
-  handleMapDisconnect(domNode) {
-    // preserve map instance, but remove listeners
-    console.log('TODO! map disconnect', domNode);
+  handleMapDisconnect() {
+    // Remove from the dom and maintain the reference so we can reattach it
+    // the next time a map is rendered.
+    this.mapCanvasDom.remove();
+    // preserve map instance, but remove listeners, markers, etc
+    this.map.clean();
     // https://code.google.com/p/gmaps-api-issues/issues/detail?id=3803
+    console.log('map disconnected');
   }
 
   createDestinationMap(gMap) {

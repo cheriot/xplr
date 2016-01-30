@@ -71,7 +71,7 @@ class DestinationHome extends React.Component {
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
     return (
-      <section className='component-destination-home'>
+      <section key={maybe(this.state, 'place', 'id')} className='component-destination-home'>
         <div className='container container-narrow'>
           <NavigationAutocomplete />
           <h1>{maybe(this.state, 'place', 'name')}</h1>
@@ -119,13 +119,13 @@ class MapView extends React.Component {
 
   componentDidMount() {
     MapViewStore.listen(this.handleChange);
-    MapViewActions.mapConnect(this.refs.mapRoot);
+    MapViewActions.mapConnect(this.refs.mapWrapper);
   }
 
   componentWillUnmount() {
     console.log('destroying maps dom node');
     MapViewStore.unlisten(this.handleChange);
-    MapViewActions.mapDisconnect(this.refs.mapRoot);
+    MapViewActions.mapDisconnect(this.refs.mapWrapper);
   }
 
   handleChange = (state) => {
@@ -144,13 +144,8 @@ class MapView extends React.Component {
 
     // Always render the same thing since google maps is created around
     // this dom node.
-    const mapStyles = {
-      height: '300px',
-      maxWidth: '650px',
-      margin: 'auto'
-    };
     return (
-      <div ref='mapRoot' id='map-canvas' style={mapStyles} />
+      <div ref='mapWrapper' className='map-wrapper' />
     );
   }
 }

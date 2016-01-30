@@ -1,10 +1,16 @@
 Up next
+* better loading indicator for destination -> destination pages (global?)
+* analytics on autocomplete and destination -> destination links
 * slugs instead of ids
   * slugs in db
   * slugs in urls
-* meta theme-color to control mobile chrome's color
-* better loading indicator for destination -> destination pages (global?)
 * authentication around management page
+
+Performance
+* Multiple processes within heroku container
+  * Add more concurrency: https://devcenter.heroku.com/articles/node-concurrency
+  * --max_old_space_size=256 https://github.com/nodejs/node/issues/3370
+  * maybe handle memory issues with https://www.npmjs.com/package/heroku-node
 
 Tech Debt
 * destroy heroku database plan

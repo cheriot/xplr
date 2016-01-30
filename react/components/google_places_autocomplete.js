@@ -69,7 +69,7 @@ class GooglePlacesAutocomplete extends BasePortal {
         }
       }
 
-      const autocompleteService = new google.maps.places.AutocompleteService()
+      new google.maps.places.AutocompleteService()
         .getPlacePredictions(options, handlePlacePredictionResponse);
     }
   }

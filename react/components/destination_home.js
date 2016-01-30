@@ -68,8 +68,6 @@ class DestinationHome extends React.Component {
       message = <p>We haven't yet found content here. Email cheriot@gmail.com if you find something that travelers should know about.</p>;
     }
 
-    const country = maybe(this.state, 'country');
-
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
     return (

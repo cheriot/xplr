@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta name='theme-color' content='#d2ae70'>
     <link rel='stylesheet' href="[[*-bundle-*.css]]" />
     <title>Xplr</title>
   </head>
   <body>
     <section><%- reactHtml %></section>
-    <script type="text/javascript">
+    <script type='text/javascript'>
       var mapInitialized = false;
       var mapInitializers = [];
       function initMap() {
@@ -21,7 +21,7 @@
       };
     </script>
     <script src="[[*-bundle-*.js]]"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%- googleKey %>&signed_in=true&libraries=places&callback=initMap"
+    <script src='https://maps.googleapis.com/maps/api/js?key=<%- googleKey %>&signed_in=true&libraries=places&callback=initMap'
         async defer></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

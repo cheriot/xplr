@@ -10,8 +10,7 @@ console.log("starting with WEB_MEMORY", process.env.WEB_MEMORY, "WEB_CONCURRENCY
 var WORKERS = process.env.WEB_CONCURRENCY || 1;
 
 function start() {
-  console.log('Started worker');
-  // Initialize Express
+  console.log('Started worker. Initializing request handlers...');
   require('./server/init');
   process.on('SIGTERM', function() {
     console.log('Worker exiting');

@@ -1,6 +1,6 @@
 import React from 'react';
 import reactMixin from 'react-mixin';
-import {Link, Navigation} from 'react-router';
+import {Link, History} from 'react-router';
 import _ from 'lodash';
 import ga from 'react-ga';
 
@@ -12,7 +12,7 @@ import NavigationAutocomplete from './navigation_autocomplete';
 
 import {maybe} from '../models/maybe';
 
-@reactMixin.decorate(Navigation)
+@reactMixin.decorate(History)
 class DestinationHome extends React.Component {
 
   constructor(props) {
@@ -45,7 +45,7 @@ class DestinationHome extends React.Component {
   }
 
   handleDestinationSelect = (place) => {
-    this.transitionTo(`/destinations/${place.id}`);
+    this.history.pushState(null, `/destinations/${place.id}`);
   }
 
   handleMapMove = (bounds) => {

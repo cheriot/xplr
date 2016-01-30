@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Router from 'react-router';
+import { Router } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
 import routes from '../react/routes';
 import alt from '../react/alt_dispatcher';
 import Iso from 'iso';
@@ -17,8 +18,7 @@ Iso.bootstrap((state, meta, domNode) => {
   console.log('initialize google analytics', GA_TRACKING_CODE);
   ga.initialize(GA_TRACKING_CODE);
 
-  Router.run(routes, Router.HistoryLocation, (Handler, state) => {
-    ga.pageview(state.pathname);
-    ReactDOM.render(<Handler {...state} />, domNode);
-  });
+  const history = createBrowserHistory()
+  history.listen(location => ga.pageview(location.pathname));
+  ReactDOM.render(<Router history={history}>{routes}</Router>, domNode);
 });

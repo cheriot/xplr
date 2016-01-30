@@ -1,5 +1,4 @@
 import React from 'react';
-import { RouteHandler } from 'react-router';
 
 class Root extends React.Component {
   render() {
@@ -15,7 +14,7 @@ class Root extends React.Component {
           </h1>
         </div>
 
-        <RouteHandler />
+        {this.props.children}
       </div>
     );
   }

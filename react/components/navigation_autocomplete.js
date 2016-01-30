@@ -1,17 +1,17 @@
 import React from 'react';
 import reactMixin from 'react-mixin';
-import { Navigation } from 'react-router';
+import { History } from 'react-router';
 
 import PlaceActions from '../actions/place_actions';
 import GooglePlacesAutocomplete from './google_places_autocomplete';
 
-@reactMixin.decorate(Navigation)
+@reactMixin.decorate(History)
 class NavigationAutocomplete extends React.Component {
 
   handlePlaceSelect = (gPlace) => {
     PlaceActions
       .createPlace(gPlace)
-      .then(place => this.transitionTo(`/destinations/${place.id}`) );
+      .then(place => this.history.pushState(null, `/destinations/${place.id}`) );
   }
 
   render() {

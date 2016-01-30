@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteHandler, Link } from 'react-router';
+import { Link } from 'react-router';
 
 class ManagementRoot extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class ManagementRoot extends React.Component {
             <Link to={`/management/feeds`}>feeds</Link>
           </li>
         </ul>
-        <RouteHandler/>
+        {this.props.children}
       </div>
     );
   }

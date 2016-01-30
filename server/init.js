@@ -4,7 +4,7 @@ import compress from 'compression';
 import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import Router from 'react-router';
+import { match, RoutingContext } from 'react-router'
 
 import routes from '../react/routes';
 import alt from '../react/alt_dispatcher';
@@ -133,14 +133,12 @@ function isHtml(req) { return /text\/html/.test(req.headers.accept); }
 
 function reactRouteAndRender(req, res) {
 
-  // Anything that the data API doesn't handle is either a react-router url or a 404,
-  // which react-router will handle (just not yet..).
-  Router.run(routes, req.url, function(Handler, state) {
+  match({routes, location: req.url}, (error, redirectLocation, renderProps) => {
     // Connect data to alt's stores.
     alt.bootstrap(JSON.stringify(res.locals.data || {}));
 
     // Render HTML with all the data alt has been given.
-    var reactHtml = ReactDOMServer.renderToString(<Handler {...state} />);
+    const reactHtml = ReactDOMServer.renderToString(<RoutingContext {...renderProps} />);
 
     // Use Iso to hand our data to alt on the client side.
     const iso = new Iso();
@@ -153,6 +151,7 @@ function reactRouteAndRender(req, res) {
       googleKey: config.GOOGLE_KEY_CLIENT
     });
   });
+
 }
 
 app.get('*', function(req, res) {

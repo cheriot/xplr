@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, DefaultRoute } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 
 import Root from './components/root';
 import Home from './components/home';
@@ -11,14 +11,14 @@ import FeedManagementEditor from './components/feed_management_editor';
 import EntryQueue from './components/entry_queue';
 
 var routes = (
-  <Route path="/" handler={Root}>
-    <DefaultRoute handler={Home} />
-    <Route path="destinations/:id" handler={DestinationHome} />
+  <Route path="/" component={Root}>
+    <IndexRoute component={Home} />
+    <Route path="destinations/:id" component={DestinationHome} />
 
-    <Route path="management" handler={ManagementRoot}>
-      <Route path="feeds" handler={FeedManagement} />
-      <Route path="feeds/:id" handler={FeedManagementEditor} />
-      <Route path="queue" handler={EntryQueue} />
+    <Route path="management" component={ManagementRoot}>
+      <Route path="feeds" component={FeedManagement} />
+      <Route path="feeds/:id" component={FeedManagementEditor} />
+      <Route path="queue" component={EntryQueue} />
     </Route>
   </Route>
 );

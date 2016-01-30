@@ -1,11 +1,11 @@
 import React from 'react';
 import reactMixin from 'react-mixin';
-import { Navigation } from 'react-router';
+import { History } from 'react-router';
 
 import FeedStore from '../stores/feed_store';
 import FeedActions from '../actions/feed_actions';
 
-@reactMixin.decorate(Navigation)
+@reactMixin.decorate(History)
 class FeedManagementEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +30,7 @@ class FeedManagementEditor extends React.Component {
   handleDelete(event) {
     event.preventDefault();
     FeedActions.destroyFeed(this.state.currentFeed)
-      .then(() => { this.transitionTo('/management/feeds') });
+      .then(() => { this.history.pushState(null, '/management/feeds') });
   }
 
   render() {

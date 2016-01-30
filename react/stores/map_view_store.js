@@ -14,18 +14,14 @@ class MapViewStore {
     });
   }
 
-  handleMapConnect(promise) {
-    promise.then( ([maps, domNode]) => {
-      // The map will not appear until told which part of
-      // the world to show.
-      // zoom: 2,
-      // center: {lat: 20.530892091775808, lng: 7.667925781250009},
-      const gMap = new maps.Map(domNode, {
-        mapTypeId: google.maps.MapTypeId.TERRAIN
-      });
-      this.setState({map: this.createDestinationMap(gMap)});
-      window.gMap = gMap; // debugging
-    })
+  handleMapConnect([maps, domNode]) {
+    // The map will not appear until told which part of
+    // the world to show.
+    const gMap = new maps.Map(domNode, {
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+    });
+    this.setState({map: this.createDestinationMap(gMap)});
+    window.gMap = gMap; // debugging
   }
 
   handleMapDisconnect(domNode) {

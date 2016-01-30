@@ -2,9 +2,9 @@ Up next
 * slugs instead of ids
   * slugs in db
   * slugs in urls
-* authentication around management page
-* analytics: track outbound links
 * meta theme-color to control mobile chrome's color
+* better loading indicator for destination -> destination pages (global?)
+* authentication around management page
 
 Tech Debt
 * destroy heroku database plan

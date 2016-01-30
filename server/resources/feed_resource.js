@@ -15,7 +15,10 @@ class FeedResource {
   }
 
   static destroy(req) {
-    return this.forgeById(req).destroy();
+    return this.forgeById(req).fetch()
+      .then((feed) => {
+        return feed.save({is_ignored: true}, {patch: true});
+      });
   }
 
   static forgeById(req) {

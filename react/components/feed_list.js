@@ -24,8 +24,10 @@ class FeedList extends React.Component {
   }
 
   renderFeed(feed) {
+    const className = feed.is_ignored ? 'ignored' : 'active';
+
     return (
-      <li key={feed.id}>
+      <li key={feed.id} className={className}>
         <span className='feed-id'>{feed.id}</span>
         &nbsp;
         {feed.uri}

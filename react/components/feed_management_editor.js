@@ -30,20 +30,22 @@ class FeedManagementEditor extends React.Component {
   handleDelete(event) {
     event.preventDefault();
     FeedActions.destroyFeed(this.state.currentFeed)
-      .then(() => { this.transitionTo('/management') });
+      .then(() => { this.transitionTo('/management/feeds') });
   }
 
   render() {
     if(this.state.currentFeed) {
       var feedMarkup = (
-        <div>
+        <div className='container container-narrow'>
           <h1>Edit {this.state.currentFeed.title}</h1>
           <p>
             {this.state.currentFeed.uri}
           </p>
           <p>
             <form onSubmit={this.handleDelete}>
-              <button type='submit'>delete</button>
+              <button type='submit' disabled={this.state.currentFeed.is_ignored}>
+                ignore
+              </button>
             </form>
           </p>
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import reactMixin from 'react-mixin';
 import {Link, Navigation} from 'react-router';
 import _ from 'lodash';
+import ga from 'react-ga';
 
 import DestinationActions from '../actions/destination_actions';
 import DestinationStore from '../stores/destination_store';
@@ -157,10 +158,14 @@ class MapView extends React.Component {
 }
 
 class FeedEntryItem extends React.Component {
+  trackOutboundLink = () => {
+    ga.outboundLink({label: 'Outbound Feed Entry'}, () => {});
+  }
+
   render() {
     return (
       <li>
-        <a target='_blank' href={this.props.feedEntry.uri}>
+        <a target='_blank' href={this.props.feedEntry.uri} onClick={this.trackOutboundLink}>
           {this.renderThumbnail()}
           {this.props.feedEntry.title}
         </a>

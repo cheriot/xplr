@@ -19,6 +19,7 @@
     "bookshelf": "^0.8.2",
     "bootstrap": "^3.3.6",
     "checkit": "^0.5.1",
+    "compression": "^1.6.1",
     "css-loader": "^0.22.0",
     "easyimage": "^2.1.0",
     "ejs": "^2.3.4",

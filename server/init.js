@@ -1,5 +1,6 @@
 import path from 'path';
 import express from 'express';
+import compress from 'compression';
 import bodyParser from 'body-parser';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -19,7 +20,10 @@ var app = express(),
     port = (process.env.PORT || 4444);
 
 // Serve static assets (change before production!)
+// Add static before compress so cloudfront will do the gzipping.
 app.use(express.static(path.join(process.cwd(), "public"), {maxAge: '365d'}));
+// Gzip
+app.use(compress());
 // for parsing application/json
 app.use(bodyParser.json());
 // for parsing application/x-www-form-urlencoded

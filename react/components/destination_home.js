@@ -8,7 +8,6 @@ import DestinationActions from '../actions/destination_actions';
 import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
-import NavigationAutocomplete from './navigation_autocomplete';
 
 import {maybe} from '../models/maybe';
 
@@ -73,7 +72,6 @@ class DestinationHome extends React.Component {
     return (
       <section key={maybe(this.state, 'place', 'id')} className='component-destination-home'>
         <div className='container container-narrow'>
-          <NavigationAutocomplete />
           <h1>{maybe(this.state, 'place', 'name')}</h1>
         </div>
 
@@ -123,7 +121,6 @@ class MapView extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('destroying maps dom node');
     MapViewStore.unlisten(this.handleChange);
     MapViewActions.mapDisconnect(this.refs.mapWrapper);
   }

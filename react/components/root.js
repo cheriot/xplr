@@ -1,5 +1,7 @@
 import React from 'react';
 
+import NavigationAutocomplete from './navigation_autocomplete';
+
 class Root extends React.Component {
   render() {
     const brandTitle = {color: 'gray', fontSize: '23px'};
@@ -12,6 +14,7 @@ class Root extends React.Component {
             <a href='/'>Xplr.in</a>
             <span style={brandSubtitle}> the best in travel writing </span>
           </h1>
+          <NavigationAutocomplete />
         </div>
 
         {this.props.children}

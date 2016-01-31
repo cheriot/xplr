@@ -1,10 +1,12 @@
 import _ from 'lodash';
-import {maybe} from '../models/maybe'
+import {maybe} from './maybe'
+import {trackMapDrag, trackMapZoom} from './tracked_actions'
 
 class DestinationMap {
   constructor(map) {
     this.map = map;
     this.map.listen('idle', this.handleMovement);
+    this.mapTracker = new MapTracker(this.map);
   }
 
   clean() {
@@ -15,8 +17,9 @@ class DestinationMap {
     if(!destination || !destination.place) return;
     if(this.destination && this.destination.place.id != destination.place.id) {
       console.log(
-        'goTo', destination.place.name, 'from', maybe(this.destination, 'place', 'name')
+        `goTo ${destination.place.name} from ${maybe(this.destination, 'place', 'name')}`
       );
+      this.mapTracker.destinationChanged();
       this.map.reset();
     }
     this.destination = destination;
@@ -30,6 +33,7 @@ class DestinationMap {
   }
 
   handleMovement = (a, b, c) => {
+    this.mapTracker.idle();
     if (this.movementListener) {
       this.movementListener(this.map.getBounds());
     }
@@ -68,6 +72,35 @@ class DestinationMap {
     });
   }
 
+}
+
+class MapTracker {
+  constructor(map) {
+    this.map = map;
+    this.listening = false;
+    this.listeners = [];
+  }
+
+  idle() {
+    if (this.listeners.length > 0) return;
+    this.addListener('dragend', trackMapDrag);
+    this.addListener('zoom_changed', trackMapZoom);
+  }
+
+  destinationChanged() {
+    this.removeListeners();
+  }
+
+  addListener(eventName, listener) {
+    this.listeners.push(
+      this.map.listen(eventName, listener)
+    );
+  }
+
+  removeListeners() {
+    _.each(this.listeners, (listener) => this.map.unlisten(listener));
+    this.listeners.length = 0;
+  }
 }
 
 module.exports = DestinationMap

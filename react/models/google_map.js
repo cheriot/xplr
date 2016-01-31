@@ -122,7 +122,12 @@ class GoogleMap {
   }
 
   listen(eventName, listener) {
-    google.maps.event.addListener(this.gMap, eventName, listener);
+    return google.maps.event.addListener(this.gMap, eventName, listener);
+  }
+
+  unlisten(listenerResult) {
+    // listenerResult: returned from listen()
+    google.maps.event.removeListener(listenerResult);
   }
 
   clearMarker(place) {

@@ -154,7 +154,10 @@ class FeedEntryItem extends React.Component {
   render() {
     return (
       <li>
-        <a target='_blank' href={this.props.feedEntry.uri} onClick={this.trackOutboundLink}>
+        <a className='feed-entry-title'
+           target='_blank'
+           href={this.props.feedEntry.uri}
+           onClick={this.trackOutboundLink}>
           {this.renderThumbnail()}
           {this.props.feedEntry.title}
         </a>

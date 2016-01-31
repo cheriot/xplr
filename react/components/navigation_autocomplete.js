@@ -15,6 +15,7 @@ class NavigationAutocomplete extends React.Component {
   }
 
   render() {
+    // Setting focus plays havoc with react-router's scroll-behavior lib.
     return (
       <div className='navigation-autocomplete'>
         <GooglePlacesAutocomplete

@@ -98,12 +98,17 @@ class DestinationHome extends React.Component {
     return <FeedEntryItem key={feedEntry.id} feedEntry={feedEntry} />
   }
 
-  renderListDestination(relatedDestination) {
+  renderListDestination(relatedDestination, index) {
     if (relatedDestination.feedEntries.length == 0) return;
+
+    const navigationAnalytics = this.navigationAnalyticsFactory(index);
+
     return (
       <div key={relatedDestination.place.id}>
         <h2>
-          <Link to={`/destinations/${relatedDestination.place.id}`}>
+          <Link
+              to={`/destinations/${relatedDestination.place.id}`}
+              onClick={navigationAnalytics}>
             {relatedDestination.place.name}
           </Link>
         </h2>
@@ -112,6 +117,16 @@ class DestinationHome extends React.Component {
         </ul>
       </div>
     );
+  }
+
+  navigationAnalyticsFactory(index) {
+    return function() {
+      ga.event({
+        category: 'Navigation',
+        action: 'Related Destination',
+        label: `Related Destination Rank ${index}`
+      });
+    }
   }
 
 }
@@ -142,8 +157,8 @@ class MapView extends React.Component {
       this.state.map.setMovementListener(this.handleMapMove);
     }
 
-    // Always render the same thing since google maps is created around
-    // this dom node.
+    // MapViewStore must control the node given to google maps since we reuse it
+    // on subsequent pages.
     return (
       <div ref='mapWrapper' className='map-wrapper' />
     );

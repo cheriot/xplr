@@ -1,6 +1,7 @@
 import React from 'react';
 import BasePortal from './base_portal';
 import googleMapPromise from '../models/google_maps';
+import ga from 'react-ga';
 
 class GooglePlacesAutocomplete extends BasePortal {
 
@@ -75,7 +76,12 @@ class GooglePlacesAutocomplete extends BasePortal {
   }
 
   selectPlace(gPlace) {
-    console.log('Google Place', gPlace.types, gPlace);
+    console.log('Google Place', gPlace.types, gPlace.name, gPlace);
+    ga.event({
+      category: 'Navigation',
+      action: 'Autocomplete',
+      label: `Autocomplete ${gPlace.name}`
+    });
     window.gPlace = gPlace; // debugging
     this.props.onPlaceSelect(gPlace);
     this.refs.placesInput.value = '';

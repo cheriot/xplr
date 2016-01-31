@@ -8,6 +8,7 @@ class DestinationActions {
   }
 
   fetch(placeId) {
+    this.dispatch();
     return DestinationSource.fetch(placeId)
       .then(destination => this.actions.updateDestination(destination));
   }

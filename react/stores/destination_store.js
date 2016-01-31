@@ -11,11 +11,12 @@ class DestinationStore {
   }
 
   handleFetch() {
-    this.setState({});
+    this.setState({loading: true});
   }
 
   handleUpdateDestination(destination) {
     this.setState(destination);
+    this.setState({loading: false});
   }
 
 }

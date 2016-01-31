@@ -9,6 +9,7 @@ import DestinationActions from '../actions/destination_actions';
 import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
+import LoadingIndicator from './loading-indicator';
 
 import {maybe} from '../models/maybe';
 
@@ -35,6 +36,7 @@ class DestinationHome extends React.Component {
   }
 
   handleChange = (state) => {
+    console.log('change destination state', state.loading);
     this.setState(state);
   }
 
@@ -64,6 +66,7 @@ class DestinationHome extends React.Component {
 
   render() {
     const placeName = maybe(this.state, 'place', 'name');
+
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
 
@@ -71,8 +74,9 @@ class DestinationHome extends React.Component {
       <section className='component-destination-home'>
         <Helmet title={placeName} />
 
-        <div className='container container-narrow card-top'>
+        <div className='container container-narrow card-top loading-container'>
           <h1 className='destination-name'>{placeName}</h1>
+          <LoadingIndicator loading={this.state.loading} />
         </div>
 
         <MapView
@@ -80,7 +84,8 @@ class DestinationHome extends React.Component {
           onSelectDestination={this.handleDestinationSelect}
           onMapMove={this.handleMapMove} />
 
-        <div className='container container-narrow card-bottom'>
+        <div className='container container-narrow card-bottom loading-container'>
+          <LoadingIndicator loading={this.state.loading} hideIndicator={true} />
           <ul className='feed-entry-list'>
             {this.state.feedEntries.map(this.renderEntry)}
           </ul>

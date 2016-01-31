@@ -40,7 +40,7 @@ module.exports = {
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|gif)$/,
         loader: "url-loader?limit=100000&name=[name]-[hash].[ext]"
       },
       {

@@ -4,6 +4,7 @@ import React from 'react';
 import FeedEntryStore from '../stores/feed_entry_store';
 import FeedEntryActions from '../actions/feed_entry_actions';
 import GooglePlacesAutocomplete from './google_places_autocomplete';
+import LoadingIndicator from './loading_indicator';
 import SafeText from './safe_text';
 
 class EntryQueue extends React.Component {
@@ -76,13 +77,7 @@ class FeedEntryList extends React.Component {
     }
 
     let message = null;
-    if (this.props.isLoading) {
-      message = (
-        <div>
-          <img src="/ajax-loader.gif" />
-        </div>
-      );
-    } else if (_.isEmpty(this.props.feedEntries)) {
+    if (_.isEmpty(this.props.feedEntries)) {
       message = (
         <div>
           Empty queue
@@ -91,10 +86,13 @@ class FeedEntryList extends React.Component {
     }
 
     return (
-      <ul style={this.styles()} className='container container-narrow card'>
-        <li>{message}</li>
-        {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
-      </ul>
+      <div>
+        <LoadingIndicator loading={this.props.isLoading} />
+        <ul style={this.styles()} className='container container-narrow card'>
+          <li>{message}</li>
+          {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
+        </ul>
+      </div>
     );
   }
 

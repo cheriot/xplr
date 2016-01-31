@@ -3,6 +3,7 @@ import React from 'react';
 import BasePortal from './base_portal';
 import googleMapPromise from '../models/google_maps';
 import {trackNavAutocomplete} from '../models/tracked_actions';
+import DestinationActions from '../actions/destination_actions';
 
 class GooglePlacesAutocomplete extends BasePortal {
 
@@ -36,16 +37,22 @@ class GooglePlacesAutocomplete extends BasePortal {
   }
 
   handlePlaceChanged = () => {
+    // Trigger the loading indicator while we figure out the placeId.
+    DestinationActions.prepareFetch()
+
     let gPlace = this.autocomplete.getPlace();
 
     if (gPlace.id) {
       // The user selected one of the autocomplete suggestions.
       this.selectPlace(gPlace);
     } else if (!gPlace.id && gPlace.name) {
+      // Pressing enter while typing will select the first suggestion.
+      //
       // place_changed will fire when the user has pressed enter without
       // selecting anything from the autocomplete. We need to take that string,
       // make the autocomplete call ourselves and call again for details on
       // the first autocomplete result.
+
       const options = _.assign(
         this.autocompleteOptions(),
         {input: gPlace.name, offset: gPlace.name.length}
@@ -60,6 +67,7 @@ class GooglePlacesAutocomplete extends BasePortal {
             );
         } else {
           console.log('unexpected place prediction response', status, predictions, options);
+          DestinationActions.error('unexpected place prediction response');
         }
       }
 
@@ -67,7 +75,8 @@ class GooglePlacesAutocomplete extends BasePortal {
         if (status == google.maps.places.PlacesServiceStatus.OK) {
           this.selectPlace(gPlace);
         } else {
-          console.log('unexpected place prediction response', status, gPlace);
+          console.log('unexpected detail response', status, gPlace);
+          DestinationActions.error('unexpected detail response');
         }
       }
 

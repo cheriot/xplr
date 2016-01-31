@@ -45,6 +45,7 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.2",
     "react-ga": "^1.2.0",
+    "react-helmet": "^2.3.1",
     "react-mixin": "^3.0.0",
     "react-router": "^1.0.3",
     "request": "^2.64.0",

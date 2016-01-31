@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import reactMixin from 'react-mixin';
 import {Link, History} from 'react-router';
 import _ from 'lodash';
@@ -62,13 +63,16 @@ class DestinationHome extends React.Component {
   }
 
   render() {
+    const placeName = maybe(this.state, 'place', 'name');
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
 
     return (
       <section className='component-destination-home'>
+        <Helmet title={placeName} />
+
         <div className='container container-narrow card-top'>
-          <h1>{maybe(this.state, 'place', 'name')}</h1>
+          <h1>{placeName}</h1>
         </div>
 
         <MapView

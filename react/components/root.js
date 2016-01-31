@@ -1,4 +1,6 @@
 import React from 'react';
+import Helmet from 'react-helmet';
+import {Link} from 'react-router';
 
 import NavigationAutocomplete from './navigation_autocomplete';
 
@@ -10,9 +12,11 @@ class Root extends React.Component {
 
     return (
       <div className='component-root'>
+        <Helmet title="Where to?" />
+
         <div className='container container-narrow card header-branding'>
           <h1 style={titleStyles}>
-            <a href='/'>Xplr.in</a>
+            <Link to='/'>Xplr.in</Link>
             <span style={subtitleStyles}> the best in travel writing </span>
           </h1>
 

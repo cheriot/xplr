@@ -36,7 +36,6 @@ class DestinationHome extends React.Component {
   }
 
   handleChange = (state) => {
-    console.log('change destination state', state.loading);
     this.setState(state);
   }
 

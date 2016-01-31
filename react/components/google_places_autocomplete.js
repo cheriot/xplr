@@ -79,8 +79,8 @@ class GooglePlacesAutocomplete extends BasePortal {
     console.log('Google Place', gPlace.types, gPlace.name, gPlace);
     ga.event({
       category: 'Navigation',
-      action: 'Autocomplete',
-      label: `Autocomplete ${gPlace.name}`
+      action: 'Destination Autocomplete',
+      label: `Destination Autocomplete ${gPlace.name}`
     });
     window.gPlace = gPlace; // debugging
     this.props.onPlaceSelect(gPlace);

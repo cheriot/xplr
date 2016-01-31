@@ -46,6 +46,11 @@ class DestinationHome extends React.Component {
   }
 
   handleDestinationSelect = (place) => {
+    ga.event({
+      category: 'Navigation',
+      action: 'Destination Mapped',
+      label: `Destination Mapped ${place.name}`
+    });
     this.history.pushState(null, `/destinations/${place.id}`);
   }
 
@@ -123,8 +128,9 @@ class DestinationHome extends React.Component {
     return function() {
       ga.event({
         category: 'Navigation',
-        action: 'Related Destination',
-        label: `Related Destination Rank ${index}`
+        action: 'Destination Related',
+        label: `Destination Related Rank ${index}`,
+        value: index
       });
     }
   }

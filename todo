@@ -1,8 +1,7 @@
 Up next
-* better loading indicator for destination -> destination pages (global?)
-* analytics on autocomplete and destination -> destination links
+* faster loading indicator from the autocomplete
 * slugs instead of ids
-  * slugs in db
+  * populate slugs in production
   * slugs in urls
 * authentication around management page
 
@@ -13,9 +12,12 @@ Performance
   * maybe handle memory issues with https://www.npmjs.com/package/heroku-node
 
 Tech Debt
+* server.js -> server/index.js, server/init.js -> server/controllers.js, client/init.js -> client/index.js
+  * will it work? `node server`
 * destroy heroku database plan
 * cluster: https://devcenter.heroku.com/articles/node-best-practices#cluster-your-app
 * duplication between knexfile.js and server/models/knex.js
+* separate api and page routes: still getting json pages on occasion
 
 After launch
 * countries on map when no city found
@@ -34,9 +36,7 @@ Prototype Questions
 * Are these travel articles actually helpful?
   * Use all from
     * http://www.theexpeditioner.com/the-top-50-travel-blogs/
-    * http://www.adventurouskate.com/solo-female-travelers-over-40/
     * http://nomadicsamuel.com/top100travelblogs
-  * http://www.48houradventure.com/
   * http://www.wisebread.com/travel-resources
 
 * Are bloggers interested?

@@ -87,7 +87,6 @@ class GooglePlacesAutocomplete extends BasePortal {
 
   styles() {
     return {
-      width: '300px'
     };
   }
 

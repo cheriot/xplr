@@ -1,8 +1,25 @@
 .component-root {
   @m: 25px;
-  .header-branding {
+
+  .header {
+    max-width: 325px;
     margin: @m auto @m auto;
+    padding: 12px 15px 15px 15px;
+    text-align: center;
+
+    a[href] {
+      color: green;
+    }
+    h1 {
+      font-size: 23px;
+      margin: 0 0 7px 0;
+    }
+    .subtitle {
+      color: @gray-light;
+      font-size: 18px;
+    }
   }
+
   .footer {
     margin: 0 @m @m @m;
   }

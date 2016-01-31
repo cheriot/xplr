@@ -6,21 +6,18 @@ import NavigationAutocomplete from './navigation_autocomplete';
 
 class Root extends React.Component {
   render() {
-    const titleStyles = {color: 'gray', fontSize: '23px', display: 'inline-block'};
-    const subtitleStyles = {color: 'lightgray', fontSize: '18px'};
-    const navigationStyles = {display: 'inline-block'};
 
     return (
       <div className='component-root'>
         <Helmet title="Where to?" />
 
-        <div className='container container-narrow card header-branding'>
-          <h1 style={titleStyles}>
-            <Link to='/'>Xplr.in</Link>
-            <span style={subtitleStyles}> the best in travel writing </span>
+        <div className='container card header'>
+          <h1>
+            <Link to='/'>Xplr</Link>
+            <span className='subtitle'> the best in travel writing </span>
           </h1>
 
-          <NavigationAutocomplete style={navigationStyles} />
+          <NavigationAutocomplete />
         </div>
 
         {this.props.children}
@@ -28,6 +25,7 @@ class Root extends React.Component {
         <div className='footer' />
       </div>
     );
+
   }
 }
 

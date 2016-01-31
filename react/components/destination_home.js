@@ -72,7 +72,7 @@ class DestinationHome extends React.Component {
         <Helmet title={placeName} />
 
         <div className='container container-narrow card-top'>
-          <h1>{placeName}</h1>
+          <h1 className='destination-name'>{placeName}</h1>
         </div>
 
         <MapView

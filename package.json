@@ -48,6 +48,7 @@
     "react-mixin": "^3.0.0",
     "react-router": "^1.0.3",
     "request": "^2.64.0",
+    "scroll-behavior": "^0.3.0",
     "sleep": "^3.0.0",
     "style-loader": "^0.13.0",
     "superagent": "^1.4.0",

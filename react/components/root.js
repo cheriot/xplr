@@ -4,20 +4,24 @@ import NavigationAutocomplete from './navigation_autocomplete';
 
 class Root extends React.Component {
   render() {
-    const brandTitle = {color: 'gray', fontSize: '23px'};
-    const brandSubtitle = {color: 'lightgray', fontSize: '18px'};
+    const titleStyles = {color: 'gray', fontSize: '23px', display: 'inline-block'};
+    const subtitleStyles = {color: 'lightgray', fontSize: '18px'};
+    const navigationStyles = {display: 'inline-block'};
 
     return (
-      <div>
+      <div className='component-root'>
         <div className='container container-narrow card header-branding'>
-          <h1 style={brandTitle}>
+          <h1 style={titleStyles}>
             <a href='/'>Xplr.in</a>
-            <span style={brandSubtitle}> the best in travel writing </span>
+            <span style={subtitleStyles}> the best in travel writing </span>
           </h1>
-          <NavigationAutocomplete />
+
+          <NavigationAutocomplete style={navigationStyles} />
         </div>
 
         {this.props.children}
+
+        <div className='footer' />
       </div>
     );
   }

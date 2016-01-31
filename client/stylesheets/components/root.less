@@ -1,4 +1,9 @@
-.header-branding {
-  margin-top: 25px;
-  margin-bottom: 20px;
+.component-root {
+  @m: 25px;
+  .header-branding {
+    margin: @m auto @m auto;
+  }
+  .footer {
+    margin: 0 @m @m @m;
+  }
 }

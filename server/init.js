@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import compress from 'compression';
 import bodyParser from 'body-parser';
+import responseTime from 'response-time';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { match, RoutingContext } from 'react-router'
@@ -19,6 +20,8 @@ process.on('unhandledRejection', function(error, promise) {
 var app = express(),
     port = (process.env.PORT || 4444);
 
+// Add X-Response-Time header
+app.use(responseTime());
 // Serve static assets (change before production!)
 // Add static before compress so cloudfront will do the gzipping.
 app.use(express.static(path.join(process.cwd(), "public"), {maxAge: '365d'}));

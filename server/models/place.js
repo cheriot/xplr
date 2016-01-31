@@ -1,4 +1,5 @@
 import Checkit from 'checkit';
+import slug from 'slug';
 
 import bookshelf from './bookshelf';
 
@@ -48,7 +49,22 @@ const Place = bookshelf.Model.extend({
       })
     }
 
+    this.updateSlug(gPlace);
     this.updateGeoLevel(gPlace);
+  },
+
+  updateSlug: function(gPlace) {
+    // These are NOT unique and MUST be used with an id.
+    const str = gPlace.formatted_address || gPlace.name;
+    // Some formatted addresses have zip codes. Let's be prettier.
+    const numberless = str.replace(/[0-9]+/g,'').toLowerCase();
+    // The column is 32 characters wide.
+    const dbSlug = slug(numberless).slice(0,32);
+    this.set('slug', dbSlug);
+
+    // Would be nice:
+    // - don't end with a '-'
+    // - always include the country name
   },
 
   updateGeoLevel: function(gPlace) {

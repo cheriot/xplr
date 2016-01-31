@@ -9,7 +9,7 @@ class Root extends React.Component {
 
     return (
       <div>
-        <div className='container container-narrow header-branding'>
+        <div className='container container-narrow card header-branding'>
           <h1 style={brandTitle}>
             <a href='/'>Xplr.in</a>
             <span style={brandSubtitle}> the best in travel writing </span>

@@ -43,7 +43,7 @@ class FeedManagement extends React.Component {
 
   render() {
     return (
-      <div className='container container-narrow'>
+      <div className='container container-narrow card'>
         <FeedInput
           newFeed={this.state.newFeed}
           onChange={this.handleChangeFeed}

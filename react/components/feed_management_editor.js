@@ -36,7 +36,7 @@ class FeedManagementEditor extends React.Component {
   render() {
     if(this.state.currentFeed) {
       var feedMarkup = (
-        <div className='container container-narrow'>
+        <div className='container container-narrow card'>
           <h1>Edit {this.state.currentFeed.title}</h1>
           <p>
             {this.state.currentFeed.uri}

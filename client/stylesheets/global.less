@@ -4,9 +4,22 @@ body {
 
 .container-narrow {
   max-width: 600px;
-  background: white;
 }
 
 ol, ul {
   list-style-type: none;
+}
+
+@r: 3px;
+.card {
+  background: white;
+  border-radius: @r;
+}
+.card-top {
+  .card;
+  border-radius: @r @r 0 0;
+}
+.card-bottom {
+  .card;
+  border-radius: 0 0 @r @r;
 }

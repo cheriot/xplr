@@ -91,7 +91,7 @@ class FeedEntryList extends React.Component {
     }
 
     return (
-      <ul style={this.styles()} className='container container-narrow'>
+      <ul style={this.styles()} className='container container-narrow card'>
         <li>{message}</li>
         {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
       </ul>

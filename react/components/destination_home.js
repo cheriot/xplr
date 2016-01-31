@@ -62,26 +62,21 @@ class DestinationHome extends React.Component {
   }
 
   render() {
-    let message = '';
-    if (this.state.place && _.isEmpty(this.state.feedEntries)) {
-      message = <p>We haven't yet found content here. Email cheriot@gmail.com if you find something that travelers should know about.</p>;
-    }
-
     // The map will only initialize once <MapView /> is on the page so make sure that
     // happens in every code path.
+
     return (
-      <section key={maybe(this.state, 'place', 'id')} className='component-destination-home'>
+      <section className='component-destination-home'>
         <div className='container container-narrow'>
           <h1>{maybe(this.state, 'place', 'name')}</h1>
         </div>
 
         <MapView
-            destination={this.state}
-            onSelectDestination={this.handleDestinationSelect}
-            onMapMove={this.handleMapMove} />
+          destination={this.state}
+          onSelectDestination={this.handleDestinationSelect}
+          onMapMove={this.handleMapMove} />
 
         <div className='container container-narrow'>
-          {message}
           <ul className='feed-entry-list'>
             {this.state.feedEntries.map(this.renderEntry)}
           </ul>

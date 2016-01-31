@@ -41,9 +41,12 @@ class MapViewStore {
   }
 
   handleMapDisconnect() {
-    // Remove from the dom and maintain the reference so we can reattach it
-    // the next time a map is rendered.
-    this.mapCanvasDom.remove();
+    // It LOOKS like react doesn't modify mapCanvasDom when unmounting. Don't
+    // remove it here because animating between pages involves both of them
+    // existing at the same time. When the new one appends mapCanvasDom, the
+    // browser will remove it from the previous parent.
+    // this.mapCanvasDom.remove();
+
     // preserve map instance, but remove listeners, markers, etc
     this.map.clean();
     // https://code.google.com/p/gmaps-api-issues/issues/detail?id=3803

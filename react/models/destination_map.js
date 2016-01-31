@@ -13,8 +13,10 @@ class DestinationMap {
 
   goToDestination(destination, onSelectDestination) {
     if(!destination || !destination.place) return;
-    console.log('goTo', destination.place.name, 'from', maybe(this.destination, 'place', 'name'));
     if(this.destination && this.destination.place.id != destination.place.id) {
+      console.log(
+        'goTo', destination.place.name, 'from', maybe(this.destination, 'place', 'name')
+      );
       this.map.reset();
     }
     this.destination = destination;

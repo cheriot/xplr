@@ -16,14 +16,34 @@ export function trackMapZoom() {
   });
 }
 
-export function trackNavRelated(rank) {
-  // rank: the order listed on the page, 0 based
+export function trackNavRelated(index) {
+  // index: the order listed on the page, 0 based
+  ga.event({
+    category: 'Navigation',
+    action: 'Destination Related',
+    label: `Destination Related Rank ${index}`,
+    value: index
+  });
 }
 
 export function trackNavAutocomplete(gPlace) {
   // gPlace: google autocomplete result
+  ga.event({
+    category: 'Navigation',
+    action: 'Destination Autocomplete',
+    label: `Destination Autocomplete ${gPlace.name}`
+  });
 }
 
 export function trackNavMap(place) {
   // place: place from xplr's database
+  ga.event({
+    category: 'Navigation',
+    action: 'Destination Map Marker',
+    label: `Destination Map Marker ${place.name}`
+  });
+}
+
+export function trackOutboundFeedEntry() {
+  ga.outboundLink({label: 'Outbound Feed Entry'}, () => {});
 }

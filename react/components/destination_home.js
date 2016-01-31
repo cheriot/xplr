@@ -3,14 +3,17 @@ import Helmet from 'react-helmet';
 import reactMixin from 'react-mixin';
 import {Link, History} from 'react-router';
 import _ from 'lodash';
-import ga from 'react-ga';
 
+import {
+  trackNavRelated,
+  trackNavMap,
+  trackOutboundFeedEntry
+} from '../models/tracked_actions';
 import DestinationActions from '../actions/destination_actions';
 import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
 import LoadingIndicator from './loading_indicator';
-
 import {maybe} from '../models/maybe';
 
 @reactMixin.decorate(History)
@@ -46,11 +49,7 @@ class DestinationHome extends React.Component {
   }
 
   handleDestinationSelect = (place) => {
-    ga.event({
-      category: 'Navigation',
-      action: 'Destination Mapped',
-      label: `Destination Mapped ${place.name}`
-    });
+    trackNavMap(place);
     this.history.pushState(null, `/destinations/${place.id}`);
   }
 
@@ -106,7 +105,7 @@ class DestinationHome extends React.Component {
   renderListDestination(relatedDestination, index) {
     if (relatedDestination.feedEntries.length == 0) return;
 
-    const navigationAnalytics = this.navigationAnalyticsFactory(index);
+    const navigationAnalytics = () => trackNavRelated(index);
 
     return (
       <div key={relatedDestination.place.id}>
@@ -122,17 +121,6 @@ class DestinationHome extends React.Component {
         </ul>
       </div>
     );
-  }
-
-  navigationAnalyticsFactory(index) {
-    return function() {
-      ga.event({
-        category: 'Navigation',
-        action: 'Destination Related',
-        label: `Destination Related Rank ${index}`,
-        value: index
-      });
-    }
   }
 
 }
@@ -172,9 +160,6 @@ class MapView extends React.Component {
 }
 
 class FeedEntryItem extends React.Component {
-  trackOutboundLink = () => {
-    ga.outboundLink({label: 'Outbound Feed Entry'}, () => {});
-  }
 
   render() {
     return (
@@ -182,7 +167,7 @@ class FeedEntryItem extends React.Component {
         <a className='feed-entry-title'
            target='_blank'
            href={this.props.feedEntry.uri}
-           onClick={this.trackOutboundLink}>
+           onClick={trackOutboundFeedEntry}>
           {this.renderThumbnail()}
           {this.props.feedEntry.title}
         </a>

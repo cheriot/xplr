@@ -9,7 +9,7 @@ import DestinationActions from '../actions/destination_actions';
 import DestinationStore from '../stores/destination_store';
 import MapViewActions from '../actions/map_view_actions';
 import MapViewStore from '../stores/map_view_store';
-import LoadingIndicator from './loading-indicator';
+import LoadingIndicator from './loading_indicator';
 
 import {maybe} from '../models/maybe';
 

@@ -86,9 +86,9 @@ class FeedEntryList extends React.Component {
     }
 
     return (
-      <div className='component-entry-queue'>
+      <div className='component-entry-queue container container-narrow card'>
         <LoadingIndicator loading={this.props.isLoading} />
-        <ul style={this.styles()} className='container container-narrow card'>
+        <ul style={this.styles()}>
           <li>{message}</li>
           {this.props.feedEntries.map(this.renderFeedEntry.bind(this))}
         </ul>

@@ -1,8 +1,7 @@
 Up next
-* background-size smaller
-* slugs instead of ids
-  * slugs in urls
+* background image that looks better on mobile
 * authentication around management page
+* navigating to places without countries needs to be possible: lake titicaca
 
 Performance
 * Multiple processes within heroku container

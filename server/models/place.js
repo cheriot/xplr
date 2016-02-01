@@ -107,8 +107,13 @@ const Place = bookshelf.Model.extend({
 
   serialize: function(options) {
     const attrs = bookshelf.Model.prototype.serialize.call(this, options)
+    delete attrs.google_place_id;
+    delete attrs.google_uri;
+    delete attrs.formatted_uri;
+    delete attrs.website;
     attrs.isCity = this.isCity();
     attrs.isCountry = this.isCountry();
+    attrs.uri = `/destinations/${attrs.id}/${attrs.slug}`
     return attrs;
   }
 });

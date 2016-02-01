@@ -11,7 +11,7 @@ class NavigationAutocomplete extends React.Component {
   handlePlaceSelect = (gPlace) => {
     PlaceActions
       .createPlace(gPlace)
-      .then(place => this.history.pushState(null, `/destinations/${place.id}`) );
+      .then(place => this.history.pushState(null, place.uri));
   }
 
   render() {

@@ -50,7 +50,7 @@ class DestinationHome extends React.Component {
 
   handleDestinationSelect = (place) => {
     trackNavMap(place);
-    this.history.pushState(null, `/destinations/${place.id}`);
+    this.history.pushState(null, place.uri);
   }
 
   handleMapMove = (bounds) => {
@@ -111,7 +111,7 @@ class DestinationHome extends React.Component {
       <div key={relatedDestination.place.id}>
         <h2>
           <Link
-              to={`/destinations/${relatedDestination.place.id}`}
+              to={relatedDestination.place.uri}
               onClick={navigationAnalytics}>
             {relatedDestination.place.name}
           </Link>

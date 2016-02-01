@@ -14,6 +14,7 @@ var routes = (
   <Route path="/" component={Root}>
     <IndexRoute component={Home} />
     <Route path="destinations/:id" component={DestinationHome} />
+    <Route path="destinations/:id/:slug" component={DestinationHome} />
 
     <Route path="management" component={ManagementRoot}>
       <Route path="feeds" component={FeedManagement} />

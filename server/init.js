@@ -115,7 +115,7 @@ app.get('/destinations/nearBy', (req, res) => {
     .then(destination => res.json(destination));
 });
 
-app.get('/destinations/:placeId', (req, res) => {
+const getDestination = (req, res) => {
   DestinationResource.fetchByPlace(req.params.placeId)
     .then(destination => {
       if(isApi(req)) {
@@ -127,7 +127,9 @@ app.get('/destinations/:placeId', (req, res) => {
         reactRouteAndRender(req, res);
       }
     });
-});
+};
+app.get('/destinations/:placeId', getDestination);
+app.get('/destinations/:placeId/:slug', getDestination);
 
 function isApi(req) { return /application\/json/.test(req.headers.accept); }
 function isHtml(req) { return /text\/html/.test(req.headers.accept); }

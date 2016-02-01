@@ -86,7 +86,7 @@ class FeedEntryList extends React.Component {
     }
 
     return (
-      <div>
+      <div className='component-entry-queue'>
         <LoadingIndicator loading={this.props.isLoading} />
         <ul style={this.styles()} className='container container-narrow card'>
           <li>{message}</li>

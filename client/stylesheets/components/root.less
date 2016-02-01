@@ -2,21 +2,28 @@
   @m: 25px;
 
   .header {
-    max-width: 325px;
+    max-width: 340px;
     margin: @m auto @m auto;
     padding: 12px 15px 15px 15px;
     text-align: center;
 
     a[href] {
-      color: green;
+      &:hover, &:focus {
+        text-decoration: initial;
+        color: #337ab7;
+      }
     }
     h1 {
       font-size: 23px;
-      margin: 0 0 7px 0;
+      margin: 0 0 12px 0;
     }
     .subtitle {
-      color: @gray-light;
+      color: rgb(169, 169, 169);
       font-size: 18px;
+      font-weight: normal;
+    }
+    input {
+      width: 178px;
     }
   }
 

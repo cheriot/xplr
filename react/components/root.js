@@ -14,7 +14,7 @@ class Root extends React.Component {
         <div className='container card header'>
           <h1>
             <Link to='/'>Xplr</Link>
-            <span className='subtitle'> the best in travel writing </span>
+            <span className='subtitle'> a world of travel writing</span>
           </h1>
 
           <NavigationAutocomplete />

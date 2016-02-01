@@ -120,13 +120,11 @@ app.get('/destinations/:placeId', (req, res) => {
     .then(destination => {
       if(isApi(req)) {
         res.json(destination);
-      } else if(isHtml(req)) {
+      } else {
         res.locals.data = {
           "DestinationStore": destination
         }
         reactRouteAndRender(req, res);
-      } else {
-        console.log('Error: unexpected accepts header', req.headers.accepts);
       }
     });
 });

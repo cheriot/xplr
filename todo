@@ -1,7 +1,6 @@
 Up next
-* faster loading indicator from the autocomplete
+* background-size smaller
 * slugs instead of ids
-  * populate slugs in production
   * slugs in urls
 * authentication around management page
 

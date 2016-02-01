@@ -77,7 +77,7 @@ class DestinationHome extends React.Component {
       <section className='component-destination-home'>
         <Helmet title={placeName} />
 
-        <div className='container container-narrow card-top loading-container'>
+        <div className='container container-narrow card loading-container'>
           <h1 className='destination-name'>{placeName}</h1>
           <LoadingIndicator loading={this.state.loading} />
         </div>
@@ -87,7 +87,7 @@ class DestinationHome extends React.Component {
           onSelectDestination={this.handleDestinationSelect}
           onMapMove={this.handleMapMove} />
 
-        <div className='container container-narrow card-bottom loading-container'>
+        <div className='container container-narrow card loading-container'>
           <LoadingIndicator loading={this.state.loading} hideIndicator={true} />
           <ul className='feed-entry-list'>
             {this.state.feedEntries.map(this.renderEntry)}

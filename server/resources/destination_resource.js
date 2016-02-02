@@ -19,16 +19,21 @@ class DestinationResource {
       .then(this.createDestination.bind(this));
   }
 
+  static nearestTo(place) {
+    return PlaceResource.nearestTo(place)
+      .then(collection => collection.models)
+      .then(places => geoCalc.orderByDistance(place, places));
+  }
+
   static createDestination(place) {
     const placeId = place.get('id');
     const countryId = place.get('country_id');
 
     let listPromise = null;
     if (place.isCity()) {
+      console.log('isCity', place.get('name'));
       const countryPromise = PlaceResource.fetch(countryId, {withRelated: ['feedEntries']});
-      const nearestToPromise = PlaceResource.nearestTo(place)
-        .then(collection => collection.models)
-        .then(places => geoCalc.orderByDistance(place, places));
+      const nearestToPromise = this.nearestTo(place);
 
       listPromise = Promise.all([nearestToPromise, countryPromise])
         .then(([relatedDestinations, countryDestinations]) => {
@@ -37,10 +42,20 @@ class DestinationResource {
         .then(places => places.map(this.placeToDestination));
 
     } else if (place.isCountry()) {
+      console.log('isCountry');
       listPromise = PlaceResource.fetchByCountry(countryId)
         .then(places => places.map(this.placeToDestination));
+      // nearby countries? or nearby cities?
     } else {
-      console.log('ERROR: Unknown kind of place.', place);
+      console.log(
+        'WARN: Unknown kind of place.',
+        place.get('id'),
+        place.get('name'),
+        place.get('google_uri')
+      );
+      // Some places have no country. Mont Blanc, Lake Titicaca, NE Indian towns
+      listPromise = this.nearestTo(place)
+        .then(places => places.map(this.placeToDestination));
     }
 
     const promises = [

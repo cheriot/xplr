@@ -22,18 +22,17 @@ class PlaceResource {
     return this.fetchOrForge(gPlace)
       .then(place => {
         place.updateFromGooglePlace(gPlace);
+        const countryId = place.get('country_id');
 
-        if (gPlace.types.indexOf('continent') > -1) {
-          // It's a contenint so no country to assign.
-          return place;
-        } else if (!place.get('country_id')) {
-          return this.assignCountry(place, gPlace);
+        const checkCountry = () => this.assignCountry(place, gPlace);
+
+        if (!place.get('id')) {
+          return place.save().then(checkCountry);
         } else {
-          return place;
+          return checkCountry();
         }
 
       })
-      .then(place => place.save())
       .catch((message, b, c) => console.log('error', message, b, c) );
   }
 
@@ -130,26 +129,34 @@ class PlaceResource {
   }
 
   static assignCountry(place, gPlace) {
+    // Maybe relax this is a new place with a country is only saved once?
+    if (!place.get('id')) console.error('assignCountry requires a saved place');
+    // Already assigned a country.
+    if (place.get('country_id')) return place;
+    // Some places have no country: Mont Blanc, Lake Titicaca, NE Indian towns.
+    if (!this.hasCountry(gPlace)) return place;
+
     const countryName = this.findCountry(gPlace.address_components).long_name;
 
     return Place.where('name', countryName)
       .where('geo_level', 'country')
       .fetch()
       .then(countryPlace => {
-        if (countryPlace) {
-          console.log('DB country', countryPlace.get('id'), countryPlace.get('name'));
-          return countryPlace;
-        } else if (this.findCountry([gPlace], false)) {
+
+        if (this.findCountry([gPlace], false)) {
           // place is a country. Save it so we have an id to set as the countryId.
-          return place.save();
+          return place.save().then(place => {
+            return place.save({country_id: place.get('id')});
+          });
+        } else if (countryPlace) {
+            console.log('DB country', countryPlace.get('id'), countryPlace.get('name'));
+            return place.save({country_id: countryPlace.get('id')});
         } else {
-          console.log('remote country needed', countryPlace);
-          return this.populateCountry(countryName);
+          this.populateCountry(countryName)
+            .then(countryPlace => {
+              return place.save({country_id: countryPlace.get('id')});
+            });
         }
-      })
-      .then(countryPlace => {
-        place.setCountry(countryPlace);
-        return place.save();
       });
   }
 
@@ -180,8 +187,12 @@ class PlaceResource {
 
   static findCountry(placeslike, required=true) {
     const country = _.find(placeslike, p => p.types.indexOf('country') > -1);
-    if (!country && required) throw new Error(`NO COUNTRY FOUND ${placeslike}`);
+    if (!country && required) console.warn(`NO COUNTRY FOUND ${placeslike}`);
     return country;
+  }
+
+  static hasCountry(gPlace) {
+    return !!this.findCountry(gPlace.address_components, false);
   }
 
 }

@@ -79,7 +79,7 @@ class DestinationHome extends React.Component {
 
         <div className='container container-narrow card loading-container'>
           <h1 className='destination-name'>
-            {placeName /* The &nbsp; sets the height until placeName has a value.*/ }
+            {placeName}
             &nbsp;
           </h1>
           <LoadingIndicator loading={this.state.loading} />

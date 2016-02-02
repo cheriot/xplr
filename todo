@@ -1,7 +1,10 @@
 Up next
+* email a blogger and ask for a wordpress post export
 * background image that looks better on mobile
 * authentication around management page
-* navigating to places without countries needs to be possible: lake titicaca
+
+* all css spinner: http://tobiasahlin.com/spinkit/
+* try new fonts: http://tobiasahlin.com/typesource/
 
 Performance
 * Multiple processes within heroku container
@@ -28,7 +31,10 @@ After launch
 * multiple autocomplete sources
   * contenints, (regions), all
   * country-groups: carribean, eastern europe, se asia
-* add bloggers from http://hippie-inheels.com/17-travel-bloggers-to-follow-in-2016/
+* add bloggers from
+  * http://hippie-inheels.com/17-travel-bloggers-to-follow-in-2016/
+  * http://www.lonelyplanet.com/blog/2016/01/11/lp-pathfinders-top-posts-from-december-2015/
+  * https://www.lonelyplanet.com/thorntree/forums/travel-bloggers-your-stories
 
 Prototype Questions
 * Are these travel articles actually helpful?

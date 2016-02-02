@@ -5,17 +5,17 @@ class DestinationStore {
 
   constructor() {
     this.bindListeners({
-      handleFetch: [DestinationActions.FETCH, DestinationActions.PREPARE_FETCH],
+      handleLoading: [DestinationActions.FETCH, DestinationActions.PREPARE_FETCH],
       handleUpdateDestination: DestinationActions.UPDATE_DESTINATION,
-      handleError: DestinationActions.ERROR
+      handleDoneLoading: [DestinationActions.ERROR, DestinationActions.ARRIVED]
     });
   }
 
-  handleFetch() {
+  handleLoading() {
     this.setState({loading: true});
   }
 
-  handleError() {
+  handleDoneLoading() {
     this.setState({loading: false});
   }
 

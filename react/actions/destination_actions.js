@@ -13,14 +13,18 @@ class DestinationActions {
     this.dispatch();
   }
 
+  error(message) {
+    this.dispatch(message);
+  }
+
+  arrived() {
+    this.dispatch();
+  }
+
   fetch(placeId) {
     this.dispatch();
     return DestinationSource.fetch(placeId)
       .then(destination => this.actions.updateDestination(destination));
-  }
-
-  error(message) {
-    this.dispatch(message);
   }
 
   fetchNearBy(bounds) {

@@ -64,6 +64,11 @@ class DestinationHome extends React.Component {
   fetchWhenNeeded(props) {
     if (this.needFetch(props)) {
       DestinationActions.fetch(props.params.id);
+    } else {
+      // Make sure the loading indicator has been removed. It can be turned on
+      // by other components (NavigationAutocomplete). Ex. navigating to the
+      // destination you're already on.
+      DestinationActions.arrived();
     }
   }
 

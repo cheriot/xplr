@@ -151,6 +151,8 @@ class GoogleMap {
 
   getBounds() {
     const bounds = this.gMap.getBounds();
+    // There have been undefined bounds returned for unknown reasons.
+    if (!bounds) return;
     return {
       viewport_lat_north: bounds.getNorthEast().lat(),
       viewport_lat_south: bounds.getSouthWest().lat(),

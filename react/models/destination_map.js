@@ -34,7 +34,8 @@ class DestinationMap {
 
   handleMovement = (a, b, c) => {
     this.mapTracker.idle();
-    if (this.movementListener) {
+    const bounds = this.map.getBounds();
+    if (this.movementListener && bounds) {
       this.movementListener(this.map.getBounds());
     }
   }

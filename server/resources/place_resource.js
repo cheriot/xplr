@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 import knex from '../models/knex';
 import googleAPI from '../models/google_api';
+import PlaceRepository from '../repositories/place_repository';
 import Place from '../models/place';
 
 class PlaceResource {
@@ -24,7 +25,7 @@ class PlaceResource {
         place.updateFromGooglePlace(gPlace);
         const countryId = place.get('country_id');
 
-        const checkCountry = () => this.assignCountry(place, gPlace);
+        const checkCountry = () => PlaceRepository.assignCountry(place, gPlace);
 
         if (!place.get('id')) {
           return place.save().then(checkCountry);
@@ -128,62 +129,6 @@ class PlaceResource {
     return place.attributes;
   }
 
-  static assignCountry(place, gPlace) {
-    // Maybe relax this is a new place with a country is only saved once?
-    if (!place.get('id')) console.error('assignCountry requires a saved place');
-    // Already assigned a country.
-    if (place.get('country_id')) return place;
-    // Some places have no country: Mont Blanc, Lake Titicaca, NE Indian towns.
-    if (!this.hasCountry(gPlace)) return place;
-
-    const countryName = this.findCountry(gPlace.address_components).long_name;
-
-    return Place.where('name', countryName)
-      .where('geo_level', 'country')
-      .fetch()
-      .then(countryPlace => {
-
-        if (this.findCountry([gPlace], false)) {
-          // place is a country. Save it so we have an id to set as the countryId.
-          return place.save().then(place => {
-            return place.save({country_id: place.get('id')});
-          });
-        } else if (countryPlace) {
-            console.log('DB country', countryPlace.get('id'), countryPlace.get('name'));
-            return place.save({country_id: countryPlace.get('id')});
-        } else {
-          this.populateCountry(countryName)
-            .then(countryPlace => {
-              return place.save({country_id: countryPlace.get('id')});
-            });
-        }
-      });
-  }
-
-  static populateCountry(countryName) {
-    // For a country not in the DB yet. Autocomplete, get details, and insert.
-    console.log('populateCountry', countryName);
-    // Add "country" to the search string so towns named Lebanon don't crowd
-    // out the country.
-    return googleAPI.placeAutocomplete(`${countryName} country`, '(regions)')
-      .then(result => {
-        const prediction = this.findCountry(result.predictions);
-        return googleAPI.placeDetail(prediction.place_id);
-      })
-      .then(gPlace => {
-        return this.fetchOrForge(gPlace)
-          .then(countryPlace => {
-            // Don't use this.updateOrCreate because it will call this method again.
-            countryPlace.updateFromGooglePlace(gPlace);
-            if (!this.findCountry([gPlace])) throw new Error('WTF, this is a country');
-            return countryPlace.save();
-          });
-      })
-      .then(countryPlace => {
-        countryPlace.setCountry(countryPlace);
-        return countryPlace.save();
-      });
-  }
 
   static findCountry(placeslike, required=true) {
     const country = _.find(placeslike, p => p.types.indexOf('country') > -1);

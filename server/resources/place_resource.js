@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import knex from '../models/knex';
 import googleAPI from '../models/google_api';
-import PlaceRepository from '../repositories/place_repository';
+import {placeAssignCountry, placeFeedEntryCounts} from '../repositories/place_repository';
 import Place from '../models/place';
 
 class PlaceResource {
@@ -19,13 +19,21 @@ class PlaceResource {
       .then(place => place || forged);
   }
 
+  static updateDisplayPriority() {
+    return placeFeedEntryCounts()
+      .then(rows => {
+        console.log('rows', rows);
+        return rows;
+      });
+  }
+
   static updateOrCreate(gPlace) {
     return this.fetchOrForge(gPlace)
       .then(place => {
         place.updateFromGooglePlace(gPlace);
         const countryId = place.get('country_id');
 
-        const checkCountry = () => PlaceRepository.assignCountry(place, gPlace);
+        const checkCountry = () => placeAssignCountry(place, gPlace);
 
         if (!place.get('id')) {
           return place.save().then(checkCountry);

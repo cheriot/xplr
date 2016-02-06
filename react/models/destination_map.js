@@ -42,11 +42,11 @@ class DestinationMap {
 
   focus(destination) {
     let closest = null;
-    let addHighlightMarker = false;
+    let markerDisplayType = null;
 
     if (destination.place.isCity) {
       closest = _.take(destination.listDestinations.map(d => d.place), 3);
-      addHighlightMarker = true;
+      markerDisplayType = 'highlight';
     } else {
       const countryId = destination.place.country_id;
       closest = _(destination.listDestinations)
@@ -55,9 +55,10 @@ class DestinationMap {
           return p.country_id == countryId;
         })
         .value();
-      addHighlightMarker = false;
+      markerDisplayType = 'none';
     }
-    this.map.focus(destination.place, addHighlightMarker, closest);
+
+    this.map.focus(destination.place, markerDisplayType, closest);
   }
 
   nearBy(place, places, listener) {
@@ -68,12 +69,13 @@ class DestinationMap {
       if (place.isCountry && p.country_id == place.id) {
         this.map.highlightMarker(p, placeListener);
       } else {
-        this.map.marker(p, {}, placeListener);
+        this.map.marker(p, 'standard', placeListener);
       }
     });
   }
 
 }
+
 
 class MapTracker {
   constructor(map) {

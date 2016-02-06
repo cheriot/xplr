@@ -3,31 +3,8 @@
 class GoogleMap {
   constructor(gMap) {
     this.gMap = gMap;
+    this.markerDesigner = new MarkerDesigner();
     this.reset();
-
-    this.highlightOptions = {
-      animation: google.maps.Animation.DROP,
-      icon: {
-        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
-        fillColor: 'gold',
-        fillOpacity: 1,
-        scale: 0.5,
-        strokeColor: 'red',
-        strokeWeight: 2,
-      },
-    };
-
-    this.normalOptions = {
-        map: this.gMap,
-        icon: {
-          path: 'M24-8c0 4.4-3.6 8-8 8h-32c-4.4 0-8-3.6-8-8v-32c0-4.4 3.6-8 8-8h32c4.4 0 8 3.6 8 8v32z',
-          fillColor: 'red',
-          fillOpacity: 1,
-          scale: 0.2,
-          strokeColor: 'white',
-          strokeWeight: 2
-        },
-      };
   }
 
   reset() {
@@ -42,11 +19,12 @@ class GoogleMap {
     google.maps.event.clearInstanceListeners(this.gMap);
   }
 
-  focus(place, addHighlightMarker, closest) {
+  focus(place, markerDisplayType, closest) {
     if(!this.initialFocusSet) {
       this.initialFocusSet = true;
-      if (addHighlightMarker) {
-          this.highlightMarker(place, this.temporaryBounce);
+      if (markerDisplayType != 'none') {
+        // TODO: create the right kind of marker
+        this.highlightMarker(place, this.temporaryBounce);
       }
 
       if (!_.isEmpty(closest)) {
@@ -91,34 +69,36 @@ class GoogleMap {
     }
   }
 
-  marker(place, options, listener) {
+  marker(place, markerDisplayType, listener) {
     if (this.hasMarker(place)) return;
 
     const markerOptions = _.assign(
       {},
-      this.normalOptions,
       {
+        map: this.gMap,
         position: {lat: place.lat, lng: place.lon},
         title: place.name,
       },
-      options,
+      this.markerDesigner.create(markerDisplayType, place),
     );
+
     const marker = new google.maps.Marker(markerOptions);
+
     if (listener) marker.addListener('click', () => listener(marker, place));
     this.recordMarker(place, marker);
   }
 
   highlightMarker(place, listener) {
-    // the previous marker my not have been highlighted so remove it
-    if (this.isHighlighted(place)) {
-      return;
-    }
-    if (this.hasMarker(place)) {
+    const marker = this.hasMarker(place);
+
+    if (this.markerDesigner.isHighlighted(marker)) return;
+
+    if (marker) {
+      // the previous marker was not highlighted so remove it
       this.clearMarker(place);
     }
 
-    // http://map-icons.com for svg path
-    this.marker(place, this.highlightOptions, listener);
+    this.marker(place, 'highlight', listener);
   }
 
   listen(eventName, listener) {
@@ -137,11 +117,6 @@ class GoogleMap {
 
   hasMarker(place) {
     return this.idMarkers[place.id]
-  }
-
-  isHighlighted(place) {
-    const marker = this.hasMarker(place);
-    return marker && marker.getIcon().fillColor == this.highlightOptions.icon.fillColor;
   }
 
   recordMarker(place, marker) {
@@ -169,6 +144,58 @@ class GoogleMap {
   latLng(place) {
     return new google.maps.LatLng(place.lat, place.lon);
   }
+}
+
+class MarkerDesigner {
+  // Generate google map's marker options.
+  // http://map-icons.com for svg path
+
+  constructor() {
+
+    this.highlightOptions = {
+      animation: google.maps.Animation.DROP,
+      icon: {
+        path: 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z',
+        fillColor: 'gold',
+        fillOpacity: 1,
+        scale: 0.5,
+        strokeColor: 'red',
+        strokeWeight: 2,
+      },
+    };
+
+    this.standardOptions = {
+      icon: {
+        path: 'M24-8c0 4.4-3.6 8-8 8h-32c-4.4 0-8-3.6-8-8v-32c0-4.4 3.6-8 8-8h32c4.4 0 8 3.6 8 8v32z',
+        fillColor: 'red',
+        fillOpacity: 1,
+        scale: 0.2,
+        strokeColor: 'white',
+        strokeWeight: 2
+      },
+    }
+  }
+
+  highlight(place) {
+    return this.highlightOptions;
+  }
+
+  standard(place) {
+    return this.standardOptions;
+  }
+
+  isHighlighted(marker) {
+    return marker && marker.getIcon().path == this.highlightOptions.icon.path;
+  }
+
+  create(markerDisplayType, place) {
+    if(['highlight', 'standard'].indexOf(markerDisplayType) == -1) {
+      throw new Error(`Unexpected markerDisplayType ${markerDisplayType}`);
+    }
+
+    return this[markerDisplayType](place);
+  }
+
 }
 
 module.exports = GoogleMap

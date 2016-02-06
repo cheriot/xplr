@@ -4,9 +4,13 @@ import Place from '../models/place';
 
 export function placeFeedEntryCounts() {
   return knex.raw(`
-    select p.id as place_id, count(fep.feed_entry_id) as feed_entry_count
+    select
+      p.id as place_id,
+      count(fep.feed_entry_id) as feed_entry_count,
+      count(distinct fe.feed_id) as feed_count
     from places p
       inner join feed_entries_places fep on fep.place_id = p.id
+      inner join feed_entries fe on fe.id = fep.feed_entry_id
     where geo_level='city'
     group by p.id
     order by count(fep.feed_entry_id) desc;`)

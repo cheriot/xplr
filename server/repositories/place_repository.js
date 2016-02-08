@@ -1,5 +1,6 @@
-import knex from '../models/knex';
+import _ from 'lodash';
 
+import knex from '../models/knex';
 import Place from '../models/place';
 
 export function placeFeedEntryCounts() {
@@ -25,16 +26,16 @@ export function placeAssignCountry(place, gPlace) {
   // Already assigned a country.
   if (place.get('country_id')) return place;
   // Some places have no country: Mont Blanc, Lake Titicaca, NE Indian towns.
-  if (!this.hasCountry(gPlace)) return place;
+  if (!hasCountry(gPlace)) return place;
 
-  const countryName = this.findCountry(gPlace.address_components).long_name;
+  const countryName = findCountry(gPlace.address_components).long_name;
 
   return Place.where('name', countryName)
     .where('geo_level', 'country')
     .fetch()
     .then(countryPlace => {
 
-      if (this.findCountry([gPlace], false)) {
+      if (findCountry([gPlace], false)) {
         // place is a country. Save it so we have an id to set as the countryId.
         return place.save().then(place => {
           return place.save({country_id: place.get('id')});
@@ -59,7 +60,7 @@ function populateCountry(countryName) {
   // out the country.
   return googleAPI.placeAutocomplete(`${countryName} country`, '(regions)')
     .then(result => {
-      const prediction = this.findCountry(result.predictions);
+      const prediction = findCountry(result.predictions);
       return googleAPI.placeDetail(prediction.place_id);
     })
     .then(gPlace => {
@@ -67,7 +68,7 @@ function populateCountry(countryName) {
         .then(countryPlace => {
           // Don't use this.updateOrCreate because it will call this method again.
           countryPlace.updateFromGooglePlace(gPlace);
-          if (!this.findCountry([gPlace])) throw new Error('WTF, this is a country');
+          if (!findCountry([gPlace])) throw new Error('WTF, this is a country');
           return countryPlace.save();
         });
     })
@@ -75,4 +76,14 @@ function populateCountry(countryName) {
       countryPlace.setCountry(countryPlace);
       return countryPlace.save();
     });
+}
+
+function hasCountry(gPlace) {
+  return !!findCountry(gPlace.address_components, false);
+}
+
+function findCountry(placeslike, required=true) {
+  const country = _.find(placeslike, p => p.types.indexOf('country') > -1);
+  if (!country && required) console.warn(`NO COUNTRY FOUND ${placeslike}`);
+  return country;
 }

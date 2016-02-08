@@ -137,17 +137,6 @@ class PlaceResource {
     return place.attributes;
   }
 
-
-  static findCountry(placeslike, required=true) {
-    const country = _.find(placeslike, p => p.types.indexOf('country') > -1);
-    if (!country && required) console.warn(`NO COUNTRY FOUND ${placeslike}`);
-    return country;
-  }
-
-  static hasCountry(gPlace) {
-    return !!this.findCountry(gPlace.address_components, false);
-  }
-
 }
 
 module.exports = PlaceResource

@@ -9,6 +9,7 @@ import Feed from '../feed';
 import FeedEntry from '../feed_entry';
 import FeedReader from './feed_reader';
 import EntryResource from '../../resources/entry_resource';
+import {promiseInSequence} from './promise_utils';
 
 export function importFeedEntries() {
   return Feed
@@ -105,18 +106,6 @@ function summarize(feedEntry) {
       console.log('continue..');
       return Promise.all([]);
     });
-}
-
-function promiseInSequence(array, func) {
-  const first = _.first(array);
-  const remaining = _.rest(array);
-  const promise = Promise.resolve(null).then(() => func(first));
-
-  return _.reduce(
-    remaining,
-    (p, element) => p.then(() => func(element)),
-    promise
-  );
 }
 
 // * https://github.com/gottfrois/link_thumbnailer
